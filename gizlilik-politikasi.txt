@@ -1,25 +1,29 @@
 MOBİL UYGULAMA GİZLİLİK BİLDİRİMİ
-Sürüm, 7 Mart 2024
+Sürüm, 8 Mart 2024
 
 
-Tüm Kullanıcılarımızın gizliliği bizim için çok önemlidir. Bir Uygulama Kullanıcısı olarak Hizmetimizi kullandığınızda, (Uygulama Yayıncısı olarak) Kişisel Verilerinizi işleriz. Bu Gizlilik Bildirimi, Kişisel Verilerinizi nasıl koruduğumuzu ve işleme koyduğumuzu açıklar. Dikkatlice okumanızı öneririz. 
+Tüm Kullanıcılarımızın gizliliği bizim için çok önemlidir. Bir Uygulama Kullanıcısı olarak Hizmetimizi kullandığınızda, (Uygulama Yayıncısı olarak) Kişisel Verilerinizi kendi cihazınızda tutmaktayız. Bu Gizlilik Bildirimi, Kişisel Verilerinizi nasıl koruduğumuzu ve işleme koyduğumuzu açıklar. Dikkatlice okumanızı öneririz.
+
+Uygulama içerisindeki etkinliklerinizden oluşan veriler, size daha iyi bir hizmet sunmak için kendi cihazınızda saklanmaktadır.
 
 
-1. Bu Gizlilik Bildiriminde ne belirtilmiştir?
-
-Bu Gizlilik Bildirimindeki bölümler size aşağıdakiler hakkında bilgi verir: 
+1. Bu Gizlilik Bildiriminde ne belirtilmiştir? 
 
 İşlenen Kişisel Verilerin türleri,
 
 Kişisel Verilerin işlenme amaçları, 
 
-Kişisel Verilerin işlendiği yerler,
+Kişisel Verilerin işlendiği yerler
 
 Kişisel Verileri korumak için uygulanan güvenlik önlemleri,
 
 Üçüncü şahıslarla ilgili sorumluluk sınırları,
 
 Kişisel Verilerinizi görüntüleme, değiştirme ve silme,
+
+Çocuk Gizliliği,
+
+Güvenlik,
 
 Bu Gizlilik Bildiriminde yapılan değişiklikler; 
 
@@ -35,37 +39,9 @@ Hizmetimizi geliştirmek için Anonim Verileri kullanırız. Bu bilgiler, Hizmet
 
 B. Otomatik olarak oluşturulan bilgiler 
 
-Çoğu diğer web siteleri ve çevrimiçi hizmetler gibi, Uygulamayı nasıl kullandığınızla ilgili olarak otomatik olarak üretilen bilgileri toplar ve işleriz. Toplanan bilgiler, ip adresinizi ve / veya benzersiz cihaz kimliğinizi içerir.
-
-Özellikle katılmayı seçerseniz, Uygulama, coğrafi konum bilgilerinizi toplayabilir. Her durumda, coğrafi konum bilginizin alınmasını mobil cihazınızın ayarlarından engelleyebilirsiniz.
-
-Sosyal ağ hesabınızdan bilgi erişimi ve toplama izni vermeyi özellikle tercih ederseniz, sosyal ağ hesabınızdaki temel kişisel bilgileriniz (adınız ve e-posta adresiniz gibi) ve ayrıca sosyal ağ kullanıcı kimliği ( şifreniz değil ) ve Uygulama aracılığıyla paylaştığınız yayınlarla ilgili parametreler. Erişilebilen ve alınabilecek bilgileri kontrol etmek için hesabınızın gizlilik tercihlerini nasıl ayarlayabileceğiniz hakkında daha fazla bilgi için lütfen sosyal ağın gizlilik politikasına bakın.
+Çoğu diğer web siteleri ve çevrimiçi hizmetler gibi, Uygulamayı nasıl kullandığınızla ilgili olarak otomatik olarak üretilen bilgileri toplar ve işleriz. Toplanan bilgiler, uygulama içerisindeki ilerleme durumunuzu barındırmaktadır. 
 
 Bu, aynı zamanda, Uygulamayı nasıl kullandığınıza ilişkin otomatik olarak oluşturulmuş bilgilerle ilgili olarak gerçekleşir. Bu tür bilgiler, Uygulamanın nasıl kullanıldığını daha iyi anlamamıza ve bir kullanıcı olarak ihtiyacınıza uygun hizmet üretmemize yardımcı olur.
-
-
-Uygulama içindeki kullanıcı yetkilendirme özelliklerini etkinleştirirseniz, aşağıdaki ek bilgiler saklanır: 
-
-İsim,
-
-e-posta,
-
-Telefon numarası (isteğe bağlı);
-
-Facebook, Twitter, Google+ veya LinkedIn gibi harici bir sağlayıcı tarafından gönderilen ek profil bilgileri.
-
-
-Uygulama sahibine, uygulamanın kullanımı hakkında bilgi vermek için aşağıdaki (bilinmeyen) bilgileri de topluyoruz: 
-
-
-• Uygulamayı açtığınız an,
-
-• Uygulamanın içinde açtığınız ekranlar ve bu ekranlarda harcadığınız süre,
-
-• Uygulamadan ayrıldığınız an.
-
- 
-Not: kullanıcı yetkilendirme özellikleri etkinleştirilmişse, giriş yaptığınızda anonim bilgileri sizin bilgilerinizle ilişkilendirebiliriz.
 
 
 Eğer uygulamada anlık bildirim reklamları aktifse, uygulama ile entegre çalışan BleshSDK hakkındaki bilgiler aşağıda sunulmaktadır.
@@ -78,14 +54,6 @@ Kullanıcı’nın, kendisine iletilen kampanya görüntüsünü fotoğraf albü
 
 
 Bilgiler yalnızca Kullanıcı’nın izin verdiği ölçüde Uygulama üzerinden anlık bildirimler gönderme amacı kapsamında, güvenli şekilde ve sadece gereken süre boyunca kullanılmaktadır. Bilgiler yalnızca söz konusu amaçların gerçekleştirilmesi için üçüncü partiler ile paylaşılmakta olup bu kapsam dışında bilgilerin yayınlanması ve ifşa edilmesine izin verilmemektedir.
-
-
-C. Belirli Bilgiler 
-
-Size sadakat kartı, haber bültenleri, reklamcılık gibi bazı etkinliklerle başvurmanız istenebilir; bu durumda bazı kişisel bilgiler istenir. Bu bilgiler, hizmetimizin (üçüncü şahıslar dahil) veritabanında saklanır ve bizimle paylaşılacaktır.
-
-
-Uygulamadaki fotoğraflar da dahil olmak üzere veri yüklediğinizde, bu paylaşılacak ve uygulamanın diğer tüm kullanıcıları tarafından görülebilecektir.
 
 
 3. Kişisel Verilerin işlenme amaçları:
@@ -103,30 +71,20 @@ Hizmetin iyileştirilmesi ve/veya özelleştirilmesi için,
 
 Sizi tanımlamak ve/veya Hizmeti özelleştirmek için,
 
-Sizi tanımak ve dolandırıcılığı önlemek için,
-
 Destek sağlamak için,
-
-Kişisel Verilerinizi, bizden bunu talep ettiğiniz takdirde veya yasal olarak yükümlü olduğumuz durumlarda, üçüncü şahıslara iletmek.
 
 
 B. Kişisel Verilerin üçüncü şahıslara iletilmesi 
 
-Sizden önceden izin alınmaksızın Kişisel Verilerinizi üçüncü şahıslara satmamaktayız, satmıyor veya kiralamıyoruz. Bununla birlikte, Ücretli Hizmetlerle ilgili ödeme sağlayıcıları aracılığıyla ödeme yapmak gibi Kişisel Verilerinizi size sağlama veya talimatları yerine getirmeniz açısından şart olduğu durumlarda, Kişisel Verilerinizi üçüncü taraflara sağlayabiliriz. 
-
-Uygun olduğunu düşündüğümüz şekilde Hizmet'in bu tür amaçlar için üçüncü taraflara kullanımı hakkında "toplu anonim veriler" sağlayabiliriz. "Toplam anonim veriler", size geri gönderilemeyen ve bu nedenle Kişisel Veriler olarak sayılmayan verilerdir. Örneğin, Kullanıcıların Hizmeti nasıl kullandığını daha iyi anlamak için toplu anonim verileri kullanabiliriz.
-
-Üçüncü bir tarafa geçtiğimiz veya bir üçüncü tarafla birleştiğimiz veya bir yeniden yapılandırmaya tabi olduğumuz durumda, Kişisel Verileriniz de üçüncü kişilere açıklanabilir ve / veya bu üçüncü kişiye devredilebilir. Bu üçüncü taraf, Kişisel Verileri ve bize sağladığınız diğer bilgileri kullanmaya devam etme hakkına sahip olacak. 
-
-Kişisel Verilerinizi, iyi niyetle, bir mahkeme kararı, halen devam eden adli işlem, cezai veya sivil mahkeme celbi veya kolluk kuvveti makamları tarafından verilen diğer yasal işlem veya taleplere uymanız gerektiğine inandığımız yerlerde ifşa edebiliriz veya egzersiz yapabiliriz Yasal hakları veya yasal iddialara karşı savunmak. 
+Sizden önceden izin alınmaksızın Kişisel Verilerinizi üçüncü şahıslara satmamaktayız, satmıyor veya kiralamıyoruz.
 
 
 4. Kişisel Verilerin işlendiği yerler
-Hizmet kapsamında işlenen verilerin tutulduğu veri merkezleri değişik bölgelerde bulunmaktadır., Türkiye, İrlanda, Hollanda, Amerika Birleşik Devletleri bölgelerinde yer alan barındırma hizmetleri kullanılarak sağlanmaktadır. Bununla birlikte, işlenen Kişisel Veriler, bu ülkeler ve bölgeler dışında bir ülkede bulunan muhafaza sunucularına aktarılabilir ve depolanabilir. Kişisel Verilerinizin güvenli bir şekilde ve bu gizlilik politikasına uygun şekilde kullanılmasını sağlamak için makul ölçüde gerekli tüm adımları atacağız.
+Kişisel verileriniz size daha iyi bir hizmet sunabilmek için: sadece kullanıcının cihazında saklanmaktadır.
 
 
 5. Kişisel Verileri korumak için hangi güvenlik önlemleri uygulanmaktadır?
-Verilerinizin güvenliği ve diğer Kullanıcıların güvenliği bizim için çok önemlidir. Kişisel Verilerinizi kayıp ya da herhangi bir yasadışı işleme karşı korumak için teknik ve organizasyonel önlemler aldık. Aşağıdaki tedbirleri uyguladık: sunucularımızı güvenlik duvarları, SSL bağlantıları ve hassas verilerin şifrelenmesi yoluyla koruma. Bu liste ayrıntılı değildir. 
+Verilerinizin güvenliği ve diğer Kullanıcıların güvenliği bizim için çok önemlidir. Kişisel Verilerinizi kayıp ya da herhangi bir yasadışı işleme karşı korumak için teknik ve organizasyonel önlemler aldık.
 
 
 6. Üçüncü şahıslarla ilgili sorumluluk sınırları
@@ -136,10 +94,10 @@ Tarafların, bu üçüncü tarafların içeriği, web siteleri veya hizmetleri �
 
 
 7. Kişisel Verileri Görüntüleme ve Silme
-Uygulamayı kullanarak toplanan kişisel bilgilere e-posta yoluyla bizimle iletişime geçmek veya silmek için bir istek gönderebilirsiniz. Kimliğinizi doğrulamak için ek bilgi sağlamanız istenebilir.
+Uygulamayı kullanarak işlenen kişisel veriler, kullanıcı tarafından uygulama içerisindeki ilgili alanda görüntülenebilmektedir. Uygulama hafızası kullanıcı tarafından sıfırlanarak, kayıtlı olan tüm veri silinebilir.
 
 
-8. Çocuk gizliliği
+8. Çocuk Gizliliği
 Çocuklarla ilgili kişisel bilgiler bilerek veya kasıtlı olarak toplanmamaktadır.
 
 
@@ -157,4 +115,4 @@ Bu Bildirimde yapılan değişikliklerin herhangi birine bağlı kalmayı kabul 
 Bu Gizlilik Bildirimi ile ilgili herhangi bir sorunuz veya açıklamalarınız varsa, lütfen bir e-posta göndererek bizimle iletişime geçin. 
 
 
-Bu Gizlilik Bildirimi son olarak 7 Mart 2024 tarihinde güncellendi.
+Bu Gizlilik Bildirimi son olarak 8 Mart 2024 tarihinde güncellenmiştir.
