@@ -89,9 +89,8 @@ kelimeKarma(veri1)
 
 altKelime.addEventListener("click", (e)=>{ 
 
-    console.log(e.srcElement.className);
 
-    if(e.srcElement.innerText == veri1[harfSiralama] && bekletme || (e.srcElement.innerText == "" && veri1[harfSiralama])){
+    if(e.srcElement.innerText == veri1[harfSiralama] && e.srcElement.className == "butonlar" && bekletme){
         
         e.srcElement.innerText = ""
         e.srcElement.style.backgroundColor = "#c7b49b";
@@ -112,7 +111,7 @@ altKelime.addEventListener("click", (e)=>{
     }
     
 
-    if(veri1.length == harfSiralama && kelimeler.length != siralama+1 && bekletme){
+    if(veri1.length == harfSiralama && kelimeler.length != siralama+1 && e.srcElement.className == "butonlar" && bekletme){
         bekletme = false
         setTimeout(() => {
             altKelime.innerHTML = ""
