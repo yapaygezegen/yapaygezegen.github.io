@@ -35,6 +35,126 @@ main{
 h1{
     text-align: center;
 }
+#bulmaca{
+    padding: 10px;
+    margin: 20px auto;
+    height: auto;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+#kelime-goster{
+    position: relative;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    top: 160px;
+    letter-spacing: 5px;
+    text-align: center;
+    opacity: 0;
+}
+#bulmaca-ust{
+    height: 125px;
+    font-size: 30px;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    letter-spacing: 5px;
+    border-radius: 4px 4px 0 0;
+    background-color: rgb(155, 177, 170);
+}
+#bulmaca-orta{
+    min-height: 125px;
+    font-size: 30px;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    background-color: rgb(131, 200, 177);
+}
+#bulmaca-alt{
+    min-height: 200px;
+    font-size: 30px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color:#c7b49b;
+}
+#bulmaca-alt a{
+    padding: 10px;
+    color: #162422;
+}
+.butonlar{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding: 8px;
+    border-radius: 25%;
+    background-color: #d8f4f4;
+}
+#alt-alan{
+    height: 80px;
+}
+#alt-sol{
+    height: 100%;
+    width: 50%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    letter-spacing: 3px;
+    border-radius: 0 0 0 4px;
+    background-color: rgb(172, 196, 188);
+}
+#alt-sag{
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+#sag1{
+    height: 100%;
+    width: 50%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #877c6f;
+}
+
+#sag2{
+    height: 100%;
+    width: 50%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 4px 0;
+    background-color: #409e9e;
+}
+img{
+    width: 45px;
+    padding: 5px;
+    border-radius: 25%;
+    background-color: #d8f4f4;
+    pointer-events: none;
+}
+#ilerleme-durumu{
+    height: auto;
+    margin: 10px;
+    padding: 10px;
+    font-size: 25px;
+    background-color: #a1c4c4;
+    border-radius: 4px;
+}
 ul{
     margin: 10px;
     padding-left: 5px;
@@ -42,6 +162,9 @@ ul{
 li{
     font-size: 25px;
     padding-top: 25px;
+}
+p{
+    font-size: 25px;
 }
 footer{
     width: 90%;
