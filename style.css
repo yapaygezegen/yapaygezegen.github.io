@@ -42,13 +42,15 @@ h2{
     justify-content: center;
 }
 .linkA{
-    width: 5%;
+    width: 7%;
     aspect-ratio: 1/1;
     padding: 1%;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .linkA a{
-    padding: 12px;
+    padding: 10px;
     border-radius: 5px;
     color: rgb(42, 61, 91);
     text-decoration: none;
