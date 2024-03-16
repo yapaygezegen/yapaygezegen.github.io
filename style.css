@@ -69,17 +69,16 @@ footer{
     color: white;
     font-family: sans-serif;
 }
-@media (max-width: 1250px) {
+@media (min-width: 1025px) {
     .linkA{
-        padding: 2%;
+        width: 5%;
+    }
+    .linkA a{
+        padding: 12%;
+        height: 30px;
     }
 }
-@media (max-width: 1000px) {
-    .linkA{
-        padding: 4%;
-    }
-}
-@media (max-width: 750px) {
+@media (max-width: 800px) {
     .linkA{
         padding: 5%;
     }
