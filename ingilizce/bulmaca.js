@@ -89,7 +89,10 @@ kelimeKarma(veri1)
 
 altKelime.addEventListener("click", (e)=>{ 
 
-    if(e.srcElement.innerText == veri1[harfSiralama] && bekletme){
+
+
+    if(e.srcElement.innerText == veri1[harfSiralama] && bekletme || (e.srcElement.innerText == "" && veri1[harfSiralama])){
+        
         e.srcElement.innerText = ""
         e.srcElement.style.backgroundColor = "#c7b49b";
         kelimeOnEk += veri1[harfSiralama]
