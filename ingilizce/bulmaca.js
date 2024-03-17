@@ -20,6 +20,14 @@ var bekletme = true
 var gosterDurum = true
 
 
+for (let k = 0; k < kelimeler.length; k++) {
+    if(kelimeler[k].innerText.split(" / ")[0].split(" ").length > 1){
+        console.log(kelimeler[k].innerText.split(" / ")[0]);
+    }
+}
+
+
+
 var link = path.slice(0,11)+"b"+path.slice(12,path.length)
 
 
@@ -87,7 +95,7 @@ altSol.innerText = adres + " " + guncel +"/"+kelimeler.length
 
 kelimeKarma(veri1)
 
-altKelime.addEventListener("click", (e)=>{ 
+altKelime.addEventListener("click", (e)=>{
 
 
     if(e.srcElement.innerText == veri1[harfSiralama] && e.srcElement.className == "butonlar" && bekletme){
