@@ -20,16 +20,6 @@ var bekletme = true
 var gosterDurum = true
 
 
-for (let k = 0; k < kelimeler.length; k++) {
-    if(kelimeler[k].innerText.split(" / ")[0].split(" ").length > 1){
-        console.log(kelimeler[k].innerText.split(" / ")[0]);
-    }
-}
-
-
-
-
-
 if(localStorage.getItem(adres) == null){
     localStorage.setItem(adres, 0)
 }
