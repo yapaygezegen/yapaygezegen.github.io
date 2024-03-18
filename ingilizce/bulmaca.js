@@ -28,7 +28,7 @@ for (let k = 0; k < kelimeler.length; k++) {
 
 
 
-var link = path.slice(0,11)+"b"+path.slice(12,path.length)
+var link = document.querySelectorAll("a")[1].href
 
 
 if(localStorage.getItem(adres) == null){
