@@ -8,7 +8,7 @@ var path = window.location.pathname
 var veriSayfa = path.charAt(11,1)
 var kayitVeri = localStorage.getItem(veriSayfa);
 var kelimeGoster = document.querySelector("#kelime-goster")
-
+var link = document.querySelectorAll("a")[1].href
 var adres = path.charAt(11,1).toUpperCase()
 var siralama = kayitVeri || 0
 var veri1 = kelimeler[siralama].innerText.split(" / ")[0]
@@ -28,7 +28,6 @@ for (let k = 0; k < kelimeler.length; k++) {
 
 
 
-var link = document.querySelectorAll("a")[1].href
 
 
 if(localStorage.getItem(adres) == null){
