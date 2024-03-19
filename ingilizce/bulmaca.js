@@ -8,7 +8,6 @@ var path = window.location.pathname
 var veriSayfa = path.charAt(11,1)
 var kayitVeri = localStorage.getItem(veriSayfa);
 var kelimeGoster = document.querySelector("#kelime-goster")
-var link = document.querySelectorAll("a")[1].href
 var adres = path.charAt(11,1).toUpperCase()
 var siralama = kayitVeri || 0
 var veri1 = kelimeler[siralama].innerText.split(" / ")[0]
@@ -137,6 +136,7 @@ altKelime.addEventListener("click", (e)=>{
         localStorage.setItem(veriSayfa, 0)
         siralama = 0
         if(adres != "Y"){
+            var link = document.querySelectorAll("a")[1].href
             setTimeout(() => {
                 ustKelime.innerText = "Tebrikler!"
                 ortaKelime.innerText = "Bu bölümü bitirdiniz."
