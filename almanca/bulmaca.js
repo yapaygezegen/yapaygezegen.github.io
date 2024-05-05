@@ -148,7 +148,6 @@ altKelime.addEventListener("click", (e)=>{
             setTimeout(() => {
                 ustKelime.innerText = "Tebrikler!"
                 ortaKelime.innerText = "Tüm bölümleri bitirdiniz."
-                altKelime.innerHTML = `İlk harfe geçmek için <a href="a-harfi-kelimeler.html">buraya </a> tıklayınız.`
             }, 1200); 
         }       
     }
