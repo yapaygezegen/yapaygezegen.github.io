@@ -147,6 +147,10 @@ img{
     background-color: #d8f4f4;
     pointer-events: none;
 }
+#ytv{
+    margin: 30px 10px;
+    height: auto;
+}
 #ilerleme-durumu{
     height: auto;
     margin: 10px;
