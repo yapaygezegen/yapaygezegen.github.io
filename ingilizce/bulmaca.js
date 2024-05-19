@@ -17,6 +17,7 @@ var harfSiralama = 0
 var kelimeOnEk = ""
 var bekletme = true
 var gosterDurum = true
+var karmaHali = []
 
 
 if(localStorage.getItem(adres) == null){
@@ -37,7 +38,8 @@ function kelimeKarma(gelen){
     var karma = gelen.split("").sort(() => Math.random() - 0.5)
 
     for (let i = 0; i < gelen.length; i++) {
-        altKelime.innerHTML += '<div class="butonlar">'+karma[i]+'</div>'        
+        altKelime.innerHTML += '<div class="butonlar">'+karma[i]+'</div>'
+        karmaHali.push(karma[i])
     } 
 }
 
@@ -52,6 +54,7 @@ document.querySelector("#alt-alan").addEventListener("click", (h)=>{
         }, 1200);
     }
     if(gorselSira == 2){
+        karmaHali = []
         kelimeOnEk = ""
         siralama = 0
         localStorage.setItem(veriSayfa, 0)
@@ -67,10 +70,7 @@ document.querySelector("#alt-alan").addEventListener("click", (h)=>{
         altKelime.innerHTML = ""
         kelimeKarma(kelimeler[0].innerText.split(" / ")[0])
         bekletme = true
-
-        
     }
-
 
     h.srcElement.children[0].style.backgroundColor = "#889a9a";
     setTimeout(() => {
@@ -83,8 +83,63 @@ altSol.innerText = adres + " " + guncel +"/"+kelimeler.length
 
 kelimeKarma(veri1)
 
-altKelime.addEventListener("click", (e)=>{
+onkeydown = (e) => {
+    if(e.key == veri1[harfSiralama]){
+        for (let g = 0; g < karmaHali.length; g++) {
+            if(e.key == karmaHali[g] && veri1.length != harfSiralama){
+                document.querySelectorAll(".butonlar")[g].innerText = "";
+                document.querySelectorAll(".butonlar")[g].style.backgroundColor = "#c7b49b";
+                delete karmaHali[g]
+                kelimeOnEk += veri1[harfSiralama]
+                harfSiralama++
+                ustKelime.innerText = "" 
+                ustKelime.innerText = kelimeOnEk
+                for (let k = 0; k < veri1.length-harfSiralama; k++) {
+                    ustKelime.innerText += "?"            
+                }
+                break
+            }
+        }       
+    }
+    if(veri1.length == harfSiralama && kelimeler.length != siralama+1 && bekletme){
+        karmaHali = []
+        setTimeout(() => {
+            altKelime.innerHTML = ""
+            ustKelime.innerText = ""
+            kelimeOnEk = ""
+            harfSiralama = 0
+            siralama++        
+            veri1 = kelimeler[siralama].innerText.split(" / ")[0]           
+            localStorage.setItem(veriSayfa, siralama);
+            altSol.innerText = `${adres} ${siralama+1}/${kelimeler.length}`
+            kelimeGoster.innerText = veri1
+            for (let k2 = 0; k2 < veri1.length; k2++) {
+                ustKelime.innerText += "?"            
+            }
+            kelimeKarma(veri1)
+            ortaKelime.innerText = kelimeler[siralama].innerText.split(" / ")[1]
+            bekletme = true
+            localStorage.setItem(adres, parseInt(localStorage.getItem(adres))+1)
+            ilerlemeDurumu.innerText = adres + " harfi için çözdüğünüz toplam kelime sayısı: " + localStorage.getItem(adres)
+        }, 1200);
+    }
+    if(harfSiralama == veri1.length && kelimeler.length == siralama+1){
+        bekletme = false
+        altSol.innerText = `${adres} ${siralama+1}/${kelimeler.length}`
+        localStorage.setItem(veriSayfa, 0)
+        siralama = 0
+        if(adres != "Y"){
+            var link = document.querySelectorAll("a")[1].href
+            setTimeout(() => {
+                ustKelime.innerText = "Tebrikler!"
+                ortaKelime.innerText = "Bu bölümü bitirdiniz."
+            }, 1200); 
+        }      
+    }
+    
+}
 
+altKelime.addEventListener("click", (e)=>{
 
     if(e.srcElement.innerText == veri1[harfSiralama] && e.srcElement.className == "butonlar" && bekletme){
         
@@ -106,7 +161,6 @@ altKelime.addEventListener("click", (e)=>{
         }, 500);
     }
     
-
     if(veri1.length == harfSiralama && kelimeler.length != siralama+1 && e.srcElement.className == "butonlar" && bekletme){
         bekletme = false
         setTimeout(() => {
@@ -136,18 +190,10 @@ altKelime.addEventListener("click", (e)=>{
         localStorage.setItem(veriSayfa, 0)
         siralama = 0
         if(adres != "Y"){
-            var link = document.querySelectorAll("a")[1].href
             setTimeout(() => {
                 ustKelime.innerText = "Tebrikler!"
                 ortaKelime.innerText = "Bu bölümü bitirdiniz."
-                altKelime.innerHTML = `Bir sonraki harfe geçmek için <a href="${link}">buraya </a> tıklayınız.`
             }, 1200); 
-        }
-        if(adres == "Y"){
-            setTimeout(() => {
-                ustKelime.innerText = "Tebrikler!"
-                ortaKelime.innerText = "Tüm bölümleri bitirdiniz."
-            }, 1200); 
-        }       
+        }      
     }
 })
