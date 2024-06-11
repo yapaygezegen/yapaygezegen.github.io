@@ -115,7 +115,8 @@ altKelime.addEventListener("click", (e)=>{
             kelimeOnEk = ""
             harfSiralama = 0
             siralama++        
-            veri1 = kelimeler[siralama].innerText.split(" / ")[0]           
+            veri1 = kelimeler[siralama].innerText.split(" / ")[0]
+            veri1 = veri1.split(")").length > 0 ? veri1.split(")")[1].trimStart() : veri1.split(")")[0]
             localStorage.setItem(veriSayfa, siralama);
             altSol.innerText = `${adres} ${siralama+1}/${kelimeler.length}`
             kelimeGoster.innerText = veri1
