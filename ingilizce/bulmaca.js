@@ -83,66 +83,8 @@ altSol.innerText = adres + " " + guncel +"/"+kelimeler.length
 
 kelimeKarma(veri1)
 
-onkeydown = (e) => {
-    if(e.key == veri1[harfSiralama]){
-        for (let g = 0; g < karmaHali.length; g++) {
-            if(e.key == karmaHali[g] && veri1.length != harfSiralama){
-                document.querySelectorAll(".butonlar")[g].innerText = "";
-                document.querySelectorAll(".butonlar")[g].style.backgroundColor = "#c7b49b";
-                delete karmaHali[g]
-                kelimeOnEk += veri1[harfSiralama]
-                harfSiralama++
-                ustKelime.innerText = "" 
-                ustKelime.innerText = kelimeOnEk
-                for (let k = 0; k < veri1.length-harfSiralama; k++) {
-                    ustKelime.innerText += "?"            
-                }
-                break
-            }
-        }       
-    }
-    if(veri1.length == harfSiralama && kelimeler.length != siralama+1 && bekletme){
-        karmaHali = []
-        setTimeout(() => {
-            altKelime.innerHTML = ""
-            ustKelime.innerText = ""
-            kelimeOnEk = ""
-            harfSiralama = 0
-            siralama++        
-            veri1 = kelimeler[siralama].innerText.split(" / ")[0]           
-            localStorage.setItem(veriSayfa, siralama);
-            altSol.innerText = `${adres} ${siralama+1}/${kelimeler.length}`
-            kelimeGoster.innerText = veri1
-            for (let k2 = 0; k2 < veri1.length; k2++) {
-                ustKelime.innerText += "?"            
-            }
-            kelimeKarma(veri1)
-            ortaKelime.innerText = kelimeler[siralama].innerText.split(" / ")[1]
-            bekletme = true
-            localStorage.setItem(adres, parseInt(localStorage.getItem(adres))+1)
-            ilerlemeDurumu.innerText = adres + " harfi için çözdüğünüz toplam kelime sayısı: " + localStorage.getItem(adres)
-        }, 1200);
-    }
-    if(harfSiralama == veri1.length && kelimeler.length == siralama+1){
-        bekletme = false
-        altSol.innerText = `${adres} ${siralama+1}/${kelimeler.length}`
-        localStorage.setItem(veriSayfa, 0)
-        siralama = 0
-        if(adres != "Y"){
-            var link = document.querySelectorAll("a")[1].href
-            setTimeout(() => {
-                ustKelime.innerText = "Tebrikler!"
-                ortaKelime.innerText = "Bu bölümü bitirdiniz."
-            }, 1200); 
-        }      
-    }
-    
-}
-
 altKelime.addEventListener("click", (e)=>{
-
     if(e.srcElement.innerText == veri1[harfSiralama] && e.srcElement.className == "butonlar" && bekletme){
-        
         e.srcElement.innerText = ""
         e.srcElement.style.backgroundColor = "#c7b49b";
         kelimeOnEk += veri1[harfSiralama]
