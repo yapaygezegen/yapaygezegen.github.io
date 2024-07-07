@@ -1,5 +1,5 @@
 MOBİL UYGULAMA GİZLİLİK BİLDİRİMİ
-Sürüm, 15 Mayıs 2024
+7 Temmuz 2024
 
 
 Tüm Kullanıcılarımızın gizliliği bizim için çok önemlidir. Bir Uygulama Kullanıcısı olarak Hizmetimizi kullandığınızda, (Uygulama Yayıncısı olarak) Kişisel Verilerinizi kendi cihazınızda tutmaktayız. Bu Gizlilik Bildirimi, Kişisel Verilerinizi nasıl koruduğumuzu ve işleme koyduğumuzu açıklar. Dikkatlice okumanızı öneririz.
@@ -35,6 +35,12 @@ Sorunuz veya açıklamalarınız varsa ne yapacaksınız?
 A. Hizmetimiz tarafından kullanılan Kişisel Veriler 
 
 Hizmetimizi geliştirmek için Anonim Verileri kullanırız. Bu bilgiler, Hizmet aracılığıyla kamuya açıklanmayacaktır.
+
+Bu uygulama, bir reklam dağıtım aracı olarak AdMob'u (Google Inc.) kullanır ve AdMob, kullanıcı bilgilerini otomatik olarak alabilir. Alınacak bilgiler, kullanım amacı, üçüncü kişilere verilmesi vb. Lütfen aşağıdaki reklam dağıtım şirketinin uygulama gizlilik politikası bağlantısını kontrol ediniz.
+
+Google Reklam Politikası
+
+https://policies.google.com/technologies/ads
 
 
 B. Otomatik olarak oluşturulan bilgiler 
@@ -113,6 +119,3 @@ Bu Bildirimde yapılan değişikliklerin herhangi birine bağlı kalmayı kabul 
 
 11. Herhangi bir sorunuz ya da açıklamalarınız varsa ne yapacaksınız?
 Bu Gizlilik Bildirimi ile ilgili herhangi bir sorunuz veya açıklamalarınız varsa, lütfen bir e-posta göndererek bizimle iletişime geçin. 
-
-
-Bu Gizlilik Bildirimi son olarak 15 Mayıs 2024 tarihinde güncellenmiştir.
