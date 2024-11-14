@@ -3859,7 +3859,7 @@ function checkCollision() {
                     solUstKelime = ""
                     createBlueBalls()
                 }
-                if (harfSira == firstName.length && diziSira+1 ==veriDizi.length && window.location.host == "yapaygezegen.com") {
+                if (harfSira == firstName.length && diziSira+1 ==veriDizi.length && window.location.host == "yapaygezegen2.com") {
                     setTimeout(() => {                       
                         blueBalls = []
                         diziSira = 0
