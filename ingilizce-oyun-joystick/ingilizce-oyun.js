@@ -3849,7 +3849,7 @@ function checkCollision() {
                 solUstKelime += firstName[harfSira]
                 blueBalls.splice(blueBalls.indexOf(ball), 1)
                 harfSira++                
-                if(harfSira == firstName.length && diziSira+1 != veriDizi.length && window.location.host == "yapaygezegen2.com"){                   
+                if(harfSira == firstName.length && diziSira+1 != veriDizi.length && window.location.host == "yapaygezegen.com"){                   
                     blueBalls = []
                     diziSira++
                     localStorage.setItem("ingilizceVeri",Number(diziSira))
