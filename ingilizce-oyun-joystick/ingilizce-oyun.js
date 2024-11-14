@@ -3859,7 +3859,7 @@ function checkCollision() {
                     solUstKelime = ""
                     createBlueBalls()
                 }
-                if (harfSira == firstName.length && diziSira+1 ==veriDizi.length) {
+                if (harfSira == firstName.length && diziSira+1 ==veriDizi.length && window.location.host == "yapaygezegen.com") {
                     setTimeout(() => {                       
                         blueBalls = []
                         diziSira = 0
@@ -3878,7 +3878,6 @@ function checkCollision() {
 }
 createBlueBalls()
 draw()
-console.log(window.location.host);
 window.addEventListener('resize', function() {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
