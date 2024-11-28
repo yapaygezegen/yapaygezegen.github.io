@@ -349,21 +349,4 @@
     </main>
     <footer>yapaygezegen.com</footer>
 </body>
-<script>
-    document.getElementById("copyButton").addEventListener("click", function() {
-        var codeBlock = document.getElementById("kodAlan")
-        var textToCopy = codeBlock.innerText
-        var tempTextarea = document.createElement("textarea")
-        tempTextarea.value = textToCopy
-        document.body.appendChild(tempTextarea)
-        tempTextarea.select()
-        document.execCommand("copy")
-        document.body.removeChild(tempTextarea)
-        var copyMessage = document.getElementById("copyMessage")
-        copyMessage.style.display = "inline"
-        setTimeout(function() {
-            copyMessage.style.display = "none"
-        }, 2000)
-    })
-</script>
 </html>
