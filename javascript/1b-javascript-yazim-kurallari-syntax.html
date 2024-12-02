@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript yazım kuralları, javascript syntax, javascript programlama dili kuralları, javascript kodu yazmak, javascript sözdizimi">
+    <meta name="keywords" content="javascript sözdizimi, js yazım kuralları, javascript programlamaya giriş, javascript kod yazım kuralları, javascript kodu nasıl yazılır">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Yazım Kuralları (Syntax)</title>
+</head>
+<body>
+    <header><a href="/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Yazım Kuralları (Syntax)</h1>
+
+        <li>Kod bloğu içerisine: tek satırda veya çoklu satırda yorum alanı eklenebilir. Yorum satırları, kodun çalışmasını etkilemez. Geriye dönük düzenlemeler için kod işlevinin hatırlanmasına yardımcı olur. (// Tek satır yorum alanı oluşturur.) (/* Çok satırlı yorum alanı oluşturur. */)</li>
+
+        <div class="kodAlan"><div><span id="a0">// Tek satır yorum alanı oluşturur.</span></div><br><div><span id="a0">/*</span></div><div><span id="a0">Çok</span></div><div><span id="a0">satırlı</span></div><div><span id="a0">yorum alanı oluşturur.</span></div><div><span id="a0">*/</span></div></div>
+
+        <li>Değişken atamalarında değişken türü belirtilmez.</li>
+
+        <li>Kod bloğunun sonunda (;) işareti konulması zorunlu değildir. Kullanılmadığı durumlarda hata vermez.</li>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degiskenAdi1</span><span id="a2">;</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degiskenAdi2</span><span id="a2"> </span><span id="a0">// ; kullanılmak zorunda değildir</span></div></div>
+
+        <li>Metinsel ifadeler için " " veya ' ' tırnak işaretleri kullanılır.</li>
+
+        <li>Sayısal ifadeler tırnak işaretleri içinde kullanıldığında veri türü metinsel hale dönüşür.</li>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"Yapay Gezegen"</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">sayi1</span><span id="a2"> = </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// sayısal değişken</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">sayi2</span><span id="a2"> = </span><span id="a8">"10"</span><span id="a2"> </span><span id="a0">// metinsel (string) değişken</span></div></div>
+
+        <li>Girinti bırakmak zorunlu değildir. Kodun daha okunaklı olabilmesi için girinti kullanımı tavsiye edilir.</li>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">fonksiyonAdi</span><span id="a2">() {</span></div><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a8">"Merhaba JavaScript"</span><span id="a2">)</span></div><div><span id="a2">}</span></div><br><div><span id="a1">function</span><span id="a2"> </span><span id="a4">fonksiyonAdi</span><span id="a2">() {</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a8">"Merhaba JavaScript"</span><span id="a2">)</span></div><div><span id="a2">}</span></div></div>
+        
+        <div id="sonraki"><a href="/2a-var-let-const.html">Değişken Tanımlama</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>

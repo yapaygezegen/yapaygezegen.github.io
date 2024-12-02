@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript değişken tanımlamak, javascript programlama dilinde değişkenler, değişkenler neden kullanılır, js ile değişken oluşturmak">
+    <meta name="keywords" content="javascript değişkenler konusu, javascript dilinde değişkenler, javascript ile programlaya giriş, programlama değişkenler konusu">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Değişken Tanımlama</title>
+</head>
+<body>
+    <header><a href="/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Değişken Tanımlama</h1>
+
+        <li>Değişken adları büyük küçük harflere duyarlıdır. (case sensitivity) degiskenAdi ve DegiskenAdi farklı değişkenlerdir.</li>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degiskenAdi</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">DegiskenAdi</span><span id="a2"> </span><span id="a0">// d D harfleri farklı karakterleri temsil eder</span></div></div>
+
+        <li>Değişken adlandırmasında Türkçe karakterler kullanılabilir. (ç,ğ,ı,İ,ö,Ö,ü,Ü) Fakat, birçok yazılımcı tarafından tercih edilmemektedir.</li>
+
+        <div class="kodAlan"><span id="a1">var</span><span id="a2"> </span><span id="a5">değişken</span><span id="a2"> </span><span id="a0">// ğ ş Türkçe karakter kullanılabilir</span></div>
+
+        <ul>
+            <li>Değişken adları harf veya _ işareti ile başlayabilir.</li>
+
+            <li>Değişken adı tanımlarken, tanımlı kelimeler (reserved words) kullanılamaz. (break, case, catch, contiune, debugger, default, delete, do, else, finally, new, return, switch, for, typeof, function, if, in, this, throw, try, var, void, while, with, instanceof)</li>
+
+            <li>Değişken adının uzunluğu en fazla 255 karakter olabilir.</li>
+
+            <li>Değişken üzerinde yapılan değişiklikler, alt satırlarda etkindir. Kodun yorumlanması yukarıdan aşağıya olacak şekilde gerçekleşir.</li>
+
+            <li>Değişken adları genellikle camel Case stilinde yazılır.</li>
+        </ul>
+
+        <h2>var (Global Değişken)</h2>
+
+        <li>var ile tanımlanan değişken window nesnesine bağlı bir property olarak oluşturulur.</li>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degisken1</span><span id="a2"> = </span><span id="a3">10</span></div><br><div><span id="a5">window</span><span id="a2">.</span><span id="a5">degisken1</span></div></div>
+
+        <li>Değişken değer ataması boş bırakılıp, daha sonra atama yapılabilir.</li>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degisken2</span><span id="a2"> </span><span id="a0">// atama boş bırakılabilir</span></div><br><div><span id="a5">degisken2</span><span id="a2"> = </span><span id="a3">20</span><span id="a2"> </span><span id="a0">// değer ataması sonradan yapılabilir</span></div></div>
+
+        <li>var global ve functional scope olarak çalışır. Kodun her satırından değişkene ulaşılabilir.</li>
+
+        <div class="kodAlan"><div><span id="a2">{</span></div><div><span id="a2">  </span></div><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degisken3</span><span id="a2"> = </span><span id="a3">30</span></div><br><div><span id="a2">} </span><span id="a0">// scope alanı dışından degisken3'e ulaşılabilir</span></div><br><div><span id="a5">degisken3</span><span id="a2"> </span><span id="a0">// 30 değeri döner</span></div></div>
+    
+        <li>var ile aynı ada sahip değişken tekrar oluşturulabilir.</li>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degisken4</span><span id="a2"> = </span><span id="a3">40</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degisken4</span><span id="a2"> = </span><span id="a3">45</span><span id="a2"> </span><span id="a0">// var anahtar kelimesi ile aynı ada sahip değişken tekrar oluşturulabilir</span></div></div>
+        
+        <h2>let (Local Değişken)</h2>
+        
+        <li>Değişken değer ataması boş bırakılıp, daha sonra atama yapılabilir.</li>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">degisken5</span><span id="a2"> </span><span id="a0">// atama boş bırakılabilir</span></div><br><div><span id="a5">degisken5</span><span id="a2"> = </span><span id="a3">50</span><span id="a2"> </span><span id="a0">// değer ataması sonradan yapılabilir</span></div></div>
+
+        <li>let functional scope olarak çalışır. Sadece scope alanından değişkene ulaşılabilir.</li>
+
+        <div class="kodAlan"><div><span id="a2">{</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degisken6</span><span id="a2"> = </span><span id="a3">60</span></div><br><div><span id="a2">} </span><span id="a0">// scope alanı dışından degisken2'ye ulaşılabilir</span></div><br><div><span id="a5">degisken6</span><span id="a2"> </span><span id="a0">// 60 değeri dönmez (degisken6 is not defined)</span></div></div>
+
+        <li>let ile aynı ada sahip değişken tekrar oluşturulamaz.</li>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">degisken7</span><span id="a2"> = </span><span id="a3">70</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">degisken7</span><span id="a2"> = </span><span id="a3">70</span><span id="a2"> </span><span id="a0">// let anahtar kelimesi ile aynı ada sahip değişken tekrar oluşturulamaz (Identifier 'degisken7' has already been declared)</span></div></div>
+
+        <h2>const (Local ve Sabit Değişken)</h2>
+
+        <li>Değişken değer ataması boş bırakılamaz. Daha sonra atama yapılamaz. Tanımlandığı satırda atama yapılmalıdır.</li>
+
+        <div class="kodAlan"><div><span id="a1">const</span><span id="a2"> </span><span id="a7">degisken8</span><span id="a2"> </span><span id="a0">// atama boş bırakılamaz (Missing initializer in const declaration)</span></div><br><div><span id="a7">degisken8</span><span id="a2"> = </span><span id="a3">3.14</span><span id="a2"> </span><span id="a0">// değer ataması sonradan yapılamaz</span></div><br><div><span id="a1">const</span><span id="a2"> </span><span id="a7">degisken9</span><span id="a2"> = </span><span id="a3">3.14</span><span id="a2"> </span><span id="a0">// doğru kullanım</span></div></div>
+
+        <li>const ile aynı ada sahip değişken tekrar oluşturulamaz.</li>
+
+        <div class="kodAlan"><div><span id="a1">const</span><span id="a2"> </span><span id="a5">degisken10</span><span id="a2"> = </span><span id="a3">80</span></div><br><div><span id="a1">const</span><span id="a2"> </span><span id="a5">degisken10</span><span id="a2"> = </span><span id="a3">80</span><span id="a2"> </span><span id="a0">// const anahtar kelimesi ile aynı ada sahip değişken tekrar oluşturulamaz (Identifier 'degisken10' has already been declared)</span></div></div>
+
+        <h2>Kullanım Yöntemleri</h2>
+
+        <li>Aynı satırda birden fazla değişken ataması yapılabilir.</li>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degisken1</span><span id="a2"> = </span><span id="a3">1</span><span id="a2">, </span><span id="a5">degisken2</span><span id="a2"> = </span><span id="a3">2</span><span id="a2"> , </span><span id="a5">degisken3</span><span id="a2"> = </span><span id="a3">3</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">degisken4</span><span id="a2"> = </span><span id="a8">"metin"</span><span id="a2">, </span><span id="a5">degiske5</span><span id="a2"> = </span><span id="a3">50</span></div><br><div><span id="a1">const</span><span id="a2"> </span><span id="a7">degisken6</span><span id="a2"> = </span><span id="a3">3.14</span><span id="a2">, </span><span id="a7">degisken7</span><span id="a2"> = </span><span id="a3">365</span></div></div>
+
+        <li>var ve let için: değişken değer atamaları boş bırakılıp, daha sonra atamalar yapılabilir. const için yapılamaz.</li>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degisken8</span><span id="a2">, </span><span id="a5">degisken9</span></div><br><div><span id="a5">degisken8</span><span id="a2"> = </span><span id="a3">888</span><span id="a2">, </span><span id="a5">degisken9</span><span id="a2"> = </span><span id="a3">99</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">degisken10</span><span id="a2">, </span><span id="a5">degisken11</span></div><br><div><span id="a5">degisken10</span><span id="a2"> = </span><span id="a8">"on"</span><span id="a2">, </span><span id="a5">degisken11</span><span id="a2"> = </span><span id="a8">"on bir"</span></div></div>
+
+
+        <div id="sonraki"><a href="/2b-snake-kebab-camel-pascal.html">Stil Kuralları</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
