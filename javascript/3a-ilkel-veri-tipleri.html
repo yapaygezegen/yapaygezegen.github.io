@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript programlama dilinde ilkel veri tipleri, javascript ilkel veri tipleri, string number bigint boolean undefined symbol veri tipi">
+    <meta name="keywords" content="javascript veri türleri, javascript dilinde veriler, ilkel veri tipleri, kaçış karakterleri">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili İlkel Veri Tipleri</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>İlkel Veri Tipleri</h1>
+
+        <p>İlkel veri tipleri: sabit boyutlu, basit yapılı, yalnızca bir değer saklayabilen ve doğrudan değişkene atanabilen veri tipleridir. Değerler stack bellek alanında saklanır. Değişken etkisi bağımsızdır.</p>
+
+        <h2>String (Metinsel İfadeler)</h2>
+
+        <p>String: metinsel ifadeleri tanımlamak için kullanılır. Tek tırnak, çift tırnak ve ters tırnak işaretleri içine yazılır.</p>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">metin1</span><span id="a2"> = </span><span id="a8">"JavaScript Programlama Eğitimi String İfade"</span><span id="a2"> </span><span id="a0">// çift tırnak kullanım</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">metin2</span><span id="a2"> = </span><span id="a8">'Sayısal ifadeler de 1234567890 yazılabilir.'</span><span id="a2"> </span><span id="a0">// tek tırnak kullanım</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">metin3</span><span id="a2"> = </span><span id="a8">`Sayısal ifadeler de 1234567890 yazılabilir.`</span><span id="a2"> </span><span id="a0">// ters tırnak kullanım</span></div></div>
+
+        <p>Metinsel ifadeler (+) operatörü ile birleştirilir.</p>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">ad</span><span id="a2"> = </span><span id="a8">"Altan"</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">soyAd</span><span id="a2"> = </span><span id="a8">"Demir"</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">tamAd1</span><span id="a2"> = </span><span id="a8">"Altan"</span><span id="a2"> + </span><span id="a8">" "</span><span id="a2"> + </span><span id="a8">"Demir"</span><span id="a2"> </span><span id="a0">// Altan Demir</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">tamAd2</span><span id="a2"> = </span><span id="a5">ad</span><span id="a2"> + </span><span id="a8">" "</span><span id="a2"> + </span><span id="a5">soyAd</span><span id="a2"> </span><span id="a0">// Altan Demir</span></div></div>
+
+        <p>Metinsel ifade içerisinde çift tırnak veya tek tırnak kullanabilmek için: kapsayıcı tırnak mantığı kullanılır. Başlangıç ve bitiş tırnaklarının aynı olması gerekir. * Ters tırnak içerisine: hem tek tırnak hem de çift tırnak birlikte kullanılabilir.</p>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">tirnak1</span><span id="a2"> = </span><span id="a8">"Burada ' tek tırnak işareti yazılabilir. Çift tırnak kapsayıcıdır."</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">tirnak2</span><span id="a2"> = </span><span id="a8">'Burada " çift tırnak işareti yazılabilir. Tek tırnak kapsayıcıdır.'</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">tirnak3</span><span id="a2"> = </span><span id="a8">`Burada hem ' tek tırnak işareti, hem de " çift tırnak işareti yazılabilir.`</span></div></div>
+
+        <p>Ters tırnak işareti içerisine ${ } ifadesi ile: değişen çağırma ve matematiksel işlemler yapılabilir.</p>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degisken1</span><span id="a2"> = </span><span id="a3">1.5</span><span id="a2"> </span><span id="a0">// yıl değeri</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">degisken2</span><span id="a2"> = </span><span id="a8">"Cengiz"</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">tersTirnak</span><span id="a2"> = </span><span id="a8">`</span><span id="a1">${</span><span id="a5">degisken2</span><span id="a1">}</span><span id="a8">'in doğumunun üzerinden </span><span id="a1">${</span><span id="a5">degisken1</span><span id="a2"> * </span><span id="a3">12</span><span id="a1">}</span><span id="a8"> ay geçmiş.`</span><span id="a2"> </span><span id="a0">// Cengiz'in doğumunun üzerinden 18 ay geçmiş.</span></div></div>
+
+        <h3>Kaçış Karakterleri (Escape Characters)</h3>
+
+        <ul>
+            <li> \ n Yeni satı (New line)</li>
+            <li> \ r Paragraf sonu (Carriage return)</li>
+            <li> \ t Bir tab boşluğu</li>
+            <li> \ v Dikey tab boşluğu (Vertical tab)</li>
+            <li> \ \ Ters eğik çizgi</li>
+            <li> \ ' Tek tırnak</li>
+            <li> \ " Çift tırnak</li>
+        </ul>
+
+        <h2>Number (Sayısal İfadeler)</h2>
+
+        <p>Number: tamsayılar ve ondalıklı sayıları tanımlamak için kullanılır. Ondalıklı sayıların kesirli değerlerini tanımlamak için (.) nokta işareti kullanılır. JavaScript dili, tüm sayıları "kayan noktalı" (IEEE 754 floating point) formatında saklar.</p>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">tamSayi</span><span id="a2"> = </span><span id="a3">25</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">ondalikliSayi</span><span id="a2"> = </span><span id="a3">37.92</span></div></div>
+
+        <h2>BigInt (Büyük Tamsayılar)</h2>
+
+        <p>"Number" tipi en fazla (2<sup>53</sup> – 1) değerini saklayabilir. Daha büyük değerleri saklayabilmek için BigInt tipi kullanılır. Sayı atamasının sonuna "n" yazılarak, BigInt tipi oluşturulur. * BigInt ile sadece tamsayı tanımlanabilir. Ondalıklı sayılar tanımlanamaz.</p>
+
+        <div class="kodAlan"><span id="a1">var</span><span id="a2"> </span><span id="a5">buyukSayi</span><span id="a2"> = </span><span id="a3">123456789012345678901234567890</span><span id="a1">n</span></div>
+
+        <h2>Boolean (true / false)</h2>
+
+        <p>Boolean: Mantıksal değerleri tanımlamak için kullanılır. true (doğru) veya false (yanlış) değerini alır.</p>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">dogru</span><span id="a2"> = </span><span id="a1">true</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">yanlis</span><span id="a2"> = </span><span id="a1">false</span></div></div>
+
+        <h2>Undefined (Tanımlanmamış)</h2>
+
+        <p>Bir değişken oluşturulduğu halde henüz bir değer atanmamışsa "undefined" olarak kabul edilir.</p>
+
+        <div class="kodAlan"><span id="a1">var</span><span id="a2"> </span><span id="a5">tanimlanmamisDegisken</span></div>
+
+        <h2>Null (Boş Değer)</h2>
+
+        <p>Null: Boş bir değer atanmış değişkeni tanımlamak için kullanılır.</p>
+
+        <div class="kodAlan"><span id="a1">var</span><span id="a2"> </span><span id="a5">bos</span><span id="a2"> = </span><span id="a1">null</span></div>
+
+        <h2>Symbol</h2>
+
+        <p>Symbol: </p>
+
+        <div id="sonraki"><a href="/javascript/">İlkel Olmayan Veri Türleri</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
