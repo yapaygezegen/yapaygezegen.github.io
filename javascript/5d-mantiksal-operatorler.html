@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript mantıksal operatörler, javascript ve && veya || değilse ! operatörleri, javascript operatörler">
+    <meta name="keywords" content="javascript mantıksal operatörler, javascript ve && veya || değilse ! operatörleri, javascript operatörler">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Operatörler - 3 (Mantıksal Oparatörler)</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Operatörler - 3</h1>
+
+        <h2>Mantıksal Oparatörler (Comparison Operators)</h2>
+
+        <p>İşlemleri birleştirmek veya tersine çevirmek için kullanılır. Mantıksal operatörler:</p>
+
+        <li>&& Ve Operatörü</li>
+
+        <p>Tüm koşulların doğru olması durumunda true, diğer tüm durumlarda false döner.</p>
+
+        <div class="kodAlan"><div><span id="a1">true</span><span id="a2"> &amp;&amp; </span><span id="a1">true</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a1">true</span><span id="a2"> &amp;&amp; </span><span id="a1">false</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a1">false</span><span id="a2"> &amp;&amp; </span><span id="a1">true</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a1">false</span><span id="a2"> &amp;&amp; </span><span id="a1">false</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a1">true</span><span id="a2"> &amp;&amp; </span><span id="a1">true</span><span id="a2"> &amp;&amp; </span><span id="a1">true</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a1">true</span><span id="a2"> &amp;&amp; </span><span id="a1">true</span><span id="a2"> &amp;&amp; </span><span id="a1">false</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a3">10</span><span id="a2"> &gt; </span><span id="a3">5</span><span id="a2"> &amp;&amp; </span><span id="a3">20</span><span id="a2"> &gt; </span><span id="a3">15</span><span id="a2"> </span><span id="a0">// true -&gt; iki koşulda doğru</span></div><br><div><span id="a3">10</span><span id="a2"> &gt; </span><span id="a3">20</span><span id="a2"> &amp;&amp; </span><span id="a3">20</span><span id="a2"> &gt; </span><span id="a3">12</span><span id="a2"> </span><span id="a0">// false -&gt; ilk koşul yanlış</span></div></div>
+
+        <li>|| Veya Operatörü</li>
+
+        <p>Herhangi bir koşulun doğru olması durumunda true, tüm koşulların yanlış olması durumunda false döner.</p>
+
+        <div class="kodAlan"><div><span id="a1">true</span><span id="a2"> &amp;&amp; </span><span id="a1">true</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a1">true</span><span id="a2"> &amp;&amp; </span><span id="a1">false</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a1">false</span><span id="a2"> &amp;&amp; </span><span id="a1">true</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a1">false</span><span id="a2"> &amp;&amp; </span><span id="a1">false</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a1">true</span><span id="a2"> &amp;&amp; </span><span id="a1">true</span><span id="a2"> &amp;&amp; </span><span id="a1">true</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a1">false</span><span id="a2"> &amp;&amp; </span><span id="a1">true</span><span id="a2"> &amp;&amp; </span><span id="a1">false</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">10</span><span id="a2"> &gt; </span><span id="a3">5</span><span id="a2"> &amp;&amp; </span><span id="a3">20</span><span id="a2"> &gt; </span><span id="a3">15</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">10</span><span id="a2"> &gt; </span><span id="a3">20</span><span id="a2"> &amp;&amp; </span><span id="a3">20</span><span id="a2"> &gt; </span><span id="a3">12</span><span id="a2"> </span><span id="a0">// true</span></div></div>
+
+        <p>* Veya operatörü değişken atamaları için kullanılabilir. ilk değişkenin değer ataması yapılmış ise ilk değer atanır. Yok ise ikinci değişkenin değeri atarınır.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">a</span><span id="a2"> = </span><span id="a3">1</span></div><div><span id="a1">let</span><span id="a2"> </span><span id="a5">b</span><span id="a2"> = </span><span id="a3">2</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">c</span><span id="a2"> = </span><span id="a5">a</span><span id="a2"> || </span><span id="a5">b</span><span id="a2"> </span><span id="a0">// ilk değerin ataması yapılmış olduğu için c değişkenine ilk değişkenin değeri atanır</span></div><br><div><span id="a5">c</span><span id="a2"> </span><span id="a0">//  1</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">d</span></div><div><span id="a1">let</span><span id="a2"> </span><span id="a5">e</span><span id="a2"> = </span><span id="a3">3</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">f</span><span id="a2"> = </span><span id="a5">d</span><span id="a2"> || </span><span id="a5">e</span></div><br><div><span id="a5">f</span><span id="a2"> </span><span id="a0">// 3 -&gt; ilk değerin atanması yapılmadığı içim f değişkenine ikinci değişkenin değeri atanır</span></div></div>
+
+        <li>! Değilse Operatörü</li>
+
+        <p>Koşulun durumunu tersine çevirir. true, false olur. false true olur.</p>
+
+        <div class="kodAlan"><div><span id="a2">!</span><span id="a1">true</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a2">!</span><span id="a1">false</span><span id="a2"> </span><span id="a0">// true</span></div></div>
+        
+        <div id="sonraki"><a href="/javascript/">Mantıksal Oparatörler</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>

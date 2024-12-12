@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript karşılaştırma operatörleri, javascript eşitse == eşit eşitse === eşit değilse != küçükse < küçük eştise <= büyükse > büyük eşitse >= operatörleri">
+    <meta name="keywords" content="javascript karşılaştırma operatörleri, javascript eşitse == eşit eşitse === eşit değilse != küçükse < küçük eştise <= büyükse > büyük eşitse >= operatörleri">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Operatörler - 2 (Karşılaştırma Oparatörleri)</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Operatörler - 2</h1>
+
+        <h2>Karşılaştırma Oparatörleri (Comparison Operators)</h2>
+
+        <p>İki değeri birbiriyle karşılaştırmak için kullanılır. Sonuç olarak: true (doğru) ve false (yanlış) değerini üretir. Karşılaştırma operatörleri:</p>
+
+        <li>== Eşitse</li>
+
+        <p>iki değerin eşit olup olmadığını kontrol eder. Tip dönüşümünü otomatik yapar. Metinsel ifadeler için: büyük/küçük harflere duyarlıdır.</p>
+
+        <div class="kodAlan"><div><span id="a3">10</span><span id="a2"> == </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">10</span><span id="a2"> == </span><span id="a3">11</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a3">10</span><span id="a2"> == </span><span id="a8">"10"</span><span id="a2"> </span><span id="a0">// true -&gt; tip dönüşümleri otomatik yapıldığı için metinsel ifadenin number hali kontrol edilir</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">ad1</span><span id="a2"> = </span><span id="a8">"Gökhan"</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">ad2</span><span id="a2"> = </span><span id="a8">"Gökhan"</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">ad3</span><span id="a2"> = </span><span id="a8">"gökhan"</span></div><br><div><span id="a5">ad1</span><span id="a2"> == </span><span id="a5">ad2</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a5">ad1</span><span id="a2"> == </span><span id="a5">ad3</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">sayi1</span><span id="a2"> = </span><span id="a3">20.5</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">sayi2</span><span id="a2"> = </span><span id="a3">20.5</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">sayi3</span><span id="a2"> = </span><span id="a3">20.4</span></div><br><div><span id="a5">sayi1</span><span id="a2"> == </span><span id="a5">sayi2</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a5">sayi1</span><span id="a2"> == </span><span id="a5">sayi3</span><span id="a2"> </span><span id="a0">// false</span></div></div>
+
+        <li>=== Hem eşit hem de aynı türdeyse</li>
+
+        <p>İki değerin: hem eşit hem de aynı tipte olup olmadığını kontrol eder. Metinsel ifadeler için: büyük/küçük harflere duyarlıdır.</p>
+
+        <div class="kodAlan"><div><span id="a3">10</span><span id="a2"> === </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">10.0</span><span id="a2"> === </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// true -&gt; float ve int number tiplidir</span></div><br><div><span id="a3">10</span><span id="a2"> === </span><span id="a8">"10"</span><span id="a2"> </span><span id="a0">// false -&gt; number tipi string tipine eşit değildir</span></div></div>
+
+        <li>!= Eşit değilse</li>
+
+        <p>iki değerin eşit olmaması durumunu kontrol eder. Tip dönüşümünü otomatik yapar.</p>
+
+        <div class="kodAlan"><div><span id="a3">10</span><span id="a2"> != </span><span id="a3">11</span><span id="a2"> </span><span id="a0">// true </span></div><br><div><span id="a3">10</span><span id="a2"> != </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// false</span></div></div>
+
+        <li>!== Hem eşit değil hem de aynı türde değilse</li>
+
+        <p>İki değerin: hem eşit olmaması hem de aynı tipte olmaması durumunu kontrol eder. Metinsel ifadeler için: büyük/küçük harflere duyarlıdır.</p>
+
+        <div class="kodAlan"><div><span id="a3">10</span><span id="a2"> === </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">10</span><span id="a2"> === </span><span id="a8">"10"</span><span id="a2"> </span><span id="a0">// false</span></div></div>
+
+        <li>< Küçükse</li>
+
+        <p>İlk değerin ikinci değerden küçük olma durumunu kontrol eder. Tip dönüşümünü otomatik yapar. Büyük küçük harflere duyarlıdır. Metinsel ifadeleri sözlüksel sıralama (lexicographic order) değerine göre kontrol edilir.</p>
+
+        <div class="kodAlan"><div><span id="a3">10</span><span id="a2"> &lt; </span><span id="a3">11</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">10</span><span id="a2"> &lt; </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a3">15</span><span id="a2"> &lt; </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a3">10</span><span id="a2"> &lt; </span><span id="a8">"11"</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">10</span><span id="a2"> &lt; </span><span id="a8">"5"</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a8">"d"</span><span id="a2"> &lt; </span><span id="a8">"c"</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a8">"d"</span><span id="a2"> &lt; </span><span id="a8">"ç"</span><span id="a2"> </span><span id="a0">// true -&gt; türkçe karakterler sonradan eklendiği için sözlüksel sıralama olarak sonradan gelir</span></div></div>
+
+        <li><= Küçük veya eşitse</li>
+
+        <p>İlk değerin ikinci değerden küçük ve eşit olma durumunu kontrol eder. Büyük küçük harflere duyarlıdır. Metinsel ifadeleri sözlüksel sıralama (lexicographic order) değerine göre kontrol edilir.</p>
+
+        <div class="kodAlan"><div><span id="a3">10</span><span id="a2"> &lt;= </span><span id="a3">11</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">10</span><span id="a2"> &lt;= </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">15</span><span id="a2"> &lt;= </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a3">10</span><span id="a2"> &lt;= </span><span id="a8">"11"</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">10</span><span id="a2"> &lt;= </span><span id="a8">"5"</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a8">"d"</span><span id="a2"> &lt;= </span><span id="a8">"c"</span><span id="a2"> </span><span id="a0">// false</span></div></div>
+
+        <li>> Büyükse</li>
+
+        <p>İlk değerin ikinci değerden büyük olma durumunu kontrol eder. Tip dönüşümünü otomatik yapar. Büyük küçük harflere duyarlıdır. Metinsel ifadeleri sözlüksel sıralama (lexicographic order) değerine göre kontrol edilir.</p>
+
+        <div class="kodAlan"><div><span id="a3">10</span><span id="a2"> &gt; </span><span id="a3">11</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a3">10</span><span id="a2"> &gt; </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a3">15</span><span id="a2"> &gt; </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">10</span><span id="a2"> &gt; </span><span id="a8">"11"</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a3">10</span><span id="a2"> &gt; </span><span id="a8">"5"</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a8">"d"</span><span id="a2"> &gt; </span><span id="a8">"c"</span><span id="a2"> </span><span id="a0">// true</span></div></div>
+
+        <li>>= Büyük veya eşitse</li>
+
+        <p>İlk değerin ikinci değerden küçük ve eşit olma durumunu kontrol eder. Büyük küçük harflere duyarlıdır. Metinsel ifadeleri sözlüksel sıralama (lexicographic order) değerine göre kontrol edilir.</p>
+
+        <div class="kodAlan"><div><span id="a3">10</span><span id="a2"> &gt;= </span><span id="a3">11</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a3">10</span><span id="a2"> &gt;= </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">15</span><span id="a2"> &gt;= </span><span id="a3">10</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a3">10</span><span id="a2"> &gt;= </span><span id="a8">"11"</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a3">10</span><span id="a2"> &gt;= </span><span id="a8">"5"</span><span id="a2"> </span><span id="a0">// true</span></div><br><div><span id="a8">"d"</span><span id="a2"> &gt;= </span><span id="a8">"c"</span><span id="a2"> </span><span id="a0">// true</span></div></div>
+        
+        <div id="sonraki"><a href="/javascript/">Mantıksal Oparatörler</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
