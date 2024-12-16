@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FB28R6R7HM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-FB28R6R7HM');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="javascript ternary operatörü, çoklu ternary operatörü kullanımı, if else ternary operatörü">
@@ -24,7 +31,7 @@
 
         <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">b</span><span id="a2"> = </span><span id="a3">10</span></div><br><div><span id="a6">if</span><span id="a2"> (</span><span id="a5">b</span><span id="a2"> &gt; </span><span id="a3">20</span><span id="a2">) {</span></div><br><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a8">"b büyüktür 20"</span><span id="a2">)</span></div><br><div><span id="a2">} </span><span id="a6">else</span><span id="a2"> </span><span id="a6">if</span><span id="a2"> (</span><span id="a5">b</span><span id="a2"> &lt; </span><span id="a3">20</span><span id="a2">) {</span></div><br><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a8">"b küçüktür 20"</span><span id="a2">) </span><span id="a0">// "b küçüktür 20"</span></div><br><div><span id="a2">} </span><span id="a6">else</span><span id="a2"> {</span></div><br><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a8">"b eşittir 20"</span><span id="a2">)</span></div><br><div><span id="a2">}</span></div><br><div><span id="a0">// if ? if bloğu : else if ? else if bloğu : else bloğu</span></div><br><div><span id="a5">b</span><span id="a2"> &gt; </span><span id="a3">20</span><span id="a2"> ? </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a8">"b büyüktür 20"</span><span id="a2">) : </span><span id="a5">b</span><span id="a2"> &lt; </span><span id="a3">20</span><span id="a2"> ? </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a8">"b küçüktür 20"</span><span id="a2">) : </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a8">"b eşittir 20"</span><span id="a2">) </span><span id="a0">// "b küçüktür 20"</span></div></div>
 
-        <p>Ternary Operatörü, sonuç döndürür. Sonuç bir değişkene atanabilir.</p>
+        <p>Ternary Operatörü, değer döndürür. Bu değer bir değişkene atanabilir.</p>
 
         <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">sayi1</span><span id="a2"> = </span><span id="a3">100</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">sayi2</span><span id="a2"> = </span><span id="a3">120</span></div><br><div><span id="a1">var</span><span id="a2"> </span><span id="a5">sonuc</span><span id="a2"> = </span><span id="a5">sayi1</span><span id="a2"> &gt; </span><span id="a5">sayi2</span><span id="a2"> ? </span><span id="a8">"sayi1 büyük"</span><span id="a2"> : </span><span id="a5">sayi2</span><span id="a2"> &gt; </span><span id="a5">sayi1</span><span id="a2"> ? </span><span id="a8">"say2 büyük"</span><span id="a2"> : </span><span id="a8">"sayılar birbirine eşit"</span></div><br><div><span id="a5">sonuc</span><span id="a2"> </span><span id="a0">// "say2 büyük"</span></div></div>
 
