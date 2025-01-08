@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript for döngüsü, javascript iç içe döngüler, döngüler ile çalışmak, programlama döngüler konusu, döngüler ve diziler ile çalışmak">
+    <meta name="keywords" content="javascript for döngüsü, javascript iç içe döngüler, döngüler ile çalışmak, programlama döngüler konusu, döngüler ve diziler ile çalışmak">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili For Döngüsü</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript For Döngüsü</h1>
+
+        <p>For döngüsü ile istenilen koşul sağlanana kadar kod bloğu tekrar tekrar çalıştırılır. Koşul sağlanmadığu durumda for döngüsü sonlanır.</p>
+
+        <div class="kodAlan"><div><span id="a6">for</span><span id="a2"> (</span><span id="a5">başlangıç</span><span id="a2">; </span><span id="a5">koşul</span><span id="a2">; </span><span id="a5">adım</span><span id="a2">) {</span></div><div><span id="a2">        </span></div><div><span id="a2">        </span><span id="a0">// döngü içinde çalışan kodlar</span></div><div><span id="a2">        </span></div><div><span id="a2">    }</span></div></div>
+
+        <p>0'dan 5'e kadar olan rakamların for döngüsü ile console ekranına yazımı:</p>
+
+        <div class="kodAlan"><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">baslangic</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">baslangic</span><span id="a2"> &lt; </span><span id="a3">5</span><span id="a2">; </span><span id="a5">baslangic</span><span id="a2">++) {</span></div><div><span id="a2">        </span></div><div><span id="a2">        </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a8">"Başlangıç değeri: "</span><span id="a2"> + </span><span id="a5">baslangic</span><span id="a2">)</span></div><br><div><span id="a2">    }</span></div><br><div><span id="a0">//Başlangıç değeri: 0</span></div><div><span id="a0">//Başlangıç değeri: 1</span></div><div><span id="a0">//Başlangıç değeri: 2</span></div><div><span id="a0">//Başlangıç değeri: 3</span></div><div><span id="a0">//Başlangıç değeri: 4</span></div></div>
+
+        <p>Dizi elemanlarının for döngüsü ile console ekranına yazımı:</p>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">renkler</span><span id="a2"> = [</span><span id="a8">"Kırmızı"</span><span id="a2">,</span><span id="a8">"Turuncu"</span><span id="a2">,</span><span id="a8">"Sarı"</span><span id="a2">,</span><span id="a8">"Yeşil"</span><span id="a2">,</span><span id="a8">"Mavi"</span><span id="a2">,</span><span id="a8">"Lacivert"</span><span id="a2">,</span><span id="a8">"Mor"</span><span id="a2">]</span></div><br><div><span id="a2">    </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">index</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">index</span><span id="a2"> &lt; </span><span id="a3">7</span><span id="a2">; </span><span id="a5">index</span><span id="a2">++) {</span></div><div><span id="a2">        </span></div><div><span id="a2">        </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">index</span><span id="a2">+</span><span id="a3">1</span><span id="a2"> + </span><span id="a8">". renk = "</span><span id="a2"> + </span><span id="a5">renkler</span><span id="a2">[</span><span id="a5">index</span><span id="a2">])</span></div><br><div><span id="a2">    }</span></div><div><span id="a2">    </span></div><div><span id="a0">//1. renk = Kırmızı</span></div><div><span id="a0">//2. renk = Turuncu</span></div><div><span id="a0">//3. renk = Sarı</span></div><div><span id="a0">//4. renk = Yeşil</span></div><div><span id="a0">//5. renk = Mavi</span></div><div><span id="a0">//6. renk = Lacivert</span></div><div><span id="a0">//7. renk = Mor</span></div></div>
+
+        <h2>İç İçe For Döngüleri</h2>
+
+        <p>İç içe for döngüleri, döngü içinde çalışan başka bir döngü tanımlamak kullanılan yapılardır. Genellikle, çok boyutlu diziler veya karmaşık hesaplamalarda çalışırken kullanılır. Dıştaki döngünün birkez çalışması, içteki döngüyü baştan sonra tekrar çalıştırır. İçteki döngü tamamlandığında, dıştaki döngü tekrar çalışır ve içteki döngüyü tekrar baştan sona çalıştırır. Dıştaki döngü bitene kadar içteki döngü tekrar tekrar çalıştırılmış olur.</p>
+
+        <p>0'dan 3'e kadar olan rakamları, 2 kez iç içe döngü ile console ekranına yazımı:</p>
+
+        <div class="kodAlan"><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a3">2</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) { </span><span id="a0">// i dış döngünün değeri</span></div><br><div><span id="a2">        </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">j</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">j</span><span id="a2"> &lt;= </span><span id="a3">3</span><span id="a2">; </span><span id="a5">j</span><span id="a2">++) { </span><span id="a0">// j iç döngünün değeri</span></div><br><div><span id="a2">            </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">j</span><span id="a2">)</span></div><div><span id="a2">            </span></div><div><span id="a2">        }</span></div><div><span id="a2">    }</span></div><br><div><span id="a0">//0</span></div><div><span id="a0">//1</span></div><div><span id="a0">//2</span></div><div><span id="a0">//3 -&gt; i değeri 1 arttırıldı ve dış döngü tekrar çalıştı</span></div><div><span id="a0">//0</span></div><div><span id="a0">//1</span></div><div><span id="a0">//2</span></div><div><span id="a0">//3 -&gt; i değeri 1 arttırıldı ve koşul sağlanmadığı için döngü sonlandırıldı</span></div></div>
+
+        
+        <div id="sonraki"><a href="/javascript/">break ve contiune</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
