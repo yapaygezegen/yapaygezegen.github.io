@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript break ve contiune kullanımı, iç içe döngülerde break ve contiune, javascript etiket kullanımı, javascript döngülerde break contiune, javascript break continue">
+    <meta name="keywords" content="javascript break ve contiune kullanımı, iç içe döngülerde break ve contiune, javascript etiket kullanımı, javascript döngülerde break contiune, javascript break continue">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Break ve Contiune</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Break ve Contiune</h1>
+
+        <h2>break</h2>
+
+        <p>Break, içinde çalıştığı döngüyü durdurmak için kullanılır. Genellikle belirli bir koşulun gerçekleşme durumunda döngüyü kırmak için kullanılır.</p>
+
+        <div class="kodAlan"><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a3">10</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">    </span><span id="a6">if</span><span id="a2"> (</span><span id="a5">i</span><span id="a2"> == </span><span id="a3">5</span><span id="a2">) {</span></div><div><span id="a2">        </span><span id="a6">break</span></div><div><span id="a2">    }</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">i</span><span id="a2">)</span></div><div><span id="a2">}</span></div><br><div><span id="a0">// 01234 -&gt; 5 değeri için break çalışır ve döngü sonlandırılır</span></div></div>
+
+        <h2>contiune</h2>
+
+        <p>Continue, döngüdeki mevcut değerin atlanarak bir sonraki değere geçmek için kullanılır. Genellikle belirli bir koşulun gerçekleşme durumunda döngü değerinin pas geçilmesi için kullanılır.</p>
+
+        <div class="kodAlan"><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a3">10</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">    </span><span id="a6">if</span><span id="a2"> (</span><span id="a5">i</span><span id="a2"> == </span><span id="a3">5</span><span id="a2">) {</span></div><div><span id="a2">        </span><span id="a6">continue</span></div><div><span id="a2">    }</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">i</span><span id="a2">)</span></div><div><span id="a2">}</span></div><br><div><span id="a0">// 012346789 -&gt; 5 değeri için işlem yapılmaz, bir sonraki değere geçilir</span></div></div>
+
+        <h2>İç İçe Döngülerde break ve continue</h2>
+
+        <p>İç içe döngülerde, hangi döngünün durdurulacağı veya atlanacağını belirlemek için etiketler kullanılır. Etiketler, döngünün başına konulan tanımlamalardır.</p>
+
+        <p>* Örnekte: 0'dan 9'a kadar olan rakamların toplamını hesaplayan iç içe döngü yazılmıştır. Bu işlemin üst üste kaç kez yapılacağı, adet değişkeni ile sınırlandırılmıştır. İlk döngü 3 kez çalışır. İçindeki döngü baştan sona kadar 3 kez tekrarlanır.</p>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">toplam</span><span id="a2"> = </span><span id="a3">0</span></div><div><span id="a1">var</span><span id="a2"> </span><span id="a5">adet</span><span id="a2"> = </span><span id="a3">3</span></div><br><div><span style="color: #c8c8c8;">ilkDongu</span><span id="a2"> : </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a3">10</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">    </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">j</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">j</span><span id="a2"> &lt; </span><span id="a3">10</span><span id="a2">; </span><span id="a5">j</span><span id="a2">++) {</span></div><div><span id="a2">        </span><span id="a6">if</span><span id="a2">(</span><span id="a5">i</span><span id="a2"> == </span><span id="a5">adet</span><span id="a2">){</span></div><div><span id="a2">            </span><span id="a6">break</span><span id="a2"> </span><span style="color: #c8c8c8;">ilkDongu</span></div><div><span id="a2">        }</span></div><div><span id="a2">        </span><span id="a5">toplam</span><span id="a2"> += </span><span id="a5">j</span></div><div><span id="a2">    }</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">toplam</span><span id="a2">) </span><span id="a0">// 135</span></div></div>
+
+        <p>* Örnekte: 0'dan 3'e kadar olan rakamları, 3 kez console ekranına yazdıran iç içe döngü yazılmıştır. İlk döngünün 1 değeri için döngü değeri atlanmıştır. İlk döngü 1 değerini çalıştırmadan 2 değerinden işleme devam eder. Bu atlama işleminden içteki döngü de etkilenir ve aynı değer için o da çalıştırılmaz.</p>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">atla</span><span id="a2"> = </span><span id="a3">1</span></div><br><div><span style="color: #c8c8c8;">ilkDongu</span><span id="a2"> : </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a3">3</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">    </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">j</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">j</span><span id="a2"> &lt; </span><span id="a3">3</span><span id="a2">; </span><span id="a5">j</span><span id="a2">++) {</span></div><div><span id="a2">        </span><span id="a6">if</span><span id="a2">(</span><span id="a5">i</span><span id="a2"> == </span><span id="a5">atla</span><span id="a2">){</span></div><div><span id="a2">            </span><span id="a6">continue</span><span id="a2"> </span><span style="color: #c8c8c8;">ilkDongu</span></div><div><span id="a2">        }</span></div><div><span id="a2">        </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a8">"ilk döngü: "</span><span id="a2"> + </span><span id="a5">i</span><span id="a2"> + </span><span id="a8">", ikinci döngü: "</span><span id="a2"> + </span><span id="a5">j</span><span id="a2">)</span></div><div><span id="a2">    }</span></div><div><span id="a2">}</span></div><br><div><span id="a0">//ilk döngü: 0, ikinci döngü: 0</span></div><div><span id="a0">//ilk döngü: 0, ikinci döngü: 1</span></div><div><span id="a0">//ilk döngü: 0, ikinci döngü: 2</span></div><div><span id="a0">//ilk döngü: 2, ikinci döngü: 0 -&gt; ilk döngünün 1 değeri atlandı</span></div><div><span id="a0">//ilk döngü: 2, ikinci döngü: 1</span></div><div><span id="a0">//ilk döngü: 2, ikinci döngü: 2</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">for in ve for of</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
