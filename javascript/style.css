@@ -38,7 +38,9 @@ main{
     overflow: auto;
 }
 .kodAlan {
-    font-size: 18px;
+    font-size: 16px;
+    font-family: Menlo, Monaco, "Courier New", monospace;
+    line-height: 20px;
     border: 1px solid #444;
     padding: 10px;
     margin: 20px 0;
