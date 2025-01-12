@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript for in döngüsü, javascript for of döngüsü, for in ve for of döngüleri, javascript for of for in döngüleri">
+    <meta name="keywords" content="javascript for in döngüsü, javascript for of döngüsü, for in ve for of döngüleri, javascript for of for in döngüleri">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili for in ve for of Döngüleri</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript for in ve for of</h1>
+
+        <h2>for in</h2>
+
+        <p>For in döngüsü, nesnelerin veya dizilerin sayılabilir özelliklerine ulaşmak için kullanılır. Bu döngü ile nesnenin tüm anahtar-deger (key-value) değerleri döndürülür.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">nesne</span><span id="a2"> = {</span><span id="a5">a</span><span id="a5">:</span><span id="a2"> </span><span id="a3">1</span><span id="a2">, </span><span id="a5">b</span><span id="a5">:</span><span id="a2"> </span><span id="a3">2</span><span id="a2">, </span><span id="a5">c</span><span id="a5">:</span><span id="a2"> </span><span id="a3">3</span><span id="a2">, </span><span id="a5">d</span><span id="a5">:</span><span id="a2"> </span><span id="a3">4</span><span id="a2">}</span></div><br><div><span id="a6">for</span><span id="a2">(</span><span id="a1">let</span><span id="a2"> </span><span id="a5">anahtar</span><span id="a2"> </span><span id="a1">in</span><span id="a2"> </span><span id="a5">nesne</span><span id="a2">){</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">anahtar</span><span id="a2"> + </span><span id="a8">" : "</span><span id="a2"> + </span><span id="a5">nesne</span><span id="a2">[</span><span id="a5">anahtar</span><span id="a2">])</span></div><div><span id="a2">}</span></div><br><div><span id="a0">// a : 1 -&gt; anahtar ve değeri</span></div><div><span id="a0">// b : 2</span></div><div><span id="a0">// c : 3</span></div><div><span id="a0">// d : 4</span></div></div>
+
+        <h2>for of</h2>
+
+        <p>For of döngüsü, yineleyebilir nesnelerin üzerinde çalışmak için kullanılır. Bu döngü: array, string, map, set gibi yapıların üzerinde çalışılabilir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi</span><span id="a2"> = [</span><span id="a8">"a"</span><span id="a2">,</span><span id="a8">"b"</span><span id="a2">,</span><span id="a8">"c"</span><span id="a2">,</span><span id="a8">"d"</span><span id="a2">]</span></div><br><div><span id="a6">for</span><span id="a2">(</span><span id="a1">let</span><span id="a2"> </span><span id="a5">veri</span><span id="a2"> </span><span id="a1">of</span><span id="a2"> </span><span id="a5">dizi</span><span id="a2">){</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">veri</span><span id="a2">)</span></div><div><span id="a2">}</span></div><br><div><span id="a0">// a</span></div><div><span id="a0">// b</span></div><div><span id="a0">// c</span></div><div><span id="a0">// d</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"Javascript"</span></div><br><div><span id="a6">for</span><span id="a2">(</span><span id="a1">let</span><span id="a2"> </span><span id="a5">veri2</span><span id="a2"> </span><span id="a1">of</span><span id="a2"> </span><span id="a5">metin</span><span id="a2">){</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">veri2</span><span id="a2">)</span></div><div><span id="a2">}</span></div><br><div><span id="a0">// J</span></div><div><span id="a0">// a</span></div><div><span id="a0">// v</span></div><div><span id="a0">// a</span></div><div><span id="a0">// s</span></div><div><span id="a0">// c</span></div><div><span id="a0">// r</span></div><div><span id="a0">// i</span></div><div><span id="a0">// p</span></div><div><span id="a0">// t</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">Fonksiyonlar</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
