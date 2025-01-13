@@ -34,13 +34,13 @@
 
         <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">yeniDizi</span><span id="a2"> = [</span><span id="a8">"gökhan"</span><span id="a2">,</span><span id="a8">"altan"</span><span id="a2">,</span><span id="a8">"yağmur"</span><span id="a2">,</span><span id="a8">"cengiz"</span><span id="a2">]</span></div><br><div><span id="a5">yeniDizi</span><span id="a2">[</span><span id="a3">0</span><span id="a2">] </span><span id="a0">// "gökhan"</span></div><br><div><span id="a5">yeniDizi</span><span id="a2">[</span><span id="a3">1</span><span id="a2">] </span><span id="a0">// "altan"</span></div><br><div><span id="a5">yeniDizi</span><span id="a2">.</span><span id="a5">length</span><span id="a2"> </span><span id="a0">// 4</span></div></div>
 
+        <p>Dizilerde farklı türdeki elemanlar bulunabilir. Dizinin barındırdığı elemanlar aynı tipte olmak zorunda değildir.</p>
+
+        <div class="kodAlan"><span id="a1">var</span><span id="a2"> </span><span id="a5">ornekkDizi</span><span id="a2"> = [</span><span id="a3">1</span><span id="a2">, </span><span id="a8">"iki"</span><span id="a2">, </span><span id="a1">false</span><span id="a2">, [</span><span id="a3">100</span><span id="a2">,</span><span id="a3">150</span><span id="a2">,</span><span id="a3">200</span><span id="a2">]]</span></div>
+
         <p>Diziler çok boyutlu olarak tanımlanabilir. En yaygın kullanımı 2 boyutlu dizilerdir. Matematiksel hesaplamalar, oyun geliştirme ve veri analizi gibi alanlarda sıkça kullanılır.</p>
 
         <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">xyKoordinatlar</span><span id="a2"> = [[</span><span id="a3">15</span><span id="a2">,</span><span id="a3">50</span><span id="a2">],[</span><span id="a3">5</span><span id="a2">,</span><span id="a3">30</span><span id="a2">],[</span><span id="a3">45</span><span id="a2">,</span><span id="a3">60</span><span id="a2">],[</span><span id="a3">75</span><span id="a2">,</span><span id="a3">115</span><span id="a2">]]</span></div><br><div><span id="a5">xyKoordinatlar</span><span id="a2">[</span><span id="a3">0</span><span id="a2">] </span><span id="a0">// dizi içindeki ilk dizinin x ve y koordinat verileri</span></div><br><div><span id="a5">xyKoordinatlar</span><span id="a2">[</span><span id="a3">0</span><span id="a2">][</span><span id="a3">1</span><span id="a2">] </span><span id="a0">// dizi içindeki ilk dizinin y ekseni için koordinat verisi</span></div></div>
-
-        <p>Dizilerde farklı türdeki elemanlar bulunabilir. * Dizinin tipi yoktur.</p>
-
-        <div class="kodAlan"><span id="a1">var</span><span id="a2"> </span><span id="a5">ornekkDizi</span><span id="a2"> = [</span><span id="a3">1</span><span id="a2">, </span><span id="a8">"iki"</span><span id="a2">, </span><span id="a1">false</span><span id="a2">, { </span><span id="a5">ad</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"Tarkan"</span><span id="a2"> }, [</span><span id="a3">100</span><span id="a2">,</span><span id="a3">150</span><span id="a2">,</span><span id="a3">200</span><span id="a2">]]</span></div>
 
         <h2>Function (Fonksiyon)</h2>
 
@@ -48,17 +48,51 @@
 
         <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">toplama</span><span id="a2">(</span><span id="a5">a</span><span id="a2">,</span><span id="a5">b</span><span id="a2">){</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">a</span><span id="a2"> + </span><span id="a5">b</span></div><div><span id="a2">}</span></div><br><div><span id="a4">toplama</span><span id="a2">(</span><span id="a3">5</span><span id="a2">,</span><span id="a3">20</span><span id="a2">) </span><span id="a0">// 25</span></div></div>
 
-        <h2>Object (Nesne)</h2>
-
-        <p>Object: anahtar - değer çiftlerinden oluşur. Genellikle verileri gruplandırmak için kullanılır. İlgili anahtar ile nesnenin istenilen değerlere ulaşılır.</p>
-
-        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">ogrenci</span><span id="a2"> = {</span></div><div><span id="a2">    </span><span id="a5">adiSoyadi</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"Hakan Kara"</span><span id="a2">,</span></div><div><span id="a2">    </span><span id="a5">yasi</span><span id="a5">:</span><span id="a2"> </span><span id="a3">30</span><span id="a2">,</span></div><div><span id="a2">    </span><span id="a5">notu</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"85"</span></div><div><span id="a2">}</span></div><br><div><span id="a5">ogrenci</span><span id="a2">.</span><span id="a5">adiSoyadi</span><span id="a2"> </span><span id="a0">// "Hakan Kara"</span></div><br><div><span id="a5">ogrenci</span><span id="a2">.</span><span id="a5">yasi</span><span id="a2"> </span><span id="a0">// 30</span></div></div>
-
         <h2>Date (Tarih)</h2>
 
         <p>Date: tarih ve saat bilgilerini erişmek için kullanılanır.</p>
         
         <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">tarih</span><span id="a2"> = </span><span id="a1">new</span><span id="a2"> </span><span id="a9">Date</span><span id="a2">() </span><span id="a0">// anlık tarih verilerini içerir -&gt; Wed Dec 11 2024 20:42:23 GMT+0300 (GMT+03:00)</span></div><br><div><span id="a5">tarih</span><span id="a2">.</span><span id="a4">getHours</span><span id="a2">() </span><span id="a0">// anlık saaat verisi</span></div><br><div><span id="a5">tarih</span><span id="a2">.</span><span id="a4">getMinutes</span><span id="a2">() </span><span id="a0">// anlık dakika verisi</span></div><br><div><span id="a5">tarih</span><span id="a2">.</span><span id="a4">getFullYear</span><span id="a2">() </span><span id="a0">// anlık yıl verisi</span></div></div>
+
+        <h2>Object (Nesne)</h2>
+
+        <p>Object: anahtar - değer çiftlerinden oluşur. Genellikle verileri gruplandırmak için kullanılır. İlgili anahtar ile nesnenin istenilen değerlere ulaşılır. Anahtar: string veya sembol tipinde olmak zorundadır.</p>
+
+        <div class="kodAlan"><div><span id="a1">var</span><span id="a2"> </span><span id="a5">ogrenci</span><span id="a2"> = {</span></div><div><span id="a2">    </span><span id="a5">adiSoyadi</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"Hakan Kara"</span><span id="a2">,</span></div><div><span id="a2">    </span><span id="a5">yasi</span><span id="a5">:</span><span id="a2"> </span><span id="a3">30</span><span id="a2">,</span></div><div><span id="a2">    </span><span id="a5">notu</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"85"</span></div><div><span id="a2">}</span></div><br><div><span id="a5">ogrenci</span><span id="a2">.</span><span id="a5">adiSoyadi</span><span id="a2"> </span><span id="a0">// "Hakan Kara"</span></div><br><div><span id="a5">ogrenci</span><span id="a2">.</span><span id="a5">yasi</span><span id="a2"> </span><span id="a0">// 30</span></div></div>
+
+        <h2>Map</h2>
+
+        <p>Map, anahtar - değer çiftlerini saklayan bir veri yapısıdır. Nesneden farklı olarak: anahtar veri tipi herhangi bir veri tipinde olabilir. (nesne, dize, sayı, vb.) Anahtarları eklenme sırasına göre depolar. Map özellikleri:</p>
+
+        <ul>
+            <li>new Map() -> Yeni Map oluşturur.</li>
+            <li>.set(anahtar, değer) -> Anahtara değer atar.</li>
+            <li>.get(anahtar) -> Anahtarın değerini döndürür. Anahtar yok ise "undefined" döner.</li>
+            <li>.has(anahtar) -> Anahtarın var olup olmadığını kontrol eder.</li>
+            <li>.delete(anahtar) -> Anahtara ait değeri siler.</li>
+            <li>.clear(): Tüm elemanları siler.</li>
+            <li>.size -> Map'ın eleman sayısını döndürür.</li>
+        </ul>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">yeniMap</span><span id="a2"> = </span><span id="a1">new</span><span id="a2"> </span><span id="a9">Map</span><span id="a2">() </span><span id="a0">// Map oluşturuldu</span></div><br><div><span id="a5">yeniMap</span><span id="a2">.</span><span id="a4">set</span><span id="a2">(</span><span id="a8">"adi"</span><span id="a2">,</span><span id="a8">"Kurt"</span><span id="a2">) </span><span id="a0">// Map'a anahtar ve değer ataması yapıldı</span></div><br><div><span id="a5">yeniMap</span><span id="a2">.</span><span id="a4">set</span><span id="a2">(</span><span id="a1">true</span><span id="a2">, </span><span id="a8">"erkek"</span><span id="a2">)</span></div><br><div><span id="a5">yeniMap</span><span id="a2">.</span><span id="a4">set</span><span id="a2">(</span><span id="a3">30</span><span id="a2">, </span><span id="a3">1995</span><span id="a2">)</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">yeniMap</span><span id="a2">) </span><span id="a0">// Map(3)&nbsp;{'adi' =&gt; 'Kurt', true =&gt; 'erkek', 30 =&gt; 1995}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">yeniMap</span><span id="a2">.</span><span id="a4">get</span><span id="a2">(</span><span id="a8">"adi"</span><span id="a2">)) </span><span id="a0">// Kurt</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">yeniMap2</span><span id="a2"> = </span><span id="a1">new</span><span id="a2">  </span><span id="a9">Map</span><span id="a2"> ([[</span><span id="a8">"adi"</span><span id="a2">, </span><span id="a8">"Kurt"</span><span id="a2">], [</span><span id="a1">true</span><span id="a2">, </span><span id="a8">"erkek"</span><span id="a2">], [</span><span id="a3">30</span><span id="a2">, </span><span id="a3">1995</span><span id="a2">]])</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">yeniMap</span><span id="a2">) </span><span id="a0">// Map(3)&nbsp;{'adi' =&gt; 'Kurt', true =&gt; 'erkek', 30 =&gt; 1995}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">yeniMap2</span><span id="a2">.</span><span id="a4">get</span><span id="a2">(</span><span id="a1">true</span><span id="a2">)) </span><span id="a0">// erkek</span></div></div>
+
+        <h2>Set</h2>
+
+        <p>Set, her değerin yalnızca bir kez bulunabileceği bir veri yapısıdır. Set içine aynı elemandan 2 tane eklenemez. Set özellikleri:</p>
+
+        <ul>
+            <li>.add(değer) -> Bir değer ekler. Eğer değer Set içerisinde bulunuyor ise işlem yapılmaz.</li>
+            <li>.delete(value) -> Değeri siler.</li>
+            <li>.has(value): Değerin var olup olmadığını kontrol eder.</li>
+            <li>.clear(): Tüm elemanları siler.</li>
+            <li>.size -> Map'ın eleman sayısını döndürür.</li>
+        </ul>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">yeniSet</span><span id="a2"> = </span><span id="a1">new</span><span id="a2"> </span><span id="a9">Set</span><span id="a2">() </span><span id="a0">// Set oluşturuldu</span></div><br><div><span id="a5">yeniSet</span><span id="a2">.</span><span id="a4">add</span><span id="a2">(</span><span id="a8">"Altan"</span><span id="a2">) </span><span id="a0">// Set'e eleman ataması yapıldı</span></div><br><div><span id="a5">yeniSet</span><span id="a2">.</span><span id="a4">add</span><span id="a2">(</span><span id="a8">"Arkın"</span><span id="a2">)</span></div><br><div><span id="a5">yeniSet</span><span id="a2">.</span><span id="a4">add</span><span id="a2">(</span><span id="a8">"Altan"</span><span id="a2">) </span><span id="a0">// Set içinde aynı eleman olduğu için atama yapılmadı</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">yeniSet</span><span id="a2">) </span><span id="a0">// Set(2)&nbsp;{'Altan', 'Arkın'}</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">yeniSet2</span><span id="a2"> = </span><span id="a1">new</span><span id="a2"> </span><span id="a9">Set</span><span id="a2">(</span><span id="a8">"Altan"</span><span id="a2">,</span><span id="a8">"Arkın"</span><span id="a2">)</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">yeniSet</span><span id="a2">) </span><span id="a0">// Set(2)&nbsp;{'Altan', 'Arkın'}</span></div></div>
         
         <div id="sonraki"><a href="/javascript/4-tip-donusumleri.html">Tip Dönüşümleri</a></div>
     </main>
