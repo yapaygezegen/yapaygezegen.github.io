@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript varsayılan parametre, js default parametre, varsayılan default parametre kullanımı">
+    <meta name="keywords" content="javascript varsayılan parametre, js default parametre, varsayılan default parametre kullanımı">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Varsayılan (Default) Parametre Tanımla</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Varsayılan (Default) Parametre Tanımla</h1>
+
+        <p>Parametre alan fonksiyonlara argüman göndermede zorunluluğu yoktur. Parametreler için varsayılan değerler atanabilir. Bu değerler argüman gönderilmediği koşulda varsayılan olarak çalışır.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">topla</span><span id="a2">(</span><span id="a5">a</span><span id="a2"> = </span><span id="a3">12</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">a</span><span id="a2"> * </span><span id="a5">a</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">topla</span><span id="a2">()) </span><span id="a0">// 144 -&gt; argüman gönderilmediği için varsayılan değerler kullanılır</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">topla</span><span id="a2">(</span><span id="a3">7</span><span id="a2">)) </span><span id="a0">// 49 -&gt; argüman gönderildiğinde varsayılan değerler geçersiz olur</span></div></div>
+
+        <p>Fonksiyon için tanımlanan parametrelere varsayılan değerler atanmadığı ve argüman gönderilmediği koşulda: parametreler "undefined" (tanımlanmamış) değerini taşır. Eski bir yöntem olarak; parametrelerin "undefined" olma durumu kontrol edilebilip, parametrelere değer ataması yapılabilir.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">ornek1</span><span id="a2">(</span><span id="a5">a</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">a</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">ornek1</span><span id="a2">()) </span><span id="a0">// undefined -&gt; varsayılan değer olmadığı için "tanımlanmamış" değeri döner</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">ornek1</span><span id="a2">(</span><span id="a3">1200</span><span id="a2">)) </span><span id="a0">// 1200</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">ornek2</span><span id="a2">(</span><span id="a5">b</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a6">if</span><span id="a2"> (</span><span id="a5">b</span><span id="a2"> == </span><span id="a1">undefined</span><span id="a2">) { </span><span id="a0">// tanımlanmamış değer kontrol ediliyor</span></div><div><span id="a2">        </span><span id="a1">var</span><span id="a2"> </span><span id="a5">b</span><span id="a2"> = </span><span id="a3">20</span><span id="a2"> </span><span id="a0">// varsayılan değer ataması yapılıyor</span></div><div><span id="a2">    }</span></div><br><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">b</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">ornek2</span><span id="a2">()) </span><span id="a0">// 20</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">ornek2</span><span id="a2">(</span><span id="a3">50</span><span id="a2">)) </span><span id="a0">// 50 -&gt; argüman gönderildiği için varsayılan değer geçersiz oluyor</span></div></div>
+
+        <p>Bu yöntem kod fazlalığına sebep olur. Birden fazla parametre alan fonksiyonlar için: daha fazla if sorgusu yazmak gerekecektir. Varsayılan parametre belirleme yöntemi, kod fazlalığını engeller ve daha anlaşılır kod yazımını sağlar.</p>
+
+        <div id="sonraki"><a href="/javascript/">Rest Operatörü</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
