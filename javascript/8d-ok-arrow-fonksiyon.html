@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript arrow fonksiyon, arrow ok fonksiyonlar, javascript dilinde fonksiyonlar, ok arrow fonksiyon javascript kullanımı">
+    <meta name="keywords" content="javascript arrow fonksiyon, arrow ok fonksiyonlar, javascript dilinde fonksiyonlar, ok arrow fonksiyon javascript kullanımı">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Ok (Arrow) Fonksiyon</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Ok (Arrow) Fonksiyon</h1>
+
+        <p>Arrow fonksiyon: daha kısa ve okunabilir bir şekilde fonksiyon tanımlamaya yarar. Arrow fonksiyon bir değişkene tanımlanır ve fonksiyon değişkenin adıyla çağrılır. Genellikle: dizi üzerinde çalışan döngüler ve callback alan yapılarda kullanılır. Arrow fonksiyonlar, arguments nesnesini desteklemez. Çok sayıda argümanla çalışılması gereken durumlarda normal fonksiyon kullanımı tercih edilmelidir.</p>
+
+        <div class="kodAlan"><div><span id="a2">(</span><span id="a5">parametre1</span><span id="a2">, </span><span id="a5">parametre2</span><span id="a2">) </span><span id="a1">=&gt;</span><span id="a2"> {</span></div><br><div><span id="a2">    </span><span id="a0">// Kod bloğu</span></div><br><div><span id="a2">}</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a4">okFonksiyon</span><span id="a2"> = (</span><span id="a5">ad</span><span id="a2">, </span><span id="a5">soyad</span><span id="a2">) </span><span id="a1">=&gt;</span><span id="a2"> {</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">ad</span><span id="a2"> + </span><span id="a8">" "</span><span id="a2"> + </span><span id="a5">soyad</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a8">"Gürkan"</span><span id="a2">,</span><span id="a8">"Korkmaz"</span><span id="a2">) </span><span id="a0">// Gürkan Korkmaz</span></div></div>
+
+        <p>Fonksiyon bir tane parametre alıyorsa, parantez kullanımı zorunlu değildir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a4">ornek1</span><span id="a2"> = </span><span id="a5">parametre1</span><span id="a2"> </span><span id="a1">=&gt;</span><span id="a2"> { </span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">parametre1</span></div><div><span id="a2">}</span></div></div>
+
+        <p>Fonksiyon bir tane ifade döndürüyorsa, süslü parantezler ve return anahtar kelimesi kullanımı zorunlu değildir.</p>
+
+        <div class="kodAlan"><span id="a1">let</span><span id="a2"> </span><span id="a4">ornek2</span><span id="a2"> = </span><span id="a5">parametre1</span><span id="a2"> </span><span id="a1">=&gt;</span><span id="a2"> </span><span id="a5">parametre1</span></div>
+
+        <p>Örnek olarak: gönderilen sayının karesini alan bir fonksiyon yazalım. Normal fonksiyon ve Arrow fonksiyon arasında farkları görelim.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a4">normalF</span><span id="a2"> = </span><span id="a1">function</span><span id="a2"> (</span><span id="a5">s1</span><span id="a2">){</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">s1</span><span id="a2"> * </span><span id="a5">s1</span></div><div><span id="a2">}</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a4">arrowF</span><span id="a2"> = </span><span id="a5">s2</span><span id="a2"> </span><span id="a1">=&gt;</span><span id="a2"> </span><span id="a5">s2</span><span id="a2"> * </span><span id="a5">s2</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">normalF</span><span id="a2">(</span><span id="a3">15</span><span id="a2">)) </span><span id="a0">// 225</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">arrowF</span><span id="a2">(</span><span id="a3">11</span><span id="a2">)) </span><span id="a0">// 121</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">Çağırılmadan Kendiliğinden Çalışan Fonksiyon</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
