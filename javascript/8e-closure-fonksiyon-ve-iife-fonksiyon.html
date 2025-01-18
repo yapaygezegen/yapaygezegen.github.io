@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript losure fonksiyon, JavaScript IIFE kendiliğinden çalışan fonksiyon, javascript ile veri gizliliği sağlamak">
+    <meta name="keywords" content="javascript losure fonksiyon, JavaScript IIFE kendiliğinden çalışan fonksiyon, javascript ile veri gizliliği sağlamak">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili IIFE Fonksiyon ve Closure Fonksiyon</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript IIFE Fonksiyon ve Closure Fonksiyon</h1>
+
+        <h2>Çağırılmadan Kendiliğinden Çalışan Fonksiyon (IIFE)</h2>
+
+        <p>Çağırılmadan Kendiliğinden Çalışan Fonksiyonlar (Immediately Invoked Function Expressions) tanımlandıktan hemen sonra çalıştırılır. Fonksiyon tanımlandıktan sonra "( )" operatörü ile fonksiyon çağrılır. Kod bloğunu izole etmek ve fonksiyon içindeki değişkenlerin global alanda görünmemesini sağlamak için kullanılır. Fonksiyon içinde tanımlanan değişkenler sadece o fonksiyon içinde kullanılır (kapsülleme) ve dışarıdan erişilemez.</p>
+
+        <div class="kodAlan"><div><span id="a2">(</span><span id="a1">function</span><span id="a2">() {</span></div><br><div><span id="a2">    </span><span id="a0">// Kod bloğu</span></div><br><div><span id="a2">})() </span><span id="a0">// () fonksiyon çağırma</span></div></div>
+
+        <p>Çağırılmadan Kendiliğinden Çalışan Fonksiyon parametre alabilir. Arrow fonksiyon şeklinde tanımlanabilir. Örnek olarak: girilen dakika değerini, saat cinsinden bir değere çeviren fonksiyonları yazalım.</p>
+
+        <div class="kodAlan"><div><span id="a2">(</span><span id="a1">function</span><span id="a2">(</span><span id="a5">dakika1</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">dakika1</span><span id="a2"> / </span><span id="a3">60</span><span id="a2">)</span></div><div><span id="a2">})(</span><span id="a3">150</span><span id="a2">) </span><span id="a0">// 2.5</span></div></div>
+
+        <div class="kodAlan"><div><span id="a2">(</span><span id="a5">dakika2</span><span id="a2"> </span><span id="a1">=&gt;</span><span id="a2"> {</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">dakika2</span><span id="a2"> / </span><span id="a3">60</span><span id="a2">)</span></div><div><span id="a2">})(</span><span id="a3">330</span><span id="a2">) </span><span id="a0">// 5.5</span></div></div>
+
+        <h2>Closure Fonksiyon</h2>
+
+        <p>Closure: bir fonksiyonun, kendisini çevreleyen dış fonksiyonun değişkenlerine erişim sağlayabilmesidir. Dış fonksiyon çalışmayı tamamladıktan sonra bile, iç fonksiyon dış fonksiyonun kapsamındaki değişkenleri "hatırlayabilir" ve kullanabilir. JavaScript programlama dilinde, çok yaygın kullanılan bir yapıdır. Closure ile fonksiyondaki değişkenleri "gizli" hale getirebiliriz. Dışarıdan bu verilere doğrudan erişim sağlanamadığı için veri gizliliğini sağlamak mümkündür.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">ornek1</span><span id="a2">(</span><span id="a5">x</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a1">function</span><span id="a2">(</span><span id="a5">y</span><span id="a2">) {</span></div><div><span id="a2">        </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">x</span><span id="a2">, </span><span id="a5">y</span><span id="a2">)</span></div><div><span id="a2">    }</span></div><div><span id="a2">}</span></div><br><div><span id="a1">const</span><span id="a2"> </span><span id="a4">ekle5</span><span id="a2"> = </span><span id="a4">ornek1</span><span id="a2">(</span><span id="a3">5</span><span id="a2">) </span><span id="a0">// hatırlanacak değer</span></div><br><div><span id="a4">ekle5</span><span id="a2">(</span><span id="a3">30</span><span id="a2">) </span><span id="a0">// 5 30</span></div><br><div><span id="a4">ekle5</span><span id="a2">(</span><span id="a3">80</span><span id="a2">) </span><span id="a0">// 5 80</span></div></div>
+        
+        <p>Örnek olarak yazdığımız fonksiyonu toplama işlemine çevirdiğimizde: ekle5 ile gönderilen 5 değerinin, dış fonksiyonun x parametresinde hatırlandığı görülür.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">topla</span><span id="a2">(</span><span id="a5">x</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a1">function</span><span id="a2">(</span><span id="a5">y</span><span id="a2">) {</span></div><div><span id="a2">        </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">x</span><span id="a2">+</span><span id="a5">y</span><span id="a2">)</span></div><div><span id="a2">    }</span></div><div><span id="a2">}</span></div><br><div><span id="a1">const</span><span id="a2"> </span><span id="a4">ekle5</span><span id="a2"> = </span><span id="a4">topla</span><span id="a2">(</span><span id="a3">5</span><span id="a2">)</span></div><br><div><span id="a4">ekle5</span><span id="a2">(</span><span id="a3">30</span><span id="a2">) </span><span id="a0">// 35</span></div><br><div><span id="a4">ekle5</span><span id="a2">(</span><span id="a3">80</span><span id="a2">) </span><span id="a0">// 85</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">String Metodları at()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
