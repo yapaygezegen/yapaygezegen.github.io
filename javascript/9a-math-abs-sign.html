@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript abs metodu, javascript mutlak değerini almak, javascript sign metodu, sayının pozitif negatif olma durumu">
+    <meta name="keywords" content="javascript abs metodu, javascript mutlak değerini almak, javascript sign metodu, sayının pozitif negatif olma durumu">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Math Metodları abs() & sign()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Math Metodları: abs() & sign()</h1>
+
+        <h2>abs() Metodu</h2>
+
+        <p>Abs: sayının mutlak değerini döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">abs</span><span id="a2">(-</span><span id="a3">135</span><span id="a2">) </span><span id="a0">// 135</span></div><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">abs</span><span id="a2">(</span><span id="a3">240</span><span id="a2">) </span><span id="a0">// 240</span></div><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">abs</span><span id="a2">(</span><span id="a3">0</span><span id="a2">) </span><span id="a0">// 0</span></div></div>
+
+        <p>Pozitif sayıları olduğu gibi ve negatif sayıları -1 ile çarpıp sonuç döndüren işlemi fonksiyon olarak yazalım.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">mutlak</span><span id="a2">(</span><span id="a5">sayi</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a6">if</span><span id="a2">(</span><span id="a5">sayi</span><span id="a2"> &lt; </span><span id="a3">0</span><span id="a2">){ </span><span id="a0">// sıfırdan küçük değerleri kontrol et</span></div><div><span id="a2">        </span><span id="a6">return</span><span id="a2"> </span><span id="a5">sayi</span><span id="a2"> * -</span><span id="a3">1</span><span id="a2"> </span><span id="a0">// -1 ile çarparak pozitif yap</span></div><div><span id="a2">    }</span><span id="a6">else</span><span id="a2">{</span></div><div><span id="a2">        </span><span id="a6">return</span><span id="a2"> </span><span id="a5">sayi</span><span id="a2"> </span><span id="a0">// diğer sayıları olduğu gibi geri döndür</span></div><div><span id="a2">    }</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">mutlak</span><span id="a2">(-</span><span id="a3">105</span><span id="a2">)) </span><span id="a0">// 105</span></div><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">mutlak</span><span id="a2">(</span><span id="a3">64</span><span id="a2">)) </span><span id="a0">// 64</span></div><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">mutlak</span><span id="a2">(</span><span id="a3">0</span><span id="a2">)) </span><span id="a0">// 0</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">mutlak2</span><span id="a2">(</span><span id="a5">sayi2</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">sayi2</span><span id="a2"> &lt; </span><span id="a3">0</span><span id="a2"> ? </span><span id="a5">sayi2</span><span id="a2"> * -</span><span id="a3">1</span><span id="a2"> : </span><span id="a5">sayi2</span><span id="a2"> </span><span id="a0">// ternary operatörü ile yazımı</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">mutlak2</span><span id="a2">(-</span><span id="a3">50</span><span id="a2">)) </span><span id="a0">// 50</span></div><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">mutlak2</span><span id="a2">(</span><span id="a3">96</span><span id="a2">)) </span><span id="a0">// 96</span></div><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">mutlak2</span><span id="a2">(</span><span id="a3">0</span><span id="a2">)) </span><span id="a0">// 0</span></div></div>
+
+        <h2>sign() Metodu</h2>
+
+        <p>Sign: sayının işaretini döndürür. Pozitif sayılar için: 1, negatif sayılar için: -1 ve sıfır rakamı için sıfır değerlerini döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">sign</span><span id="a2">(</span><span id="a3">240</span><span id="a2">) </span><span id="a0">// 1</span></div><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">sign</span><span id="a2">(-</span><span id="a3">50</span><span id="a2">) </span><span id="a0">// -1</span></div><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">sign</span><span id="a2">(</span><span id="a3">0</span><span id="a2">) </span><span id="a0">// 0</span></div></div>
+
+        <p>Arrow fonksiyon içinde ternary operatörü kullarak, metodu kendimiz yazalım.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a4">signF</span><span id="a2"> = </span><span id="a5">sayi</span><span id="a2"> </span><span id="a1">=&gt;</span><span id="a2"> {</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">sayi</span><span id="a2"> &lt; </span><span id="a3">0</span><span id="a2"> ? -</span><span id="a3">1</span><span id="a2"> : </span><span id="a5">sayi</span><span id="a2"> &gt; </span><span id="a3">0</span><span id="a2"> ? </span><span id="a3">1</span><span id="a2"> : </span><span id="a3">0</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">signF</span><span id="a2">(</span><span id="a3">10</span><span id="a2">)) </span><span id="a0">// 1</span></div><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">signF</span><span id="a2">(-</span><span id="a3">40</span><span id="a2">)) </span><span id="a0">// -1</span></div><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">signF</span><span id="a2">(</span><span id="a3">0</span><span id="a2">)) </span><span id="a0">// 0</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">ceil() & floor() & round() & fround() & f16round() & trunc()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
