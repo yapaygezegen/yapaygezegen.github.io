@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript max ve min metodu, en büyük sayıyı bulma, en küçük sayıyı bulma, javascript matematik metodları max min">
+    <meta name="keywords" content="javascript max ve min metodu, en büyük sayıyı bulma, en küçük sayıyı bulma, javascript matematik metodları max min">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Math Metodları max() & min()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Math Metodları: max() & min()</h1>
+
+        <h2>max() Metodu</h2>
+
+        <p>Max: gönderilen sayıların içindeki en büyük sayıyı döner. Dizi içindeki değerlerle çalışmak için rest operatörü (...) kullanılır.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">max</span><span id="a2">(</span><span id="a3">10</span><span id="a2">,</span><span id="a3">20</span><span id="a2">,</span><span id="a3">25</span><span id="a2">,-</span><span id="a3">12</span><span id="a2">,</span><span id="a3">8</span><span id="a2">) </span><span id="a0">// 25</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">max</span><span id="a2">(...[</span><span id="a3">10</span><span id="a2">,</span><span id="a3">20</span><span id="a2">,</span><span id="a3">55</span><span id="a2">,</span><span id="a3">40</span><span id="a2">]) </span><span id="a0">// 55</span></div></div>
+
+        <p>Gönderilen sayıların içindeki en büyük sayıyı döndüren fonksiyonu yazalım.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">enBuyuk</span><span id="a2">(...</span><span id="a5">sayilar</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a1">let</span><span id="a2"> </span><span id="a5">sonuc</span><span id="a2"> = </span><span id="a5">sayilar</span><span id="a2">[</span><span id="a3">0</span><span id="a2">]</span></div><br><div><span id="a2">    </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">1</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a5">sayilar</span><span id="a2">.</span><span id="a5">length</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">        </span><span id="a6">if</span><span id="a2">(</span><span id="a5">sonuc</span><span id="a2"> &lt; </span><span id="a5">sayilar</span><span id="a2">[</span><span id="a5">i</span><span id="a2">])  </span><span id="a5">sonuc</span><span id="a2"> = </span><span id="a5">sayilar</span><span id="a2">[</span><span id="a5">i</span><span id="a2">]</span></div><div><span id="a2">    }</span></div><div><span id="a2">    </span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">sonuc</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">enBuyuk</span><span id="a2">(</span><span id="a3">30</span><span id="a2">,</span><span id="a3">70</span><span id="a2">,-</span><span id="a3">15</span><span id="a2">,</span><span id="a3">27</span><span id="a2">,</span><span id="a3">3</span><span id="a2">)) </span><span id="a0">// 70</span></div></div>
+
+        <p>Büyüktür ve küçüktür operatörleri: metinsel ifadeler için de kullanılabilir. Yazmış olduğumuz "enBuyuk" fonksiyonu ile metinsel sıralama yapabiliriz. (Metinlerin ilk harfine göre karşılaştırma yapılmaktadır.)</p>
+
+        <div class="kodAlan"><div><span id="a4">enBuyuk</span><span id="a2">(</span><span id="a8">"f"</span><span id="a2">,</span><span id="a8">"m"</span><span id="a2">,</span><span id="a8">"g"</span><span id="a2">,</span><span id="a8">"k"</span><span id="a2">,</span><span id="a8">"c"</span><span id="a2">,</span><span id="a8">"i"</span><span id="a2">,</span><span id="a8">"d"</span><span id="a2">) </span><span id="a0">// m</span></div><br><div><span id="a4">enBuyuk</span><span id="a2">(</span><span id="a8">"ayhan"</span><span id="a2">,</span><span id="a8">"tunç"</span><span id="a2">,</span><span id="a8">"ebru"</span><span id="a2">,</span><span id="a8">"mert"</span><span id="a2">,</span><span id="a8">"günay"</span><span id="a2">) </span><span id="a0">// tunç</span></div></div>
+
+        <h2>min() Metodu</h2>
+
+        <p>Min: gönderilen sayıların içindeki en küçük sayıyı döner.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">min</span><span id="a2">(</span><span id="a3">30</span><span id="a2">,</span><span id="a3">50</span><span id="a2">,</span><span id="a3">100</span><span id="a2">,</span><span id="a3">15</span><span id="a2">,</span><span id="a3">47</span><span id="a2">) </span><span id="a0">// 15</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">min</span><span id="a2">(...[</span><span id="a3">55</span><span id="a2">,-</span><span id="a3">7</span><span id="a2">,</span><span id="a3">10</span><span id="a2">,</span><span id="a3">24</span><span id="a2">]) </span><span id="a0">// -7</span></div></div>
+
+        <p>"enBuyuk" adlı fonksiyonu, "enKucuk" fonksiyonuna çevirebiliriz. if sorgusundaki " < " operatörünü, " > " operatörü ile değiştirmemiz yeterlidir.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">enKucuk</span><span id="a2">(...</span><span id="a5">sayilar</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a1">let</span><span id="a2"> </span><span id="a5">sonuc</span><span id="a2"> = </span><span id="a5">sayilar</span><span id="a2">[</span><span id="a3">0</span><span id="a2">]</span></div><br><div><span id="a2">    </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">1</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a5">sayilar</span><span id="a2">.</span><span id="a5">length</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">        </span><span id="a6">if</span><span id="a2">(</span><span id="a5">sonuc</span><span id="a2"> &gt; </span><span id="a5">sayilar</span><span id="a2">[</span><span id="a5">i</span><span id="a2">])  </span><span id="a5">sonuc</span><span id="a2"> = </span><span id="a5">sayilar</span><span id="a2">[</span><span id="a5">i</span><span id="a2">]</span></div><div><span id="a2">    }</span></div><div><span id="a2">    </span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">sonuc</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">enKucuk</span><span id="a2">(</span><span id="a3">30</span><span id="a2">,</span><span id="a3">70</span><span id="a2">,-</span><span id="a3">15</span><span id="a2">,</span><span id="a3">27</span><span id="a2">,</span><span id="a3">3</span><span id="a2">)) </span><span id="a0">// -15</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">enKucuk</span><span id="a2">(</span><span id="a8">"f"</span><span id="a2">,</span><span id="a8">"m"</span><span id="a2">,</span><span id="a8">"g"</span><span id="a2">,</span><span id="a8">"k"</span><span id="a2">,</span><span id="a8">"c"</span><span id="a2">,</span><span id="a8">"i"</span><span id="a2">,</span><span id="a8">"d"</span><span id="a2">)) </span><span id="a0">// c</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">enKucuk</span><span id="a2">(</span><span id="a8">"ayhan"</span><span id="a2">,</span><span id="a8">"tunç"</span><span id="a2">,</span><span id="a8">"ebru"</span><span id="a2">,</span><span id="a8">"mert"</span><span id="a2">,</span><span id="a8">"günay"</span><span id="a2">)) </span><span id="a0">// ayhan</span></div></div>
+        
+        <div id="sonraki"><a href="/">Math Metodları: random()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</script>
+</html>
