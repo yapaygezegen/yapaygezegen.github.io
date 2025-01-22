@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript random metodu, rastgele sayı üretmek, javascript math random kulanımı, rastgele değer üreten program">
+    <meta name="keywords" content="javascript random metodu, rastgele sayı üretmek, javascript math random kulanımı, rastgele değer üreten program">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Math Metodları random()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Math Metodları: random()</h1>
+
+        <h2>random() Metodu</h2>
+
+        <p>Random: 0 dahil 1 hariç olmak üzere, 0 ile 1 arasında rastgele ondalıklı sayı üretir. Oyunlarda, simülasyonlarda ve rastgele seçim yapılması istenen koşullarda sıkça kullanılır.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">random</span><span id="a2">() </span><span id="a0">// 0.4021441078894108</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">random</span><span id="a2">() </span><span id="a0">// 0.2482532424904229</span></div></div>
+
+        <p>0'dan 10'a kadar olan rakamları üreten kodu yazalım. Her defasında yeni değer ürettiğini görebilmek için: for döngüsü ile kodu 5 kez tekrar ettirelim.</p>
+
+        <div class="kodAlan"><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a3">5</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">Math</span><span id="a2">.</span><span id="a4">floor</span><span id="a2">(</span><span id="a5">Math</span><span id="a2">.</span><span id="a4">random</span><span id="a2">() * </span><span id="a3">10</span><span id="a2">)) </span><span id="a0">// floor ile alta yuvarladık. 10 dahil değil.</span></div><div><span id="a2">}</span></div><br><div><span id="a0">// 3</span></div><div><span id="a0">// 2</span></div><div><span id="a0">// 8</span></div><div><span id="a0">// 0</span></div><div><span id="a0">// 7</span></div></div>
+
+        <p>Belirli iki değer arasında rastgele tam sayılar üreten bir fonksiyon yazalım.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">rastgeleAralik</span><span id="a2">(</span><span id="a5">ilkDeger</span><span id="a2">,</span><span id="a5">ikinciDeger</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">Math</span><span id="a2">.</span><span id="a4">floor</span><span id="a2">(</span><span id="a5">Math</span><span id="a2">.</span><span id="a4">random</span><span id="a2">() * (</span><span id="a5">ikinciDeger</span><span id="a2"> - </span><span id="a5">ilkDeger</span><span id="a2">)) + </span><span id="a5">ilkDeger</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">rastgeleAralik</span><span id="a2">(</span><span id="a3">30</span><span id="a2">,</span><span id="a3">70</span><span id="a2">)) </span><span id="a0">// 53</span></div></div>
+        
+        <div id="sonraki"><a href="/">Math Metodları: hypot()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
