@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript hypot metodu, hipotenüs hesaplamak, javascript oyun çarpışma kontrolü, iki cisim arasıdaki mesafe">
+    <meta name="keywords" content="javascript hypot metodu, hipotenüs hesaplamak, javascript oyun çarpışma kontrolü, iki cisim arasıdaki mesafe">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Math Metodları hypot()</title>
+    <style>
+        #canvasAlan {
+            display: block;
+            margin: 0 auto;
+            border: 1px solid black;
+        }
+        #kontrol {
+            margin-top: 10px;
+        }
+        #bilgi{
+            text-align: center;
+            margin-top: 20px;
+        }
+        #oynatButton{
+            display: block;
+            margin: 0 auto;
+            padding: 12px;
+            font-size: 15px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Math Metodları: hypot()</h1>
+
+        <h2>hypot() Metodu</h2>
+
+        <p>Hypot: gönderilen sayıların karelerinin toplamının karekökünü döner. Dik üçgenin hipotenüs uzunluğunu, karmaşık bir sayının büyüklüğünü, fizik hesaplamalarında vektör büyüklükleri gibi alanlarda kullanılır. İki fazla argüman alabilir.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">hypot</span><span id="a2">(</span><span id="a3">3</span><span id="a2">,</span><span id="a3">4</span><span id="a2">) </span><span id="a0">// 5</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">hypot</span><span id="a2">(</span><span id="a3">10</span><span id="a2">,</span><span id="a3">12</span><span id="a2">,</span><span id="a3">30</span><span id="a2">) </span><span id="a0">// 33.823069050575526</span></div></div>
+
+        <p>Gönderilen sayıların karelerinin toplamının karekökünü dönen fonksiyonu yazalım.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">karakok</span><span id="a2">(...</span><span id="a5">sayilar</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a1">let</span><span id="a2"> </span><span id="a5">toplam</span><span id="a2"> = </span><span id="a3">0</span></div><br><div><span id="a2">    </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a5">sayilar</span><span id="a2">.</span><span id="a5">length</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">        </span><span id="a5">toplam</span><span id="a2"> += </span><span id="a5">sayilar</span><span id="a2">[</span><span id="a5">i</span><span id="a2">] ** </span><span id="a3">2</span></div><div><span id="a2">    }</span></div><br><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">toplam</span><span id="a2"> ** (</span><span id="a3">1</span><span id="a2">/</span><span id="a3">2</span><span id="a2">)</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">karakok</span><span id="a2">(</span><span id="a3">3</span><span id="a2">,</span><span id="a3">4</span><span id="a2">)) </span><span id="a0">// 5</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">karakok</span><span id="a2">(</span><span id="a3">10</span><span id="a2">,</span><span id="a3">12</span><span id="a2">,</span><span id="a3">30</span><span id="a2">)) </span><span id="a0">// 33.823069050575526</span></div></div>
+
+        <p>Hypot metodu ile 2 cisim arasıdaki mesafeyi hesaplayabiliriz. 2 boyutlu oyunlarda, koordinatları bilinen 2 cismin birbirine temas edip/etmediğini (collision detection) kontrol edilebilir.</p>
+
+        <canvas id="canvasAlan"></canvas>
+        <div id="bilgi"></div>
+        <div id="kontrol">
+            <button id="oynatButton">Oynat</button>
+        </div>
+        <div id="sonraki"><a href="/">Math Metodları: cos() & cosh() & sin() & sinh() & tan() & tanh()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+<script src="/alt-js/hypot.js"></script>
+</html>
