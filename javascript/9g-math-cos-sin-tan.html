@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript cos sin tan, kosinüs sinüs ve tanjant hesaplama, javascript matematik ve geometri metodları, javascript hiperbolik arc">
+    <meta name="keywords" content="javascript cos sin tan, kosinüs sinüs ve tanjant hesaplama, javascript matematik ve geometri metodları, javascript hiperbolik arc">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Math Metodları cos() & sin() & tan()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Math Metodları: cos() & sin() & tan()</h1>
+
+        <h2>cos() Metodu</h2>
+
+        <p>Cos: radyan cinsinden verilen açının kosinüs değerini (-1 ile 1 arasındaki değerler) döndürür.</p>
+
+        <p>Radyan yerine derece kullanmak istiyorsanız, dereceyi radyana dönüştürmeniz gerekir. Radyan = ( Derece x Pi ) / 180</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">cos</span><span id="a2">(</span><span id="a3">0</span><span id="a2">) </span><span id="a0">// 0 radyan için kosinüs değeri -1'dir</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">cos</span><span id="a2">((</span><span id="a3">60</span><span id="a2"> * </span><span id="a5">Math</span><span id="a2">.</span><span id="a5">PI</span><span id="a2">) / </span><span id="a3">180</span><span id="a2">) </span><span id="a0">// 60 derecenin kosinüs değeri 0.5'dir</span></div></div>
+
+        <h2>sin() Metodu</h2>
+
+        <p>Sin: radyan cinsinden verilen açının sinüs değerini (-1 ile 1 arasındaki değerler) döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">sin</span><span id="a2">((</span><span id="a3">90</span><span id="a2"> * </span><span id="a5">Math</span><span id="a2">.</span><span id="a5">PI</span><span id="a2">) / </span><span id="a3">180</span><span id="a2">)</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">sin</span><span id="a2">((</span><span id="a3">270</span><span id="a2"> * </span><span id="a5">Math</span><span id="a2">.</span><span id="a5">PI</span><span id="a2">) / </span><span id="a3">180</span><span id="a2">) </span><span id="a0">// 270 derecenin sinüs değeri -1'dir</span></div></div>
+
+        <h2>tan() Metodu</h2>
+
+        <p>Tan: radyan cinsinden verilen açının tanjant değerini (tüm gerçek sayılar) döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">tan</span><span id="a2">(</span><span id="a3">0</span><span id="a2">) </span><span id="a0">// 0 radyan için için tanjant değeri 0'dır</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">tan</span><span id="a2">((</span><span id="a3">45</span><span id="a2"> * </span><span id="a5">Math</span><span id="a2">.</span><span id="a5">PI</span><span id="a2">) / </span><span id="a3">180</span><span id="a2">) </span><span id="a0">// 45 derecenin tanjant değeri 1'dir</span></div></div>
+
+        <h2>Hiperbolik</h2>
+
+        <p>Hiperbolik değerleri hesaplamak için: cosh ( ≥1 ), sinh ( tüm gerçek sayılar ) ve tanh (-1 ile 1 arasındaki değerler) metodları kullanılır.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">cosh</span><span id="a2">(</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// 1.5430806348152437</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">sinh</span><span id="a2">(</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// 1.1752011936438014</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">tanh</span><span id="a2">(</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// 0.7615941559557649</span></div></div>
+
+        <h2>Arc</h2>
+
+        <p>Arc değerini hesaplamak için: acos, asin ve atan metodları kullanılır.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">acos</span><span id="a2">(</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// 0</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">asin</span><span id="a2">(</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// 1.5707963267948966</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">atan</span><span id="a2">(</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// 0.7853981633974483</span></div></div>
+
+        <h2>Hiperbolik Arc</h2>
+
+        <p>Hiperbolik Arc değerini hesaplamak için: acosh, asinh ve atanh metodları kullanılır.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">acosh</span><span id="a2">(</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// 0</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">asinh</span><span id="a2">(</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// 0.881373587019543</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">atanh</span><span id="a2">(</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// Infinity</span></div></div>
+
+        <p>Bu metodlar: 2D ve 3D modelleme, animasyon, oyun geliştirme, optik, mekanik, ses sentezi, astronomi, coğrafi konum belirleme vb. alanlarda sıkça kullanılmaktadır.</p>
+
+        <div id="sonraki"><a href="/javascript/">Math Metodları: log() & log10() & log1p() & log2()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
