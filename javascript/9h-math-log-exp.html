@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript logaritma hesaplama, e üssünü hesaplama, javascript log ve exp metodları, js math kullanımı">
+    <meta name="keywords" content="javascript logaritma hesaplama, e üssünü hesaplama, javascript log ve exp metodları, js math kullanımı">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili Math Metodları log() & exp()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Math Metodları: log() & exp()</h1>
+
+        <h2>log() Metodu</h2>
+
+        <p>Log: sayının doğal logaritmasını (e tabanına göre) hesaplar. Bu metod, pozitif sayılar için geçerlidir. Negatif sayılar için NaN, sıfır için -Infinity değerini döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// 0</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a3">5</span><span id="a2">) </span><span id="a0">// 1.6094379124341003</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a3">0</span><span id="a2">) </span><span id="a0">// -Infinity</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(-</span><span id="a3">10</span><span id="a2">) </span><span id="a0">// NaN</span></div></div>
+
+        <p>Farklı tabanlarda logaritma hesaplamak için: Math.log(sayi) / Math.log(taban) formülünü kullanabilirsiniz. Bunun için örnek bir fonksiyon yazalım.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">tabanLog</span><span id="a2">(</span><span id="a5">sayi</span><span id="a2">, </span><span id="a5">taban</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">Math</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">sayi</span><span id="a2">) / </span><span id="a5">Math</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">taban</span><span id="a2">)</span></div><div><span id="a2">}</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">tabanLog</span><span id="a2">(</span><span id="a3">8</span><span id="a2">, </span><span id="a3">2</span><span id="a2">)) </span><span id="a0">// 3</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a4">tabanLog</span><span id="a2">(</span><span id="a3">10000</span><span id="a2">,</span><span id="a3">10</span><span id="a2">)) </span><span id="a0">// 4</span></div></div>
+
+        <p>Math.log2() sayının taban 2 logaritmasını ve Math.log10() sayının taban 10 logaritmasını hesaplar.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">log2</span><span id="a2">(</span><span id="a3">8</span><span id="a2">) </span><span id="a0">// 3</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">log10</span><span id="a2">(</span><span id="a3">10000</span><span id="a2">) </span><span id="a0">// 4</span></div></div>
+
+        <h2>exp() Metodu</h2>
+
+        <p>Exp: sayının e üssünü hesaplar e sayısı doğal logaritmanın tabanıdır. Yaklaşık değeri 2.718281828459045'tir.</p>
+
+        <div class="kodAlan"><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">exp</span><span id="a2">(</span><span id="a3">0</span><span id="a2">) </span><span id="a0">// 1</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">exp</span><span id="a2">(</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// 2.718281828459045</span></div><br><div><span id="a5">Math</span><span id="a2">.</span><span id="a4">exp</span><span id="a2">(-</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// 0.36787944117144233</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">Math Properties</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
