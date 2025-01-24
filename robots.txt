@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yapaygezegen.com/sitemap/js.xml
+Sitemap: https://yapaygezegen.com/sitemap/almanca-ingilizce.xml
+Sitemap: https://yapaygezegen.com/sitemap/karma.xml
