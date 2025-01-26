@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript string metodları, utf16 karakter değeri, unicode karakter değeri, javascript at charat charcodeat codepointat">
+    <meta name="keywords" content="javascript string metodları, utf16 karakter değeri, unicode karakter değeri, javascript at charat charcodeat codepointat">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları at() & charAt() & charCodeAt() & codePointAt()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: at() & charAt() & charCodeAt() & codePointAt()</h1>
+
+        <h2>at() Metodu</h2>
+
+        <p>At: string ifadenin belirtilen indexdeki değerini döndürür. Negatif index değerleri için string ifadenin sonundan başına doğru indexleme yapar. Belirtilen indexe karşılık gelen değer yok ise "undefined" değerini döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"abcde"</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">at</span><span id="a2">(</span><span id="a3">0</span><span id="a2">) </span><span id="a0">// a</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">at</span><span id="a2">(</span><span id="a3">3</span><span id="a2">) </span><span id="a0">// d</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">at</span><span id="a2">(-</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// e</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">at</span><span id="a2">(</span><span id="a3">10</span><span id="a2">) </span><span id="a0">// undefined</span></div></div>
+
+        <h2>charAt()</h2>
+
+        <p>CharAt: string ifadenin belirtilen indexdeki değerini döndürür. Negatif index değerlerini desteklemez. Belirtilen indexe karşılık gelen değer yok ise "" değerini döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"abcde"</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">charAt</span><span id="a2">(</span><span id="a3">0</span><span id="a2">) </span><span id="a0">// a</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">charAt</span><span id="a2">(</span><span id="a3">3</span><span id="a2">) </span><span id="a0">// d</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">charAt</span><span id="a2">(-</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// ""</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">charAt</span><span id="a2">(</span><span id="a3">10</span><span id="a2">) </span><span id="a0">// ""</span></div></div>
+
+        <h2>charCodeAt()</h2>
+
+        <p>CharCodeAt: string ifadenin belirtilen indexdeki değerinin, UTF-16 kodunu (0 ile 65535 arasında bir tamsayı) döndürür. Negatif index değerlerini desteklemez. Belirtilen indexe karşılık gelen değer yok ise "NaN" değerini döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"abcde"</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">charCodeAt</span><span id="a2">(</span><span id="a3">0</span><span id="a2">) </span><span id="a0">// 97</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">charCodeAt</span><span id="a2">(</span><span id="a3">3</span><span id="a2">) </span><span id="a0">// 100</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">charCodeAt</span><span id="a2">(-</span><span id="a3">1</span><span id="a2">) </span><span id="a0">// NaN</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">charCodeAt</span><span id="a2">(</span><span id="a3">10</span><span id="a2">) </span><span id="a0">// NaN</span></div></div>
+
+        <h2>codePointAt()</h2>
+
+        <p>CodePointAt: string ifadenin belirtilen indexdeki değerinin, Unicode kod noktasını döndürür. Negatif index değerlerini desteklemez. Belirtilen indexe karşılık gelen değer yok ise "undefined" değerini döndürür. Emoji gibi UTF-16 dışındaki karakterlerin, Unicode kodlarını elde etmek için codePointAt() kullanılır.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"abcde😀"</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">codePointAt</span><span id="a2">(</span><span id="a3">0</span><span id="a2">) </span><span id="a0">// 97</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">codePointAt</span><span id="a2">(</span><span id="a3">3</span><span id="a2">) </span><span id="a0">// 100</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">codePointAt</span><span id="a2">(</span><span id="a3">5</span><span id="a2">) </span><span id="a0">// 128512</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">codePointAt</span><span id="a2">(</span><span id="a3">6</span><span id="a2">) </span><span id="a0">// 56832</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">codePointAt</span><span id="a2">(</span><span id="a3">10</span><span id="a2">) </span><span id="a0">// undefined</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">String Metodları: concat() & (+) operatörü</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
