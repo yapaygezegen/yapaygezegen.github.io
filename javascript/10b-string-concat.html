@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript concat metodu, javascript string birleştirmek, + operatörü ile string birleştirmek, javascript string metodları">
+    <meta name="keywords" content="javascript concat metodu, javascript string birleştirmek, + operatörü ile string birleştirmek, javascript string metodları">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları concat()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: concat()</h1>
+
+        <h2>concat() Metodu</h2>
+
+        <p>Concat: iki veya daha fazla string ifadeyi birleştirmek için kullanılır. Mevcut stringleri değiştirmeden, yeni bir string döner. Birleştirilen ifadelerin arasına: boşluk, noktalama işareti veya başka karakterlerin eklenmesine imkan verir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">kelime1</span><span id="a2"> = </span><span id="a8">"Merhaba"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">kelime2</span><span id="a2"> = </span><span id="a8">"JavaScript"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">kelime3</span><span id="a2"> = </span><span id="a8">"Dünyası"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sonuc</span><span id="a2"> = </span><span id="a5">kelime1</span><span id="a2">.</span><span id="a4">concat</span><span id="a2">(</span><span id="a8">" "</span><span id="a2">, </span><span id="a5">kelime2</span><span id="a2">, </span><span id="a8">" "</span><span id="a2">, </span><span id="a5">kelime3</span><span id="a2">)</span></div><br><div><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">sonuc</span><span id="a2">) </span><span id="a0">// Merhaba JavaScript Dünyası</span></div></div>
+
+        <p>String ifadeleri birleştirmek için "+" operatörü, en yaygın kullanılan yöntemdir. İki veya fazla string ifadeyi birleştirebilir. String üzerinde işlem yapılacak ise: template literals tercih edilir. (Template literals kullanımı <a href="/javascript/3a-ilkel-veri-tipleri.html">İlkel Veri Tipleri</a> bölümünde anlatılmıştır.)</p>
+
+        <p>Örnek: elimizde aynı soyadını taşıyan kişilerin listesi olsun. Dizi içerisinde bu kişilerin sadece adlarını saklayalım. "+" operatörü ve for of döngüsünü kullanarak: adları ve soyadı string ifadelerini birleştirelim. Birleşim sonuçlarını konsol ekranına yazalım.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">adListesi</span><span id="a2"> = [</span><span id="a8">"Ayhan"</span><span id="a2">,</span><span id="a8">"Birkan"</span><span id="a2">,</span><span id="a8">"Cansu"</span><span id="a2">,</span><span id="a8">"Deniz"</span><span id="a2">,</span><span id="a8">"Ezgi"</span><span id="a2">,</span><span id="a8">"Gökhan"</span><span id="a2">]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">soyad</span><span id="a2"> = </span><span id="a8">"Kurt"</span></div><br><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">const</span><span id="a2"> </span><span id="a7">adlar</span><span id="a2"> </span><span id="a1">of</span><span id="a2"> </span><span id="a5">adListesi</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a7">adlar</span><span id="a2"> + </span><span id="a8">" "</span><span id="a2"> + </span><span id="a5">soyad</span><span id="a2">);</span></div><div><span id="a2">}</span></div><br><div><span id="a0">// Ayhan Kurt</span></div><div><span id="a0">// Birkan Kurt</span></div><div><span id="a0">// Cansu Kurt</span></div><div><span id="a0">// Deniz Kurt</span></div><div><span id="a0">// Ezgi Kurt</span></div><div><span id="a0">// Gökhan Kurt</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">String Metodları: endsWith() & startsWidth()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
