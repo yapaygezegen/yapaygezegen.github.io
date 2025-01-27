@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript fromCharCode fromCodePoint ve raw ile çalışmak, javascript karakter dönüşümü, javascript emoji kullanımı">
+    <meta name="keywords" content="javascript fromCharCode fromCodePoint ve raw ile çalışmak, javascript karakter dönüşümü, javascript emoji kullanımı">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları fromCharCode() & fromCodePoint & raw()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: fromCharCode() & fromCodePoint() & raw()</h1>
+
+        <h2>fromCharCode() Metodu</h2>
+
+        <p>FromCharCode: 16 bitlik UTF-16 değerlerine karşılık gelen karakterlerden bir string döndürür. Birden fazla argüman alabilir. Kod nokta aralığı: 0 - 65535 (0xFFFF)</p>
+
+        <div class="kodAlan"><div><span id="a9">String</span><span id="a2">.</span><span id="a4">fromCharCode</span><span id="a2">(</span><span id="a3">65</span><span id="a2">) </span><span id="a0">// A (ASCII 0-127)</span></div><br><div><span id="a9">String</span><span id="a2">.</span><span id="a4">fromCharCode</span><span id="a2">(</span><span id="a3">0x41</span><span id="a2">) </span><span id="a0">// A (Hexadecimal 0x0000 - 0xFFFF)</span></div><br><div><span id="a9">String</span><span id="a2">.</span><span id="a4">fromCharCode</span><span id="a2">(</span><span id="a3">89</span><span id="a2">, </span><span id="a3">97</span><span id="a2">, </span><span id="a3">112</span><span id="a2">, </span><span id="a3">97</span><span id="a2">, </span><span id="a3">121</span><span id="a2">, </span><span id="a3">32</span><span id="a2">, </span><span id="a3">71</span><span id="a2">, </span><span id="a3">101</span><span id="a2">, </span><span id="a3">122</span><span id="a2">, </span><span id="a3">101</span><span id="a2">, </span><span id="a3">103</span><span id="a2">, </span><span id="a3">101</span><span id="a2">, </span><span id="a3">110</span><span id="a2">) </span><span id="a0">// Yapay Gezegen</span></div></div>
+
+        <h2>fromCodePoint() Metodu</h2>
+
+        <p>FromCodePoint: 32 bitlik Unicode değerlerine karşılık gelen karakterlerden bir string döndürür. Birden fazla argüman alabilir. Tüm Unicode kod aralığını desteklediği için: fromCharCode yerine tercih edilen bir metottur. Kod nokta aralığı: 0 - 1114111 (0x10FFFF)</p>
+
+        <div class="kodAlan"><div><span id="a9">String</span><span id="a2">.</span><span id="a4">fromCodePoint</span><span id="a2">(</span><span id="a3">0x1F609</span><span id="a2">) </span><span id="a0">// 😉 göz kırpan yüz emojisi</span></div><div><span id="a9">String</span><span id="a2">.</span><span id="a4">fromCodePoint</span><span id="a2">(</span><span id="a3">0x1F496</span><span id="a2">) </span><span id="a0">// 💖 kırmızı kalp emojisi</span></div></div>
+
+        <h2>raw() Metodu</h2>
+
+        <p>Raw: string karakter içerisindeki kaçış karakterlerini yorumlamadan, ham haliyle döndürür. Dosya yolları gibi kaçış karakterleri içeren stringler ifadelerdeki kaçış karakterlerinin yanlış yorumlanmasını engeller.</p>
+
+        <div class="kodAlan"><div><span id="a9">String</span><span id="a2">.</span><span id="a4">raw</span><span id="a8">`Merhaba </span><span style="color: #d7ba7d;">\n</span><span id="a8"> Dünya`</span><span id="a2"> </span><span id="a0">// Merhaba \\n Dünya</span></div><br><div><span id="a9">String</span><span id="a2">.</span><span id="a4">raw</span><span id="a8">`C:</span><span style="color: #d7ba7d;">\D</span><span id="a8">osyalar</span><span style="color: #d7ba7d;">\n</span><span id="a8">esneler</span><span style="color: #d7ba7d;">\d</span><span id="a8">osya-bigileri.txt`</span><span id="a2"> </span><span id="a0">// C:\Dosyalar\nesnelers\dosya-bigileri.txt</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">String Metodları: isWellFormed() & toWellFormed()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
