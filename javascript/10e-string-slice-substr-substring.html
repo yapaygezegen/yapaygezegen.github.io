@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript slice substr substring metodları, javascript string parçalama, metinsel ifadeleri ayırma, js string metodları">
+    <meta name="keywords" content="javascript slice substr substring metodları, javascript string parçalama, metinsel ifadeleri ayırma, js string metodları">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları slice() & substr() & substring()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: slice() & substr() & substring()</h1>
+
+        <h2>slice() Metodu</h2>
+
+        <p>slice: string ifadenin belirtilen başlangıç ve bitiş indexleri arasındaki parçayı alıp, string olarak geri döndürür. Bitiş parametresi belirtilmez ise: string ifadenin sonuna kadar işlem yapılır. Negatif başlangıç değerleri için string ifadenin sonundan başına doğru indexleme yapar.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"JavaScript Dersleri"</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">slice</span><span id="a2">(</span><span id="a3">5</span><span id="a2">) </span><span id="a0">// cript Dersleri</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">slice</span><span id="a2">(</span><span id="a3">0</span><span id="a2">,</span><span id="a3">6</span><span id="a2">) </span><span id="a0">// JavaSc</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">slice</span><span id="a2">(</span><span id="a3">8</span><span id="a2">,</span><span id="a3">15</span><span id="a2">) </span><span id="a0">// pt Ders</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">slice</span><span id="a2">(-</span><span id="a3">10</span><span id="a2">) </span><span id="a0">// t Dersleri</span></div></div>
+
+        <h2>substr() Metodu</h2>
+
+        <p>substr: string ifadenin belirtilen başlangıç değerinden itibaren istenilen karakter uzunluğu kadar olan parçayı alıp, string olarak geri döner. Uzunluk değeri belirtilmez ise: string ifadenin sonuna kadar işlem yapılır. Negatif başlangıç değerleri için string ifadenin sonundan başına doğru indexleme yapar ve uzunluk değeri kadar ileriye doğru ifadeyi parçaya ayırır.</p>
+
+        <div class="kodAlan"><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">substr</span><span id="a2">(</span><span id="a3">5</span><span id="a2">) </span><span id="a0">// cript Dersleri</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">substr</span><span id="a2">(</span><span id="a3">0</span><span id="a2">,</span><span id="a3">3</span><span id="a2">) </span><span id="a0">// Jav</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">substr</span><span id="a2">(</span><span id="a3">1</span><span id="a2">,</span><span id="a3">13</span><span id="a2">) </span><span id="a0">// avaScript Der</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">substr</span><span id="a2">(-</span><span id="a3">10</span><span id="a2">,</span><span id="a3">6</span><span id="a2">) </span><span id="a0">// t Ders</span></div></div>
+
+        <h2>substring() Metodu</h2>
+
+        <p>substring: slice metodunda olduğu gibi string ifadenin belirtilen başlangıç ve bitiş indexleri arasındaki parçayı alıp, string olarak geri döndürür. Bitiş parametresi belirtilmez ise: string ifadenin sonuna kadar işlem yapılır. Başlangıç değeri, bitiş değerinden büyük ise: iki değer yer değiştirir. Negatif değerler sıfır kabul edilir.</p>
+
+        <div class="kodAlan"><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">substring</span><span id="a2">(</span><span id="a3">5</span><span id="a2">) </span><span id="a0">// cript Dersleri</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">substring</span><span id="a2">(</span><span id="a3">0</span><span id="a2">,</span><span id="a3">3</span><span id="a2">) </span><span id="a0">// Jav</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">substring</span><span id="a2">(</span><span id="a3">5</span><span id="a2">,</span><span id="a3">3</span><span id="a2">) </span><span id="a0">// aS -&gt; işlem sonucu slice(3,5) ile eşittir // aS</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">substring</span><span id="a2">(-</span><span id="a3">5</span><span id="a2">) </span><span id="a0">// JavaScript Dersleri -&gt; negatif değer 0 kabul edilir</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">String Metodları: split()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
