@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript isWellFormed toWellFormed normalize, javascript unicode karakterler, javascript emojilerle çalışmak">
+    <meta name="keywords" content="javascript isWellFormed toWellFormed normalize, javascript unicode karakterler, javascript emojilerle çalışmak">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları isWellFormed() & toWellFormed() & normalize()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: isWellFormed() & toWellFormed() & normalize()</h1>
+
+        <h2>isWellFormed() Metodu</h2>
+
+        <p>isWellFormed: verilen ifadelerin, geçerli Unicode karakterleri açısından doğru biçimlendirilmiş olup olmadığını kontrol eder. Doğru biçimlendirilmişse true, değilse false döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">veri1</span><span id="a2"> = </span><span id="a8">"ab</span><span style="color: #d7ba7d;">\\uD800</span><span id="a8">"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">veri2</span><span id="a2"> = </span><span id="a8">"ab</span><span style="color: #d7ba7d;">\\uD83D\\uDE04</span><span id="a8">c"</span></div><br><div><span id="a5">veri1</span><span id="a2">.</span><span id="a4">isWellFormed</span><span id="a2">() </span><span id="a0">// false</span></div><br><div><span id="a5">veri2</span><span id="a2">.</span><span id="a4">isWellFormed</span><span id="a2">() </span><span id="a0">// true</span></div></div>
+
+        <h2>toWellFormed() Metodu</h2>
+
+        <p>toWellFormed: verilen ifadelerin,  geçerli Unicode karakterleri açısından doğru biçimlendirilmiş olup olmadığını kontrol eder. Eğer yanlış biçimlendirilmiş karakterler var ise: Unicode'un belirlediği bir yer tutucu karakterle (replacement character) hatalı biçimlendirilmiş karakterleri değiştirir.</p>
+
+        <div class="kodAlan"><div><span id="a5">veri1</span><span id="a2">.</span><span id="a4">toWellFormed</span><span id="a2">() </span><span id="a0">// ab�</span></div><br><div><span id="a5">veri2</span><span id="a2">.</span><span id="a4">toWellFormed</span><span id="a2">() </span><span id="a0">// ab😄c</span></div></div>
+
+        <h2>normalize() Metodu</h2>
+
+        <p>normalize: farklı yazım şekillerini normalize eder. Farklı yazım şekillerini standart hale gelir ve böylece: karşılaştırma işlemleri daha tutar ve güvenli yapılmış olur. Metin karşılatırmalarında, farklı dillerdeki yazımları kontrol etmede, büyük veri analizi gibi alanlarda sıkça kullanılır.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">kelime1</span><span id="a2"> = </span><span id="a8">"café"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">kelime2</span><span id="a2"> = </span><span id="a8">"cafe</span><span style="color: #d7ba7d;">\\u0301</span><span id="a8">"</span><span id="a2"> </span><span id="a0">// Aynı kelime olmalarına rağmen, farklı Unicode kodları ile yazılmış</span></div><br><div><span id="a5">kelime1</span><span id="a2"> === </span><span id="a5">kelime2</span><span id="a2"> </span><span id="a0">// false</span></div><br><div><span id="a5">kelime1</span><span id="a2">.</span><span id="a4">normalize</span><span id="a2">() === </span><span id="a5">kelime2</span><span id="a2">.</span><span id="a4">normalize</span><span id="a2">() </span><span id="a0">// true</span></div></div>
+
+        <div id="sonraki"><a href="/javascript//10b-string-concat.html">String Metodları: concat() & (+) operatörü</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
