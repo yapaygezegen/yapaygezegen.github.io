@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript split metodu, string ifadeyi dilimleme, metinsel ifadeyi parçalama, javascript string array yapma, metini dizi yapmak">
+    <meta name="keywords" content="javascript split metodu, string ifadeyi dilimleme, metinsel ifadeyi parçalama, javascript string array yapma, metini dizi yapmak">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları split()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: split()</h1>
+
+        <h2>split() Metodu</h2>
+
+        <p>split: string ifadeyi istenilen karaktere göre dilimlere ayırır. Dilim parçlarından oluşun bir dizi oluşturur. 2. parametre ile dilimin sayısı belirlenir. 2. parametre belirtilmez ise: tüm dilimleri diziye ekler.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">veri</span><span id="a2"> = </span><span id="a8">"JavaScript programlama dili split metodu"</span></div><br><div><span id="a5">veri</span><span id="a2">.</span><span id="a4">split</span><span id="a2">(</span><span id="a8">" "</span><span id="a2">) </span><span id="a0">// ['JavaScript', 'programlama', 'dili', 'split', 'metodu']</span></div><br><div><span id="a5">veri</span><span id="a2">.</span><span id="a4">split</span><span id="a2">(</span><span id="a8">" "</span><span id="a2">,</span><span id="a3">3</span><span id="a2">) </span><span id="a0">// ['JavaScript', 'programlama', 'dili']</span></div></div>
+
+        <p>Dilimleme ifadesinin hatalı seçimi: eksik veya hatalı sonuçlar doğurabilir. String ifadenin dilimlenmek istenen bölümleri: extra işlem gerekmeyecek şekilde belirlenmelidir. Örnek olarak: farklı dilimleme karakterleri ile ortaya çıkan dizi elemanlarını karşılaştıralım.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">renkler</span><span id="a2"> = </span><span id="a8">"Beyaz, Yeşil, Mavi, Kırmızı"</span></div><br><div><span id="a0">// sadece virgül ile dilimleme işleminin sonucunda fazladan boşluk içeriyor</span></div><br><div><span id="a5">renkler</span><span id="a2">.</span><span id="a4">split</span><span id="a2">(</span><span id="a8">","</span><span id="a2">) </span><span id="a0">// ['Beyaz', ' Yeşil', ' Mavi', ' Kırmızı']</span></div><br><div><span id="a0">// virgül + boşluk karakterleri birleştirilerek boşluk içermeyen dizi elemanları oluştu</span></div><br><div><span id="a5">renkler</span><span id="a2">.</span><span id="a4">split</span><span id="a2">(</span><span id="a8">", "</span><span id="a2">) </span><span id="a0">// ['Beyaz', 'Yeşil', 'Mavi', 'Kırmızı']</span></div></div>
+
+        <p>Dilimleme ifadesi boş bir string olarak tanımlandığında: her bir harf dilimlere ayrılmış olur. Aynı işlem rest operatörü ile de yapılabilir. Bu iki yöntem ile string ifade diziye dönüşmüş olur.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">site</span><span id="a2"> = </span><span id="a8">"Yapay Gezegen"</span></div><br><div><span id="a5">site</span><span id="a2">.</span><span id="a4">split</span><span id="a2">(</span><span id="a8">""</span><span id="a2">) </span><span id="a0">// ['Y', 'a', 'p', 'a', 'y', ' ', 'G', 'e', 'z', 'e', 'g', 'e', 'n']</span></div><br><div><span id="a5">site</span><span id="a2">.</span><span id="a4">split</span><span id="a2">(</span><span id="a8">""</span><span id="a2">)[</span><span id="a3">6</span><span id="a2">] </span><span id="a0">// G</span></div><br><div><span id="a2">[...</span><span id="a5">site</span><span id="a2">] </span><span id="a0">// ['Y', 'a', 'p', 'a', 'y', ' ', 'G', 'e', 'z', 'e', 'g', 'e', 'n']</span></div><br><div><span id="a2">[...</span><span id="a5">site</span><span id="a2">][</span><span id="a3">6</span><span id="a2">] </span><span id="a0">// G</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">String Metodları: includes() & search()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
