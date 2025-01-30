@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript includes ve search metodu, string içerinde arama yapmak, javascript ifade aramak, string metodları javascript">
+    <meta name="keywords" content="javascript includes ve search metodu, string içerinde arama yapmak, javascript ifade aramak, string metodları javascript">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları includes() & search()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: includes() & search()</h1>
+
+        <h2>includes() Metodu</h2>
+
+        <p>includes: string ifade içerisinde, istenilen başka bir string ifadenin olup olmadığını sorgular. İfade varsa: true, yoksa: false değerini döner. Metin içersinde arama yapma, form doğrulama, veri filtreleme ve url analizi vb. verileri analiz etmek için kullanılır.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"Merhaba, YapayGezegen.com sitesindesiniz."</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">aramaMetni</span><span id="a2"> = </span><span id="a8">".com"</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">includes</span><span id="a2">(</span><span id="a5">aramaMetni</span><span id="a2">) </span><span id="a0">// true -&gt; .com ifadesinin olup olmadığını kontrol ettik</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">includes</span><span id="a2">(</span><span id="a8">"Java"</span><span id="a2">) </span><span id="a0">// false -&gt; Java ifadesi metin içersinde olmadığı için false değeri döndü</span></div></div>
+
+        <p>includes metodu: büyük - küçük harflere duyarlıdır. Metod, 2 parametre almaktadır. 2. parametre: aramaya başlanacak index değerini belirler. Kullanımı zorunlu değildir. Varsayılan olarak 0 değerini kullanır.</p>
+
+        <div class="kodAlan"><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">includes</span><span id="a2">(</span><span id="a8">".Com"</span><span id="a2">) </span><span id="a0">// false -&gt; c ve C iki farklı karakterdir. Birbirine eşit değildir.</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">includes</span><span id="a2">(</span><span id="a5">aramaMetni</span><span id="a2">,</span><span id="a3">21</span><span id="a2">) </span><span id="a0">// true -&gt; .com ifadesi 21. karakterden sonra mevcuttur</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">includes</span><span id="a2">(</span><span id="a5">aramaMetni</span><span id="a2">,</span><span id="a3">22</span><span id="a2">) </span><span id="a0">// false -&gt; .com ifadesi 22. karakterden sonra mevcut değildir</span></div></div>
+
+        <p>includes metodunu kendimiz yazmaya çalışalım. Bunu: bir for döngüsü, slice metodu ve bir if sorgusu ile yapabiliriz.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">olmak</span><span id="a2">(</span><span id="a5">veri</span><span id="a2">, </span><span id="a5">ifade</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt;= </span><span id="a5">veri</span><span id="a2">.</span><span id="a5">length</span><span id="a2"> - </span><span id="a5">ifade</span><span id="a2">.</span><span id="a5">length</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">        </span><span id="a6">if</span><span id="a2"> (</span><span id="a5">veri</span><span id="a2">.</span><span id="a4">slice</span><span id="a2">(</span><span id="a5">i</span><span id="a2">, </span><span id="a5">i</span><span id="a2"> + </span><span id="a5">ifade</span><span id="a2">.</span><span id="a5">length</span><span id="a2">) == </span><span id="a5">ifade</span><span id="a2">) {</span></div><div><span id="a2">            </span><span id="a6">return</span><span id="a2"> </span><span id="a1">true</span></div><div><span id="a2">        }</span></div><div><span id="a2">    }</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a1">false</span></div><div><span id="a2">}</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"includes metodu"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">deger1</span><span id="a2"> = </span><span id="a8">"abc"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">deger2</span><span id="a2"> = </span><span id="a8">"ude"</span></div><br><div><span id="a4">olmak</span><span id="a2">(</span><span id="a5">metin</span><span id="a2">,</span><span id="a5">deger1</span><span id="a2">) </span><span id="a0">// false</span></div><br><div><span id="a4">olmak</span><span id="a2">(</span><span id="a5">metin</span><span id="a2">,</span><span id="a5">deger2</span><span id="a2">) </span><span id="a0">// true</span></div></div>
+
+        <h2>search() Metodu</h2>
+
+        <p>search: string ifade içerisinde, istenilen başka bir string ifadenin olup olmadığını sorgular. İfade varsa: bulunduğu ilk index değerini döner, yoksa: -1 değerini döner. Büyük - küçük harflere duyarlıdır. String ifade içerinde arama yapmak için kullanılır.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"Veri Yapıları ve Algoritmalar"</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">search</span><span id="a2">(</span><span id="a8">"Ve"</span><span id="a2">) </span><span id="a0">// 0</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">search</span><span id="a2">(</span><span id="a8">"ve"</span><span id="a2">) </span><span id="a0">// 14</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">search</span><span id="a2">(</span><span id="a8">"as"</span><span id="a2">) </span><span id="a0">// -1</span></div></div>
+
+        <p>includes metodu için yazdığımız fonksiyonu değiştirerek, döndürdüğü değerleri: index ve -1 yapıp, search metoduna uyarlayalım.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">arama</span><span id="a2">(</span><span id="a5">veri</span><span id="a2">, </span><span id="a5">ifade</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt;= </span><span id="a5">veri</span><span id="a2">.</span><span id="a5">length</span><span id="a2"> - </span><span id="a5">ifade</span><span id="a2">.</span><span id="a5">length</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">        </span><span id="a6">if</span><span id="a2"> (</span><span id="a5">veri</span><span id="a2">.</span><span id="a4">slice</span><span id="a2">(</span><span id="a5">i</span><span id="a2">, </span><span id="a5">i</span><span id="a2"> + </span><span id="a5">ifade</span><span id="a2">.</span><span id="a5">length</span><span id="a2">) == </span><span id="a5">ifade</span><span id="a2">) {</span></div><div><span id="a2">            </span><span id="a6">return</span><span id="a2"> </span><span id="a5">i</span></div><div><span id="a2">        }</span></div><div><span id="a2">    }</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> -</span><span id="a3">1</span></div><div><span id="a2">}</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"Veri Yapıları ve Algoritmalar"</span></div><br><div><span id="a4">arama</span><span id="a2">(</span><span id="a5">metin</span><span id="a2">,</span><span id="a8">"Ve"</span><span id="a2">) </span><span id="a0">// 0</span></div><br><div><span id="a4">arama</span><span id="a2">(</span><span id="a5">metin</span><span id="a2">,</span><span id="a8">"ve"</span><span id="a2">) </span><span id="a0">// 14</span></div><br><div><span id="a4">arama</span><span id="a2">(</span><span id="a5">metin</span><span id="a2">,</span><span id="a8">"as"</span><span id="a2">) </span><span id="a0">// -1</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">String Metodları: indexOf() & lastIndexOf()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+<script>
+let metin = "Veri Yapıları ve Algoritmalar"
+
+metin.search("Ve") // 0
+
+metin.search("ve") // 14
+
+metin.search("as") // -1
+</script>
+</html>
