@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript numara formatlama, javascript başa ve sona string ekleme, javascript dili string metodları">
+    <meta name="keywords" content="javascript numara formatlama, javascript başa ve sona string ekleme, javascript dili string metodları">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları padStart() & padEnd()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: padStart() & padEnd()</h1>
+
+        <h2>padStart() Metodu</h2>
+
+        <p>padStart: string ifadenin önüne, belirtilen uzunluk değerine ulaşıncaya kadar istenilen ifadeyi ekler. İfade belirtilmez ise: varsayılan olarak boşluk karakteri (" ") eklenir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">veri</span><span id="a2"> = </span><span id="a8">"Javascript"</span></div><br><div><span id="a5">veri</span><span id="a2">.</span><span id="a4">padStart</span><span id="a2">(</span><span id="a3">15</span><span id="a2">,</span><span id="a8">"x"</span><span id="a2">) </span><span id="a0">// xxxxxJavascript</span></div><br><div><span id="a5">veri</span><span id="a2">.</span><span id="a4">padStart</span><span id="a2">(</span><span id="a3">15</span><span id="a2">) </span><span id="a0">//      Javascript</span></div></div>
+
+        <h2>padEnd() Metodu</h2>
+
+        <p>padEnd: string ifadenin sonuna, belirtilen uzunluk değerine ulaşıncaya kadar istenilen ifadeyi ekler. İfade belirtilmez ise: varsayılan olarak boşluk karakteri (" ") eklenir.</p>
+
+        <div class="kodAlan"><div><span id="a5">veri</span><span id="a2">.</span><span id="a4">padEnd</span><span id="a2">(</span><span id="a3">15</span><span id="a2">,</span><span id="a8">"x"</span><span id="a2">) </span><span id="a0">// Javascriptxxxxx</span></div><br><div><span id="a5">veri</span><span id="a2">.</span><span id="a4">padEnd</span><span id="a2">(</span><span id="a3">15</span><span id="a2">) </span><span id="a0">// Javascript     -&gt; 5 adet boşluk karakteri eklendi</span></div></div>
+
+        <p>padStart ve padEnd metodları: numara ve metin formatlama, konsol çıktısı, tablo görümü gibi alanlarda sıkça kullanılır. Bu iki metodu yaptığı görevleri tek bir yapıda birleştirelim. Gönderilen parametreye göre başa ve sona karakter ekleyen fonksiyonu yazalım.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">ekle</span><span id="a2">(</span><span id="a5">metin</span><span id="a2">, </span><span id="a5">konum</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">, </span><span id="a5">adet</span><span id="a2">=</span><span id="a3">0</span><span id="a2">, </span><span id="a5">karakter</span><span id="a2">=</span><span id="a8">" "</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a1">let</span><span id="a2"> </span><span id="a5">ek</span><span id="a2"> = </span><span id="a8">""</span></div><br><div><span id="a2">    </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a5">adet</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">        </span><span id="a5">ek</span><span id="a2"> += </span><span id="a5">karakter</span></div><div><span id="a2">    }</span></div><div><span id="a2">    </span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">konum</span><span id="a2"> ? </span><span id="a5">ek</span><span id="a2"> + </span><span id="a5">metin</span><span id="a2"> : </span><span id="a5">metin</span><span id="a2"> + </span><span id="a5">ek</span></div><div><span id="a2">}</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">veri</span><span id="a2"> = </span><span id="a8">"Javascript"</span></div><br><div><span id="a4">ekle</span><span id="a2">(</span><span id="a5">veri</span><span id="a2">, </span><span id="a3">1</span><span id="a2">, </span><span id="a3">5</span><span id="a2">, </span><span id="a8">"x"</span><span id="a2">) </span><span id="a0">// xxxxxJavascript</span></div><br><div><span id="a4">ekle</span><span id="a2">(</span><span id="a5">veri</span><span id="a2">, </span><span id="a3">0</span><span id="a2">, </span><span id="a3">5</span><span id="a2">, </span><span id="a8">"x"</span><span id="a2">) </span><span id="a0">// Javascriptxxxxx</span></div><br><div><span id="a4">ekle</span><span id="a2">(</span><span id="a5">veri</span><span id="a2">, </span><span id="a3">0</span><span id="a2">, </span><span id="a3">5</span><span id="a2">) </span><span id="a0">// Javascript     -&gt; 5 adet boşluk karakteri eklendi</span></div></div>
+
+        <p>Yazmış olduğumuz foksiyonda sırasıyla: metin ile string ifadeyi aldık, konum ile ekleme işlemin başta veya sonda olmasını belirledik (varsayılan olarak sondan ekleyecek), adet ile kaç kez ekleneceğini belirledik, karakter ile hangi ifadenin ekleneceğini ve varsayılan olarak boşluk ifadesi olmasını belirledik. ek adlı değişkenine boş bir string atadık. for döngüsü ile ek adlı değişkene, eklenecek ifadeyi tekrar tekrar ekledik. return ve ternary operatörünü kullanarak sonucu döndürdük.</p>
+
+        <div id="sonraki"><a href="/javascript/">String Metodları: trim() & trimStart() & trimLeft() & trimEnd() - trimRight()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
