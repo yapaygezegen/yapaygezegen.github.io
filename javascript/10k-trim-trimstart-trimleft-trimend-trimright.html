@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript trim işlemleri, string ifade boşluk silmek, javascript trim trimStart trimEnd işlemleri, başta ve sondaki boşlukları silmek">
+    <meta name="keywords" content="javascript trim işlemleri, string ifade boşluk silmek, javascript trim trimStart trimEnd işlemleri, başta ve sondaki boşlukları silmek">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları trim() & trimStart() & trimLeft() & trimEnd() & trimRight()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: trim() & trimStart() & trimLeft() & trimEnd() & trimRight()</h1>
+
+        <h2>trim() Metodu</h2>
+
+        <p>trim: string ifadenin başında ve sonunda bulunan boşlukları (space, tab, newline) silmek için kullanılır. * Boşluklarını sildiği string ifadenin kendisi üzerinde değişiklik yapmaz. Bu kural, diğer tüm trim işlemleri için geçerlidir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin1</span><span id="a2"> = </span><span id="a8">" JavaScript Programlama Dili "</span></div><br><div><span id="a5">metin1</span><span id="a2">.</span><span id="a4">trim</span><span id="a2">() </span><span id="a0">// "JavaScript Programlama Dili"</span></div></div>
+
+        <h2>trimStart() & trimLeft Metodları</h2>
+
+        <p>trimStart & trimLeft: string ifadenin sadece başında bulunan boşlukları silmek için kullanılır. Bu iki metod aynı işi yapar.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin2</span><span id="a2"> = </span><span id="a8">" Sadece soldaki/baştaki boşlukları siler. "</span></div><br><div><span id="a5">metin2</span><span id="a2">.</span><span id="a4">trimStart</span><span id="a2">() </span><span id="a0">// "Sadece soldaki/baştaki boşlukları siler. "</span></div><br><div><span id="a5">metin2</span><span id="a2">.</span><span id="a4">trimLeft</span><span id="a2">() </span><span id="a0">// "Sadece soldaki/baştaki boşlukları siler. "</span></div></div>
+
+        <h2>trimEnd() & trimRight() Metodları</h2>
+
+        <p>trimEnd & trimRight: string ifadenin sadece sonunda bulunan boşlukları silmek için kullanılır. Bu iki metod aynı işi yapar.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin3</span><span id="a2"> = </span><span id="a8">" Sadece sağdaki/sondaki boşlukları siler. "</span></div><br><div><span id="a5">metin3</span><span id="a2">.</span><span id="a4">trimStart</span><span id="a2">() </span><span id="a0">// " Sadece sağdaki/sondaki boşlukları siler."</span></div><br><div><span id="a5">metin3</span><span id="a2">.</span><span id="a4">trimLeft</span><span id="a2">() </span><span id="a0">// " Sadece sağdaki/sondaki boşlukları siler."</span></div></div>
+
+        <p>trim metodları: form verilerini düzenleme, veri işleme, string karşılaştırma vb. işlemlerde sıkça kullanılır.</p>
+
+        <div id="sonraki"><a href="/javascript/">String Metodları: match() & matchAll()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
