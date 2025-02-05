@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript küçük harf yapma, javascript türkçe küçik harfe çevirme, javascript toLowerCase toLocaleLowerCase metodları">
+    <meta name="keywords" content="javascript küçük harf yapma, javascript türkçe küçik harfe çevirme, javascript toLowerCase toLocaleLowerCase metodları">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları toLowerCase() & toLocaleLowerCase()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: toLowerCase() & toLocaleLowerCase()</h1>
+
+        <h2>toLowerCase() Metodu</h2>
+
+        <p>toLowerCase: string ifadenin tüm harflerini küçük harfe çevirir. Küçük harflerden oluşan yeni bir string ifade döndürür. Orijinal string ifade üzerinde değişik yapmaz.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">veri</span><span id="a2"> = </span><span id="a8">"Tüm harFler küÇük mü?"</span></div><br><div><span id="a5">veri</span><span id="a2">.</span><span id="a4">toLowerCase</span><span id="a2">() </span><span id="a0">// "tüm harfler küçük mü?"</span></div></div>
+
+        <h2>toLocaleLowerCase() Metodu</h2>
+
+        <p>toLocaleLowerCase: string ifadenin tüm harflerini yerel dile uygun olarak çevirir. Yerel dile uygun olan küçük harflerden yeni bir string ifade döndürür. Orijinal string ifade üzerinde değişik yapmaz.</p>
+
+        <p>toLowerCase metodunu, Türkçe harfler için kullanmamız uygun değildir. JavaScript programlama dilinde, Türkçe karakterleri küçük harfli yapabilmek için toLocaleLowerCase kullanmamız gerekir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"İyilik iyidir."</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">toLocaleLowerCase</span><span id="a2">(</span><span id="a8">"tr"</span><span id="a2">) </span><span id="a0">// "iyilik iyidir."</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">toLowerCase</span><span id="a2">() </span><span id="a0">// "i̇yilik iyidir." -&gt; i̇ karakteri hatalı küçültüldü</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">String Metodları: toUpperCase() & toLocaleUpperCase()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
