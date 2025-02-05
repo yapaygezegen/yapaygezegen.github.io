@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript büyük harf yapma, sadece ilk harfi büyük yapma, javascript toUpperCase toLocaleUpperCase metodları">
+    <meta name="keywords" content="javascript büyük harf yapma, sadece ilk harfi büyük yapma, javascript toUpperCase toLocaleUpperCase metodları">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları toUpperCase() & toLocaleUpperCase()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: toUpperCase() & toLocaleUpperCase()</h1>
+
+        <h2>toUpperCase() Metodu</h2>
+
+        <p>toUpperCase: string ifadenin tüm harflerini büyük harfe çevirir. Büyük harflerden oluşan yeni bir string ifade döndürür. Orijinal string ifade üzerinde değişik yapmaz.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = </span><span id="a8">"javascript öğreniyorum"</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">toUpperCase</span><span id="a2">() </span><span id="a0">// "JAVASCRIPT ÖĞRENIYORUM"</span></div><br><div><span id="a0">// küçük i harfi Türk alfabesine göre hatalı çevrilmiştir</span></div></div>
+
+        <h2>toLocaleUpperCase() Metodu</h2>
+
+        <p>toLocaleUpperCase: string ifadenin tüm harflerini yerel dile uygun olarak büyük harfe çevirir. Yerel dile uygun olan büyük harflerden yeni bir string ifade döndürür. Orijinal string ifade üzerinde değişik yapmaz.</p>
+
+        <p>toUpperCase metodunu, Türkçe harfler için kullanmamız uygun değildir. JavaScript programlama dilinde, Türkçe karakterleri büyük harfli yapabilmek için toLocaleUpperCase kullanmamız gerekir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">liste</span><span id="a2"> = </span><span id="a8">"cengiz gülçin yiğit gökhan"</span></div><br><div><span id="a5">liste</span><span id="a2">.</span><span id="a4">toLocaleUpperCase</span><span id="a2">(</span><span id="a8">"tr"</span><span id="a2">) </span><span id="a0">// "CENGİZ GÜLÇİN YİĞİT GÖKHAN"</span></div></div>
+
+        <p>Bir metnin sadece ilk harflerini nasıl büyük yapabiliriz? JavaScript programlama dili dersmizi başından itibaren, bu konuya kadar geldiyseniz: sadece ilk harfi büyük yapan kodu, lütfen kendiniz yazmaya çalışın.</p>
+
+        <h3>İlk Harfi Büyük Yapma Yöntemi</h3>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">ilkHarfBuyuk</span><span id="a2">(</span><span id="a5">metin</span><span id="a2">){</span></div><div><span id="a2">    </span><span id="a1">let</span><span id="a2"> </span><span id="a5">kelimeler</span><span id="a2"> = </span><span id="a5">metin</span><span id="a2">.</span><span id="a4">split</span><span id="a2">(</span><span id="a8">" "</span><span id="a2">)</span></div><div><span id="a2">    </span><span id="a1">let</span><span id="a2"> </span><span id="a5">sonuc</span><span id="a2"> = </span><span id="a8">""</span></div><br><div><span id="a2">    </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a5">kelimeler</span><span id="a2">.</span><span id="a5">length</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++) {</span></div><div><span id="a2">        </span><span id="a5">sonuc</span><span id="a2"> += </span><span id="a5">kelimeler</span><span id="a2">[</span><span id="a5">i</span><span id="a2">].</span><span id="a4">slice</span><span id="a2">(</span><span id="a3">0</span><span id="a2">,</span><span id="a3">1</span><span id="a2">).</span><span id="a4">toLocaleUpperCase</span><span id="a2">(</span><span id="a8">"tr"</span><span id="a2">) + </span><span id="a5">kelimeler</span><span id="a2">[</span><span id="a5">i</span><span id="a2">].</span><span id="a4">slice</span><span id="a2">(</span><span id="a3">1</span><span id="a2">).</span><span id="a4">toLocaleLowerCase</span><span id="a2">(</span><span id="a8">"tr"</span><span id="a2">) + </span><span id="a8">" "</span><span id="a2">            </span></div><div><span id="a2">    }</span></div><div><span id="a2">    </span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">sonuc</span><span id="a2">.</span><span id="a4">trimEnd</span><span id="a2">()</span></div><div><span id="a2">}</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">veri</span><span id="a2"> = </span><span id="a8">"bu metniN, yalnIZca ilk haRfleri büyÜk harf olacak."</span></div><br><div><span id="a4">ilkHarfBuyuk</span><span id="a2">(</span><span id="a5">veri</span><span id="a2">) </span><span id="a0">// "Bu Metnin, Yalnızca İlk Harfleri Büyük Harf Olacak."</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">String Metodları: localeCompare()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
