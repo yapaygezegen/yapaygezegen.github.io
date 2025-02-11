@@ -26,7 +26,7 @@ document.addEventListener("mouseover", function(a) {
     }
 })
 document.addEventListener("click", function(b) {
-    if(b.srcElement.innerText == "Gönder" && !acKapa){
+    if((b.srcElement.innerText == "Gönder" || b.srcElement.innerText == "Send") && !acKapa){
         acKapa = true
     }
     if(b.srcElement.dir == "auto"){
