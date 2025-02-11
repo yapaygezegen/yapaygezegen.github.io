@@ -20,7 +20,7 @@ function degistir(veri, duzTers = 1) {
     return sonuc
 }
 document.addEventListener("mouseover", function(a) {
-    if(a.srcElement.innerText == "Gönder" && acKapa){
+    if((a.srcElement.innerText == "Gönder" || a.srcElement.innerText == "Send") && acKapa){
         acKapa = false
         document.querySelectorAll("p")[0].firstChild.firstChild.nodeValue = degistir(document.querySelectorAll("p")[0].firstChild.firstChild.nodeValue)
     }
