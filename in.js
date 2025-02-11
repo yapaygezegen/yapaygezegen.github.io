@@ -11,7 +11,7 @@ function degistir(veri, duzTers = 1) {
         b = dizi1
     }
     for (let i = 0; i < veri.length; i++) {
-        for (let j = 0; j < 71; j++) {
+        for (let j = 0; j < 81; j++) {
             if (veri[i] == a[j]) {
                 sonuc += b[j]
             }
