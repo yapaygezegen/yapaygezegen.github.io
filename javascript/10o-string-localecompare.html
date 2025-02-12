@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript localeCompare metodu, javascript string karşılatırma, localeCompare metodu locales ve options parametleri">
+    <meta name="keywords" content="javascript localeCompare metodu, javascript string karşılatırma, localeCompare metodu locales ve options parametleri">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Dili String Metodları localeCompare()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript String Metodları: localeCompare()</h1>
+
+        <h2>localeCompare() Metodu</h2>
+
+        <p>localeCompare: string ifadeleri dil ve yerel ayarlara göre karşılaştırmayı sağlar. Karşılaştırılmak istenen ifade önce geliyorsa: -1, aynı ise: 0, sonra geliyorsa: 1 değerini döner. İsteğe bağlı olarak 2 parametre alır. locales ile dil tercihi, options ile karşılaştırma biçimleri belirlenebilir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade1</span><span id="a2"> = </span><span id="a8">"a"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade2</span><span id="a2"> = </span><span id="a8">"b"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade3</span><span id="a2"> = </span><span id="a8">"a"</span></div><br><div><span id="a5">ifade1</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade2</span><span id="a2">) </span><span id="a0">// -1</span></div><br><div><span id="a5">ifade1</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade3</span><span id="a2">) </span><span id="a0">// 0</span></div><br><div><span id="a5">ifade2</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade3</span><span id="a2">) </span><span id="a0">// 1</span></div></div>
+
+        <p>String ifadeleri alfabetik olarak sıralama yaparken, yerel dil kurallarına göre doğru karşılaştırma yapmaya olanak tanır. Örnek olarak: Türkçe'de "ı" harfi ve "i" harfi farklı sırlanır.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade4</span><span id="a2"> = </span><span id="a8">"ı"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade5</span><span id="a2"> = </span><span id="a8">"i"</span></div><br><div><span id="a5">ifade4</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade5</span><span id="a2">) </span><span id="a0">// -1 -&gt; Türk alfabesinde ı harfi i harfinden önce gelir</span></div></div>
+
+        <h3>locales</h3>
+
+        <p>localeCompare ile farklı dillerin yerel alfabetik sıralaması yapaken, locales parametresine değer atamamız gerekir. Değer atanmadığı durumda yerel dil seçeneği varsayılan olarak kullanılır. Türkçe bir tarayıcı kullandığınızı varsayarak, İngilizce diline göre karşılaştırma örneği yapalım.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade6</span><span id="a2"> = </span><span id="a8">"orange"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade7</span><span id="a2"> = </span><span id="a8">"yellow"</span></div><br><div><span id="a5">ifade6</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade7</span><span id="a2">, </span><span id="a8">"en"</span><span id="a2">) </span><span id="a0">// -1 -&gt; İngiliz alfabesinde o harfi y harfinden önce gelir</span></div></div>
+
+        <h3>options</h3>
+
+        <p>options parametresi, karşılaştırma biçimleri için çeşitli seçenekler sunar. Büyük küçük harfler, aksanlar, noktalama işaretleri, sayısal ifadeler gibi özelliklerin belirlenmesini sağlar.</p>
+
+        <ul>
+            <li>sensitivity</li>
+            <ul>
+                <li>base: Büyük küçük harf duyarlılığını kullanmaz. Aksanlı harflerin duyarlılığı kullanmaz.</li>
+                <li>accent: Büyük küçük harf duyarlılığını kullanmaz. Aksanlı harflerin duyarlılığı kullanır.</li>
+                <li>case: Büyük küçük harf duyarlılığını kullanır. Aksanlı harflerin duyarlılığı kullanmaz.</li>
+                <li>variant: Büyük küçük harf duyarlılığını kullanır. Aksanlı harflerin duyarlılığı kullanır.</li>
+            </ul>
+        </ul>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade7</span><span id="a2"> = </span><span id="a8">"a"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade8</span><span id="a2"> = </span><span id="a8">"A"</span></div><br><div><span id="a5">ifade7</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade8</span><span id="a2">) </span><span id="a0">// -1 -&gt; Türk alfabesinde a harfi A harfinden önce gelir</span></div><br><div><span id="a5">ifade7</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade8</span><span id="a2">, </span><span id="a8">"tr"</span><span id="a2">, { </span><span id="a5">sensitivity</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"base"</span><span id="a2"> }) </span><span id="a0">// 0 -&gt; Büyük küçük harf duyarlılığı kaldırıldı</span></div></div>
+
+        <ul><li>ignorePunctuation: noktalama işaretlerinin karşılaştırma işleminde dahil edilip/edilmemesini belirlir. true ve false değerlerini alır. Varsayılan olarak false değerini kullanır.</li></ul>
+        
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade9</span><span id="a2"> = </span><span id="a8">"Yapay Gezegen"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade10</span><span id="a2"> = </span><span id="a8">"Yapay, Gezegen"</span></div><br><div><span id="a5">ifade9</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade10</span><span id="a2">) </span><span id="a0">// -1</span></div><br><div><span id="a5">ifade9</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade10</span><span id="a2">, </span><span id="a8">"tr"</span><span id="a2">, { </span><span id="a5">ignorePunctuation</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"true"</span><span id="a2"> }) </span><span id="a0">// 0 -&gt; , işareti dahil edilmediği için ifadeler eşit oldu</span></div></div>
+
+        <ul><li>numeric: sayılar ile yapılan karşılaştırmalar için kullanılır. true ve false değerlerini alır. Eğer true değeri atanırsa, sayılar doğal sıralarına göre karşılaştırılır. Varsayılan olarak false değerini kullanır.</li></ul>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade11</span><span id="a2"> = </span><span id="a8">"2"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade12</span><span id="a2"> = </span><span id="a8">"10"</span></div><br><div><span id="a5">ifade11</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade12</span><span id="a2">) </span><span id="a0">// 1</span></div><br><div><span id="a5">ifade11</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade12</span><span id="a2">, </span><span id="a8">"tr"</span><span id="a2">, { </span><span id="a5">numeric</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"true"</span><span id="a2"> }) </span><span id="a0">// -1 -&gt; 2'nin doğal değeri 10'dan sonra önce gelir</span></div></div>
+
+        <ul><li>caseFirst: karşılaştırmanın büyük/küçük harf duyarlılığını belirler. upper ve lower değerlerini alır. Varsayılan olarak lower değerini kullanır.</li></ul>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade13</span><span id="a2"> = </span><span id="a8">"elma"</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ifade14</span><span id="a2"> = </span><span id="a8">"Elma"</span></div><br><div><span id="a5">ifade13</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade14</span><span id="a2">) </span><span id="a0">// -1 -&gt; küçük harf önce gelir</span></div><br><div><span id="a5">ifade13</span><span id="a2">.</span><span id="a4">localeCompare</span><span id="a2">(</span><span id="a5">ifade14</span><span id="a2">, </span><span id="a8">"tr"</span><span id="a2">, { </span><span id="a5">caseFirst</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"upper"</span><span id="a2"> }) </span><span id="a0">// 1 -&gt; upper ile büyük harf önceliği sağlandı</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">Array Metodları: concat() & (...) spread operatörü</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
