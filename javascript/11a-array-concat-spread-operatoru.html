@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript dizileri birleştirme, javascript concat metodu, spread operatörü ile dizileri birleştirmek, js array concat">
+    <meta name="keywords" content="javascript dizileri birleştirme, javascript concat metodu, spread operatörü ile dizileri birleştirmek, js array concat">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Array Metodları concat() & (...) spread operatörü</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Array Metodları: concat() & (...) spread operatörü</h1>
+
+        <h2>concat() Metodu</h2>
+
+        <p>concat: iki veya daha fazla birleştip, yeni bir dizi oluşturur. Birleştirilen diziler üzerinde değişiklik yapmaz.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi1</span><span id="a2"> = [</span><span id="a3">1</span><span id="a2">,</span><span id="a3">2</span><span id="a2">,</span><span id="a3">3</span><span id="a2">]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi2</span><span id="a2"> = [</span><span id="a3">4</span><span id="a2">,</span><span id="a3">5</span><span id="a2">,</span><span id="a3">6</span><span id="a2">]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi3</span><span id="a2"> = [</span><span id="a3">7</span><span id="a2">,</span><span id="a3">8</span><span id="a2">,</span><span id="a3">9</span><span id="a2">]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi4</span><span id="a2"> = </span><span id="a5">dizi1</span><span id="a2">.</span><span id="a4">concat</span><span id="a2">(</span><span id="a5">dizi2</span><span id="a2">) </span><span id="a0">// dizi1 ve dizi2 birleştirildi</span></div><br><div><span id="a5">dizi4</span><span id="a2"> </span><span id="a0">// [1, 2, 3, 4, 5, 6]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi5</span><span id="a2"> = </span><span id="a5">dizi1</span><span id="a2">.</span><span id="a4">concat</span><span id="a2">(</span><span id="a5">dizi2</span><span id="a2">,</span><span id="a5">dizi3</span><span id="a2">) </span><span id="a0">// dizi1, dizi2 ve dizi3 birleştirildi</span></div><br><div><span id="a5">dizi5</span><span id="a2"> </span><span id="a0">// [1, 2, 3, 4, 5, 6, 7, 8, 9]</span></div></div>
+
+        <p>concat metodu ile çok boyutlu diziler de birleştirilebilir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi6</span><span id="a2"> = [</span><span id="a3">10</span><span id="a2">,</span><span id="a3">11</span><span id="a2">,</span><span id="a3">12</span><span id="a2">]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi7</span><span id="a2"> = [</span><span id="a3">13</span><span id="a2">,[</span><span id="a3">14</span><span id="a2">,</span><span id="a3">15</span><span id="a2">]]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi8</span><span id="a2"> = </span><span id="a5">dizi6</span><span id="a2">.</span><span id="a4">concat</span><span id="a2">(</span><span id="a5">dizi7</span><span id="a2">)</span></div><br><div><span id="a5">dizi8</span><span id="a2"> </span><span id="a0">// [10,11,12,13,[14,15]]</span></div></div>
+
+        <h2>(...) spread operatörü</h2>
+
+        <p>spread operatörü: iki veya daha fazla diziyi elemanlarına ayırıp, yeni bir dizi oluşturur. Birleştirilen diziler üzerinde değişiklik yapmaz. spread operatörü ile çok boyutlu diziler de birleştirilebilir.</p>
+        
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">rakam</span><span id="a2"> = [</span><span id="a3">0</span><span id="a2">,</span><span id="a3">1</span><span id="a2">,</span><span id="a3">2</span><span id="a2">,</span><span id="a3">3</span><span id="a2">]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">harf</span><span id="a2"> = [</span><span id="a8">"a"</span><span id="a2">,</span><span id="a8">"b"</span><span id="a2">,</span><span id="a8">"c"</span><span id="a2">,</span><span id="a8">"d"</span><span id="a2">]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sonuc</span><span id="a2"> = [...</span><span id="a5">rakam</span><span id="a2">,...</span><span id="a5">harf</span><span id="a2">]</span></div><br><div><span id="a5">sonuc</span><span id="a2"> </span><span id="a0">// [0,1,2,3,"a","b","c","d"]</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">Array Metodları: flat() & flatMap()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
