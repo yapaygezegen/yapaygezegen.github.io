@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript flat join toString toLocaleString metodları, diziyi stringe çevirmek, çok boyutlu dizilerle çalışmak">
+    <meta name="keywords" content="javascript flat join toString toLocaleString metodları, diziyi stringe çevirmek, çok boyutlu dizilerle çalışmak">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Array Metodları flat() & join() & toString() & toLocaleString()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Array Metodları:</br>flat() & join() & toString() & toLocaleString()</h1>
+
+        <h2>flat() Metodu</h2>
+
+        <p>flat: dizi içerisindeki alt dizileri istenilen derinlik seviyesine kadar olanları düşürüp, yeni bir dizi üretir. Orjinal dizi üzeriyi değiştirmez. Varsayılan derinlik seviyesi 1'dir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi1</span><span id="a2"> = [</span><span id="a3">0</span><span id="a2">,</span><span id="a3">1</span><span id="a2">,</span><span id="a3">2</span><span id="a2">,</span><span id="a3">3</span><span id="a2">,[</span><span id="a3">4</span><span id="a2">,</span><span id="a3">5</span><span id="a2">],</span><span id="a3">5</span><span id="a2">,</span><span id="a3">6</span><span id="a2">,[</span><span id="a3">7</span><span id="a2">,[</span><span id="a3">8</span><span id="a2">,</span><span id="a3">9</span><span id="a2">]]]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi2</span><span id="a2"> = </span><span id="a5">dizi1</span><span id="a2">.</span><span id="a4">flat</span><span id="a2">()</span></div><br><div><span id="a5">dizi2</span><span id="a2"> </span><span id="a0">// [0,1,2,3,4,5,5,6,7,[8,9]]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi3</span><span id="a2"> = </span><span id="a5">dizi1</span><span id="a2">.</span><span id="a4">flat</span><span id="a2">(</span><span id="a3">2</span><span id="a2">)</span></div><br><div><span id="a5">dizi3</span><span id="a2"> </span><span id="a0">// [0,1,2,3,4,5,5,6,7,8,9]</span></div></div>
+
+        <h2>join() Metodu</h2>
+
+        <p>join: dizi elemanların parçalara ayırıp, istenilen ayırıcı ifade ile birleştirerek bir string oluşturur. Dizi içerisindeki alt dizeleri de işleme alır. Varsayılan ayırıcı ifadesi virgüldür.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">meyveler</span><span id="a2"> = [</span><span id="a8">"Elma"</span><span id="a2">,</span><span id="a8">"Armut"</span><span id="a2">,</span><span id="a8">"Muz"</span><span id="a2">,</span><span id="a8">"Portakal"</span><span id="a2">]</span></div><br><div><span id="a5">meyveler</span><span id="a2">.</span><span id="a4">join</span><span id="a2">() </span><span id="a0">// "Elma,Armut,Muz,Portakal"</span></div><br><div><span id="a5">meyveler</span><span id="a2">.</span><span id="a4">join</span><span id="a2">(</span><span id="a8">" - "</span><span id="a2">) </span><span id="a0">// Elma - Armut - Muz - Portakal</span></div></div>
+
+        <p>Dizi elamanları içerisinde: null ve undefined değerleri, boş string ifadeye çevirilir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">karma</span><span id="a2"> = [</span><span id="a8">"A"</span><span id="a2">, </span><span id="a1">null</span><span id="a2">, </span><span id="a8">"B"</span><span id="a2">, </span><span id="a1">undefined</span><span id="a2">, </span><span id="a8">"C"</span><span id="a2">]</span></div><br><div><span id="a5">karma</span><span id="a2">.</span><span id="a4">join</span><span id="a2">() </span><span id="a0">// A,,B,,C</span></div></div>
+
+        <h2>toString() Metodu</h2>
+
+        <p>toString: dizi elemanlarını virgülle birleştirip, bir string ifade oluşturur. Herhangi bir parametre almaz.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">metin</span><span id="a2"> = [</span><span id="a8">"JavaScript"</span><span id="a2">,</span><span id="a8">"Programlama"</span><span id="a2">,</span><span id="a8">"Dili"</span><span id="a2">]</span></div><br><div><span id="a5">metin</span><span id="a2">.</span><span id="a4">toString</span><span id="a2">() </span><span id="a0">// "JavaScript,Programlama,Dili</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sayilar</span><span id="a2"> = [</span><span id="a3">10</span><span id="a2">,</span><span id="a3">25</span><span id="a2">,</span><span id="a3">50</span><span id="a2">]</span></div><br><div><span id="a5">sayilar</span><span id="a2"> </span><span id="a0">// "10,25,50" -&gt; string ifade</span></div></div>
+
+        <h2>toLocaleString() Metodu</h2>
+
+        <p>toLocaleString: dizi elamanlarını yerel ayarlara uygun olacak şekilde string ifadeye dönüştürür. İsteğe bağlı 2 parametre almaktadır.</p>
+
+        <h3>locales</h3>
+
+        <p>Dizinin elemanlarının biçimlendirilmesi için kullanılacak yerel ayarı belirler. Türkçe için: "tr-TR", Almanca için: "de-DE", Amerika için: "en-US" gibi argümanları alır.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sayi</span><span id="a2"> = [</span><span id="a3">12.25</span><span id="a2">]</span></div><br><div><span id="a5">sayi</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">) </span><span id="a0">// "12,15" -&gt; Türkiye'de ondalıklı sayılar virgülle ifade edilir</span></div><br><div><span id="a5">sayi</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"en-US"</span><span id="a2">) </span><span id="a0">// "12.25" -&gt; Amerika'da ondalıklı sayılar noktayla ifade edilir</span></div></div>
+
+        <h3>options</h3>
+
+        <p>biçimlendirilme için çeşitli seçenekler sunar. Sayılar, tarihler, para birimleri gibi farklı türde özelliklerin formatlanmasını sağlar.</p>
+
+        <ul>
+            <li>style</li>
+            <ul>
+                <li>decimal: Sayıları standart formata çevirir.</li>
+                <li>currency: Para birimine uygun formaya çevirir.</li>
+                <li>percent: Yüzde olarak formatlar.</li>
+            </ul>
+        </ul>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">paralar</span><span id="a2"> = [</span><span id="a3">150.55</span><span id="a2">, </span><span id="a3">300.25</span><span id="a2">]</span></div><br><div><span id="a5">paralar</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">, { </span><span id="a5">style</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"currency"</span><span id="a2">, </span><span id="a5">currency</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"TRY"</span><span id="a2"> }) </span><span id="a0">// "₺150,55, ₺300,25"</span></div><br><div><span id="a5">paralar</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"en-US"</span><span id="a2">, { </span><span id="a5">style</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"currency"</span><span id="a2">, </span><span id="a5">currency</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"USD"</span><span id="a2"> }) </span><span id="a0">// "$150.55, $300.25"</span></div><br><div><span id="a5">paralar</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"de-DE"</span><span id="a2">, { </span><span id="a5">style</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"currency"</span><span id="a2">, </span><span id="a5">currency</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"EUR"</span><span id="a2"> }) </span><span id="a0">// 150,55 €, 300,25 €</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">yuzde</span><span id="a2"> = [</span><span id="a3">0.25</span><span id="a2">, </span><span id="a3">0.88</span><span id="a2">]</span></div><br><div><span id="a5">yuzde</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">, { </span><span id="a5">style</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"percent"</span><span id="a2"> }) </span><span id="a0">// "%25, %88"</span></div><br><div><span id="a5">yuzde</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"en-US"</span><span id="a2">, { </span><span id="a5">style</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"percent"</span><span id="a2"> }) </span><span id="a0">// "25%, 88%"</span></div></div>
+
+        <ul>
+            <li>currencyDisplay</li>
+            <ul>
+                <li>symbol: Para biriminin sembolünü verir.</li>
+                <li>narrowSymbol: Dar sembol kullanır.</li>
+                <li>code: Para biriminin kodunu verir.</li>
+                <li>name: Para biriminin adını verir.</li>
+            </ul>
+        </ul>
+
+        <div class="kodAlan"><div><span id="a5">paralar</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">, { </span><span id="a5">style</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"currency"</span><span id="a2">, </span><span id="a5">currency</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"TRY"</span><span id="a2">, </span><span id="a5">currencyDisplay</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"name"</span><span id="a2"> })</span></div><div><span id="a0">// ₺150,55 Türk lirası, ₺300,25 Türk lirası</span></div><br><div><span id="a5">paralar</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"en-US"</span><span id="a2">, { </span><span id="a5">style</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"currency"</span><span id="a2">, </span><span id="a5">currency</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"USD"</span><span id="a2">, </span><span id="a5">currencyDisplay</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"name"</span><span id="a2"> })</span></div><div><span id="a0">// 150.55 US dollars, 300.25 US dollars</span></div></div>
+
+        <ul>
+            <li>minimumFractionDigits & maximumFractionDigits</li>
+            <ul>
+                <li>minimumFractionDigits: En az kaç basamağın kullanılacağını belirtir.</li>
+                <li>maximumFractionDigits: En fazla kaç basamağın kullanılacağını belirtir.</li>
+            </ul>
+        </ul>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sayilar</span><span id="a2"> = [</span><span id="a3">1745.25</span><span id="a2">, </span><span id="a3">250.7</span><span id="a2">]</span></div><br><div><span id="a5">sayilar</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">, { </span><span id="a5">minimumFractionDigits</span><span id="a5">:</span><span id="a2"> </span><span id="a3">3</span><span id="a2">, </span><span id="a5">maximumFractionDigits</span><span id="a5">:</span><span id="a2"> </span><span id="a3">3</span><span id="a2"> })</span></div><div><span id="a0">// 1.745,250, 250,700</span></div><br><div><span id="a5">sayilar</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"en-US"</span><span id="a2">, { </span><span id="a5">minimumFractionDigits</span><span id="a5">:</span><span id="a2"> </span><span id="a3">3</span><span id="a2">, </span><span id="a5">maximumFractionDigits</span><span id="a5">:</span><span id="a2"> </span><span id="a3">3</span><span id="a2"> })</span></div><div><span id="a0">// "1,745.250, 250.700"</span></div></div>
+
+        <ul>
+            <li>useGrouping: sayıların binlik gruplara ayırılıp / ayrılmayacağını belirler.</li>
+        </ul>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sayi</span><span id="a2"> = [</span><span id="a3">1234567.89</span><span id="a2">]</span></div><br><div><span id="a5">sayi</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">, { </span><span id="a5">useGrouping</span><span id="a5">:</span><span id="a2"> </span><span id="a1">true</span><span id="a2"> }) </span><span id="a0">// "1.234.567,89"</span></div><br><div><span id="a5">sayi</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">, { </span><span id="a5">useGrouping</span><span id="a5">:</span><span id="a2"> </span><span id="a1">false</span><span id="a2"> }) </span><span id="a0">// "1234567,89"</span></div></div>
+
+        <ul>
+            <li>Birimleri sayıların yanında göstermek için kullanılır. Metre, kilometre, celsius, fahrenheit gibi birimler gösterilebilir.</li>
+        </ul>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">uzakliklar</span><span id="a2"> = [</span><span id="a3">150</span><span id="a2">, </span><span id="a3">165.85</span><span id="a2">]</span></div><br><div><span id="a5">uzakliklar</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">, { </span><span id="a5">style</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"unit"</span><span id="a2">, </span><span id="a5">unit</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"kilometer"</span><span id="a2"> }) </span><span id="a0">// "150 km, 165.85 km"</span></div></div>
+
+        <ul>
+            <li>signDisplay</li>
+            <ul>
+                <li>auto: Sadece negatif işaretler gösterilir.</li>
+                <li>always: Negatif ve pozitif işaretler gösterilir. Sıfır pozitif gösterilir.</li>
+                <li>exceptZero: Sadece negatif ve pozitif işaretler gösterilir.</li>
+                <li>never: Hiçbir işaret gösterilmez.</li>
+            </ul>
+        </ul>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">degerler</span><span id="a2"> = [-</span><span id="a3">123.45</span><span id="a2">, </span><span id="a3">0</span><span id="a2">, </span><span id="a3">54.321</span><span id="a2">]</span></div><br><div><span id="a5">degerler</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">, { </span><span id="a5">signDisplay</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"auto"</span><span id="a2"> }) </span><span id="a0">// "-123,45, 0, 54,321"</span></div><br><div><span id="a5">degerler</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">, { </span><span id="a5">signDisplay</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"always"</span><span id="a2"> }) </span><span id="a0">// "-123,45, +0 ,+54,321"</span></div><br><div><span id="a5">degerler</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">, { </span><span id="a5">signDisplay</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"exceptZero"</span><span id="a2"> }) </span><span id="a0">// "-123,45, 0, +54,321"</span></div><br><div><span id="a5">degerler</span><span id="a2">.</span><span id="a4">toLocaleString</span><span id="a2">(</span><span id="a8">"tr-TR"</span><span id="a2">, { </span><span id="a5">signDisplay</span><span id="a5">:</span><span id="a2"> </span><span id="a8">"never"</span><span id="a2"> }) </span><span id="a0">// "123,45, 0, 54,321"</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">Array Metodları: keys() & values() & entries()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
