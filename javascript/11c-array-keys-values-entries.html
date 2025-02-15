@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript keys values entries metodları, javascript dizinin indexlerine ve değerlerine ulaşmak, diziler elemanlarına erişmek">
+    <meta name="keywords" content="javascript keys values entries metodları, javascript dizinin indexlerine ve değerlerine ulaşmak, diziler elemanlarına erişmek">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Array Metodları keys() & values() & entries()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Array Metodları:</br>keys() & values() & entries()</h1>
+
+        <h2>keys() Metodu</h2>
+
+        <p>keys: dizi elemanlarının indexlerini döndürür. Bu metod bir iteratör döndürür. İçerdeği değerlere döngü kullanarak erişebilirsiniz. Var olmayan elemanlarıda işleme alır. Sıralı index değerini verir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi1</span><span id="a2"> = [</span><span id="a8">"a"</span><span id="a2">,</span><span id="a8">"b"</span><span id="a2">,</span><span id="a8">"c"</span><span id="a2">,</span><span id="a8">"d"</span><span id="a2">]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">anahtar</span><span id="a2"> = </span><span id="a5">dizi1</span><span id="a2">.</span><span id="a4">keys</span><span id="a2">()</span></div><br><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">sonuc</span><span id="a2"> </span><span id="a1">of</span><span id="a2"> </span><span id="a5">anahtar</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">sonuc</span><span id="a2">) </span><span id="a0">// 0, 1, 2, 3</span></div><div><span id="a2">}</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi2</span><span id="a2"> = [</span><span id="a8">"a"</span><span id="a2">,</span><span id="a8">"b"</span><span id="a2">,,</span><span id="a8">"c"</span><span id="a2">,</span><span id="a8">"d"</span><span id="a2">] </span><span id="a0">// 2. index değerinin içeriği yok</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">anahtar2</span><span id="a2"> = </span><span id="a5">dizi2</span><span id="a2">.</span><span id="a4">keys</span><span id="a2">()</span></div><br><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">sonuc2</span><span id="a2"> </span><span id="a1">of</span><span id="a2"> </span><span id="a5">anahtar2</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">sonuc2</span><span id="a2">) </span><span id="a0">// 0, 1, 2, 3, 4</span></div><div><span id="a2">}</span></div></div>
+
+        <h2>values() Metodu</h2>
+
+        <p>values: dizi elemanlarının değerlerini döndürür. Bu metod bir iteratör döndürür. İçerdeği değerlere döngü kullanarak erişebilirsiniz. Var olmayan elemanlar için: "undefined" değerini verir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">deger</span><span id="a2"> = </span><span id="a5">dizi1</span><span id="a2">.</span><span id="a4">values</span><span id="a2">()</span></div><br><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">sonuc</span><span id="a2"> </span><span id="a1">of</span><span id="a2"> </span><span id="a5">deger</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">sonuc</span><span id="a2">) </span><span id="a0">// a, b, c, d</span></div><div><span id="a2">}</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">deger2</span><span id="a2"> = </span><span id="a5">dizi2</span><span id="a2">.</span><span id="a4">values</span><span id="a2">()</span></div><br><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">sonuc2</span><span id="a2"> </span><span id="a1">of</span><span id="a2"> </span><span id="a5">deger2</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">sonuc2</span><span id="a2">) </span><span id="a0">// a, b, undefined, c, d</span></div><div><span id="a2">}</span></div></div>
+
+        <h2>entries() Metodu</h2>
+
+        <p>entries: dizi elemanlarının hem indexlerini hemde değerlerini döndürür. Bu metod bir iteratör döndürür. İçerdeği değerlere döngü kullanarak erişebilirsiniz. Var olmayanlar elemanlar için: key ve values metodlarının birleşiminin sonucunu verir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">avd</span><span id="a2"> = </span><span id="a5">dizi1</span><span id="a2">.</span><span id="a4">entries</span><span id="a2">()</span></div><br><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">sonuc</span><span id="a2"> </span><span id="a1">of</span><span id="a2"> </span><span id="a5">avd</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">sonuc</span><span id="a2">) </span><span id="a0">// [0, "a"], [1, "b"], [2, "c"], [3, "d"]</span></div><div><span id="a2">}</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">avd2</span><span id="a2"> = </span><span id="a5">dizi2</span><span id="a2">.</span><span id="a4">entries</span><span id="a2">()</span></div><br><div><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">sonuc2</span><span id="a2"> </span><span id="a1">of</span><span id="a2"> </span><span id="a5">avd2</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a5">console</span><span id="a2">.</span><span id="a4">log</span><span id="a2">(</span><span id="a5">sonuc2</span><span id="a2">) </span><span id="a0">// [0, "a"], [1, "b"], [2, undefined], [3, "c"], [4, "d"]</span></div><div><span id="a2">}</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">Array Metodları: pop() & push() & shift() & unshift()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
