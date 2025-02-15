@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript push pop unshift shift metodları, dizilere eleman ekleme, dizilerden eleman silme, javascript dizilerle çalışmak">
+    <meta name="keywords" content="javascript push pop unshift shift metodları, dizilere eleman ekleme, dizilerden eleman silme, javascript dizilerle çalışmak">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Array Metodları push() & pop() & unshift() & shift()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Array Metodları:</br>push() & pop() & unshift() & shift()</h1>
+
+        <h2>push() Metodu</h2>
+
+        <p>push: dizinin sonuna eleman ekler. Birden fazla eleman eklenebilir. Dizinin eleman eklendikten sonraki eleman sayısını döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi1</span><span id="a2"> = [</span><span id="a8">"a"</span><span id="a2">,</span><span id="a8">"b"</span><span id="a2">,</span><span id="a8">"c"</span><span id="a2">]</span></div><br><div><span id="a5">dizi1</span><span id="a2">.</span><span id="a4">push</span><span id="a2">(</span><span id="a8">"ç"</span><span id="a2">) </span><span id="a0">// 4</span></div><br><div><span id="a5">dizi1</span><span id="a2"> </span><span id="a0">// ["a","b","c","ç"]</span></div><br><div><span id="a5">dizi1</span><span id="a2">.</span><span id="a4">push</span><span id="a2">(</span><span id="a8">"d"</span><span id="a2">,</span><span id="a8">"e"</span><span id="a2">) </span><span id="a0">// 6</span></div><br><div><span id="a5">dizi1</span><span id="a2"> </span><span id="a0">// ["a","b","c","ç","d","e"]</span></div></div>
+
+        <h2>pop() Metodu</h2>
+
+        <p>pop: dizinin son elemanını siler. Dizinin silinen elemanını döndürür. Dizinin uzunluğu 1 azalmış olur.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi2</span><span id="a2"> = [</span><span id="a8">"f"</span><span id="a2">,</span><span id="a8">"g"</span><span id="a2">,</span><span id="a8">"ğ"</span><span id="a2">]</span></div><br><div><span id="a5">dizi2</span><span id="a2">.</span><span id="a4">pop</span><span id="a2">() </span><span id="a0">// "ğ"</span></div><br><div><span id="a5">dizi2</span><span id="a2"> </span><span id="a0">// ["f","g"]</span></div></div>
+
+        <h2>unshift() Metodu</h2>
+
+        <p>unshift: dizinin başına eleman ekler. Birden fazla eleman eklenebilir. Dizinin eleman eklendikten sonraki eleman sayısını döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi3</span><span id="a2"> = [</span><span id="a8">"h"</span><span id="a2">,</span><span id="a8">"ı"</span><span id="a2">,</span><span id="a8">"i"</span><span id="a2">]</span></div><br><div><span id="a5">dizi3</span><span id="a2">.</span><span id="a4">unshift</span><span id="a2">(</span><span id="a8">"j"</span><span id="a2">) </span><span id="a0">// 4</span></div><br><div><span id="a5">dizi3</span><span id="a2"> </span><span id="a0">// ["h","ı","i","j"]</span></div><br><div><span id="a5">dizi3</span><span id="a2">.</span><span id="a4">unshift</span><span id="a2">(</span><span id="a8">"k"</span><span id="a2">,</span><span id="a8">"l"</span><span id="a2">)</span></div><br><div><span id="a5">dizi3</span><span id="a2"> </span><span id="a0">// ["h","ı","i","j","k","l"]</span></div></div>
+
+        <h2>shift() Metodu</h2>
+
+        <p>pop: dizinin ilk elemanını siler. Dizinin silinen elemanını döndürür. Dizinin uzunluğu 1 azalmış olur.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi4</span><span id="a2"> = [</span><span id="a8">"m"</span><span id="a2">,</span><span id="a8">"n"</span><span id="a2">,</span><span id="a8">"o"</span><span id="a2">]</span></div><br><div><span id="a5">dizi4</span><span id="a2">.</span><span id="a4">shift</span><span id="a2">() </span><span id="a0">// 2</span></div><br><div><span id="a5">dizi4</span><span id="a2"> </span><span id="a0">// ["n","o"]</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">Array Metodları: sort() & toSorted()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
