@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript reverse ve toReversed metodu, dizi elemanları tersten dizdirmek, diziyi tersine çevirmek, dizileri tersten sıralamak">
+    <meta name="keywords" content="javascript reverse ve toReversed metodu, dizi elemanları tersten dizdirmek, diziyi tersine çevirmek, dizileri tersten sıralamak">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Array Metodları reverse() & toReversed()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Array Metodları:</br>reverse() & toReversed()</h1>
+
+        <h2>reverse() Metodu</h2>
+
+        <p>reverse: dizinin elemanlarının sırasını tersine çevirir. Dizinin kendisi üzerinde değişiklik yapar. Dizi üzerinde yapılan farklı işlemler var ise: reverse metodunun ürettiği yeni dizi göz önüne alınmalıdır.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi</span><span id="a2"> = [</span><span id="a8">"Hakan"</span><span id="a2">,</span><span id="a8">"Azra"</span><span id="a2">,</span><span id="a8">"Gökhan"</span><span id="a2">,</span><span id="a8">"Yağmur"</span><span id="a2">]</span></div><br><div><span id="a5">dizi</span><span id="a2">.</span><span id="a4">reverse</span><span id="a2">() </span><span id="a0">// ["Yağmur","Gökhan","Azra","Hakan"]</span></div></div>
+
+        <h2>toReversed() Metodu</h2>
+        
+        <p>toReversed: dizinin elemanlarının sırasını tersine çevirir. Dizi kendisi üzerinde değişiklik yapmaz. Yeni bir dizi döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi2</span><span id="a2"> = [</span><span id="a3">10</span><span id="a2">,</span><span id="a3">20</span><span id="a2">,</span><span id="a3">30</span><span id="a2">,</span><span id="a3">25</span><span id="a2">,</span><span id="a3">50</span><span id="a2">,</span><span id="a3">15</span><span id="a2">]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi3</span><span id="a2"> = </span><span id="a5">dizi2</span><span id="a2">.</span><span id="a4">toReversed</span><span id="a2">()</span></div><br><div><span id="a5">dizi2</span><span id="a2"> </span><span id="a0">// [10,20,30,25,50,15]</span></div><br><div><span id="a5">dizi3</span><span id="a2"> </span><span id="a0">// [15,50,25,30,20,10]</span></div></div>
+
+        <p>Örnek: dizi elemanlarını tersten dizen ve toReversed metodunun yaptığı gibi yeni bir dizi döndüren fonksiyon yazalım.</p>
+
+        <div class="kodAlan"><div><span id="a1">function</span><span id="a2"> </span><span id="a4">ters</span><span id="a2">(</span><span id="a5">veri</span><span id="a2">) {</span></div><div><span id="a2">    </span><span id="a1">var</span><span id="a2"> </span><span id="a5">uzunluk</span><span id="a2"> = </span><span id="a5">veri</span><span id="a2">.</span><span id="a5">length</span></div><div><span id="a2">    </span><span id="a1">var</span><span id="a2"> </span><span id="a5">sonucDizi</span><span id="a2"> = </span><span id="a1">new</span><span id="a2"> </span><span id="a9">Array</span><span id="a2">(</span><span id="a5">uzunluk</span><span id="a2">)</span></div><div><span id="a2">    </span></div><div><span id="a2">    </span><span id="a6">for</span><span id="a2"> (</span><span id="a1">let</span><span id="a2"> </span><span id="a5">i</span><span id="a2"> = </span><span id="a3">0</span><span id="a2">, </span><span id="a5">j</span><span id="a2"> = </span><span id="a5">uzunluk</span><span id="a2">-</span><span id="a3">1</span><span id="a2">; </span><span id="a5">i</span><span id="a2"> &lt; </span><span id="a5">uzunluk</span><span id="a2">; </span><span id="a5">i</span><span id="a2">++, </span><span id="a5">j</span><span id="a2">--) {</span></div><div><span id="a2">        </span><span id="a5">sonucDizi</span><span id="a2">[</span><span id="a5">i</span><span id="a2">] = </span><span id="a5">veri</span><span id="a2">[</span><span id="a5">j</span><span id="a2">]</span></div><div><span id="a2">    }</span></div><div><span id="a2">    </span><span id="a6">return</span><span id="a2"> </span><span id="a5">sonucDizi</span></div><div><span id="a2">}</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">ornekDizi</span><span id="a2"> = [</span><span id="a8">"a"</span><span id="a2">,</span><span id="a8">"e"</span><span id="a2">,</span><span id="a8">"g"</span><span id="a2">,</span><span id="a8">"t"</span><span id="a2">,</span><span id="a8">"c"</span><span id="a2">]</span></div><br><div><span id="a4">ters</span><span id="a2">(</span><span id="a5">ornekDizi</span><span id="a2">) </span><span id="a0">// ["c","t","g","e","a"]</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">Array Metodları: slice() & splice() & toSpliced()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
