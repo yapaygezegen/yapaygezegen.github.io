@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript diziyi küçükten büyüğe sıralamak, dizi elemanlarını sıralamak, büyükten küçüğe doğru sıralama yapmak">
+    <meta name="keywords" content="javascript diziyi küçükten büyüğe sıralamak, dizi elemanlarını sıralamak, büyükten küçüğe doğru sıralama yapmak">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Array Metodları sort() & toSorted()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Array Metodları:</br>sort() & toSorted()</h1>
+
+        <h2>sort() Metodu</h2>
+
+        <p>sort: dizi elemanlarını, Unicode değerlerine göre küçükten büyüğe doğru sıralar. Dizi kendisi üzerinde değişiklik yapmaktadır.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">rakamlar</span><span id="a2"> = [</span><span id="a3">5</span><span id="a2">,</span><span id="a3">2</span><span id="a2">,</span><span id="a3">0</span><span id="a2">,</span><span id="a3">4</span><span id="a2">,</span><span id="a3">1</span><span id="a2">,</span><span id="a3">9</span><span id="a2">,</span><span id="a3">7</span><span id="a2">]</span></div><br><div><span id="a5">rakamlar</span><span id="a2">.</span><span id="a4">sort</span><span id="a2">() </span><span id="a0">// [0, 1, 2, 4, 5, 7, 9]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">isimler</span><span id="a2"> = [</span><span id="a8">"Yeliz"</span><span id="a2">,</span><span id="a8">"Gürkan"</span><span id="a2">,</span><span id="a8">"Murat"</span><span id="a2">,</span><span id="a8">"Burak"</span><span id="a2">,</span><span id="a8">"Ebru"</span><span id="a2">]</span></div><br><div><span id="a5">isimler</span><span id="a2">.</span><span id="a4">sort</span><span id="a2">() </span><span id="a0">// [Burak", "Ebru", "Gürkan", "Murat", "Yeliz"]</span></div></div>
+
+        <p>sort metodu ile sayıları sıralamak istediğimizde hatalı sonuçlar alırız. Bu durumu düzeltmek için: sort metoduna karşılaştırma fonksiyonu (comparison function) eklenmelidir. Küçükten büyüğe doğru sıralamak için: a - b, büyükten küçüğe doğru sıralamak için: b - a olarak return edilmelidir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sayilar1</span><span id="a2"> = [</span><span id="a3">120</span><span id="a2">,</span><span id="a3">195</span><span id="a2">,</span><span id="a3">17</span><span id="a2">,</span><span id="a3">23</span><span id="a2">,</span><span id="a3">5</span><span id="a2">,</span><span id="a3">2</span><span id="a2">,</span><span id="a3">47</span><span id="a2">,</span><span id="a3">11</span><span id="a2">,</span><span id="a3">54</span><span id="a2">]</span></div><br><div><span id="a5">sayilar1</span><span id="a2">.</span><span id="a4">sort</span><span id="a2">() </span><span id="a0">// [11, 120, 17, 195, 2, 23, 47, 5, 54] -&gt; hatalı sıralama</span></div></div>
+
+        <div class="kodAlan"><div><span id="a5">sayilar1</span><span id="a2">.</span><span id="a4">sort</span><span id="a2">((</span><span id="a5">a</span><span id="a2">, </span><span id="a5">b</span><span id="a2">) </span><span id="a1">=&gt;</span><span id="a2"> </span><span id="a5">a</span><span id="a2"> - </span><span id="a5">b</span><span id="a2">)</span></div><br><div><span id="a5">sayilar1</span><span id="a2"> </span><span id="a0">// [2, 5, 11, 17, 23, 47, 54, 120, 195]</span></div></div>
+
+        <div class="kodAlan"><div><span id="a5">sayilar1</span><span id="a2">.</span><span id="a4">sort</span><span id="a2">((</span><span id="a5">a</span><span id="a2">, </span><span id="a5">b</span><span id="a2">) </span><span id="a1">=&gt;</span><span id="a2"> </span><span id="a5">b</span><span id="a2"> - </span><span id="a5">a</span><span id="a2">)</span></div><br><div><span id="a5">sayilar1</span><span id="a2"> </span><span id="a0">// [195, 120, 54, 47, 23, 17, 11, 5, 2]</span></div></div>
+
+        <h2>toSorted() Metodu</h2>
+
+        <p>toSorted: dizi elemanlarını, Unicode değerlerine göre küçükten büyüğe doğru sıralar. sort metodundan farklı olarak: dizinin kendisi üzerinde değişiklik yapmaz. Sonuçlar bir değişkene atanarak kullanılabilir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sayilar2</span><span id="a2"> = [</span><span id="a3">8</span><span id="a2">,</span><span id="a3">2</span><span id="a2">,</span><span id="a3">1</span><span id="a2">,</span><span id="a3">7</span><span id="a2">,</span><span id="a3">9</span><span id="a2">,</span><span id="a3">0</span><span id="a2">,</span><span id="a3">3</span><span id="a2">]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sayilar3</span><span id="a2"> = </span><span id="a5">sayilar2</span><span id="a2">.</span><span id="a4">toSorted</span><span id="a2">()</span></div><br><div><span id="a5">sayilar2</span><span id="a2"> </span><span id="a0">// [8, 2, 1, 7, 9, 0, 3]</span></div><br><div><span id="a5">sayilar3</span><span id="a2"> </span><span id="a0">// [0, 1, 2, 3, 7, 8, 9]</span></div></div>
+
+        <p>toSorted metodu sayısal ifadeler için: sorted metodunda olduğu gibi hatalı sıralama yapmaktadır. Karşılaştırma fonksiyonu kullanarak, doğru sıralama yaptırılabilir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sayilar4</span><span id="a2"> = [</span><span id="a3">480</span><span id="a2">,</span><span id="a3">19</span><span id="a2">,</span><span id="a3">35</span><span id="a2">,</span><span id="a3">103</span><span id="a2">,</span><span id="a3">17</span><span id="a2">,</span><span id="a3">103</span><span id="a2">]</span></div><br><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sayilar5</span><span id="a2"> = </span><span id="a5">sayilar4</span><span id="a2">.</span><span id="a4">toSorted</span><span id="a2">()</span></div><br><div><span id="a5">sayilar5</span><span id="a2"> </span><span id="a0">// [103, 103, 17, 19, 35, 480] -&gt; hatalı sıralama</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sayilar6</span><span id="a2"> = </span><span id="a5">sayilar4</span><span id="a2">.</span><span id="a4">toSorted</span><span id="a2">((</span><span id="a5">a</span><span id="a2">, </span><span id="a5">b</span><span id="a2">) </span><span id="a1">=&gt;</span><span id="a2"> </span><span id="a5">a</span><span id="a2"> - </span><span id="a5">b</span><span id="a2">)</span></div><br><div><span id="a5">sayilar6</span><span id="a2"> </span><span id="a0">// [17, 19, 35, 103, 103, 480]</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">sayilar7</span><span id="a2"> = </span><span id="a5">sayilar4</span><span id="a2">.</span><span id="a4">toSorted</span><span id="a2">((</span><span id="a5">a</span><span id="a2">, </span><span id="a5">b</span><span id="a2">) </span><span id="a1">=&gt;</span><span id="a2"> </span><span id="a5">b</span><span id="a2"> - </span><span id="a5">a</span><span id="a2">)</span></div><br><div><span id="a5">sayilar7</span><span id="a2"> </span><span id="a0">// [480, 103, 103, 35, 19, 17]</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">Array Metodları: reverse() & toReversed()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
