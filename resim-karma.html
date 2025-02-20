@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="fotoğraf şifrelemek, resimleri bulanıklaştırmak, resimleri gizlemek, puzzle fotoğraf yapmak, javascript ile şifrelemek">
-    <meta name="keywords" content="fotoğraf şifrelemek, resimleri bulanıklaştırmak, resimleri gizlemek, puzzle fotoğraf yapmak, javascript ile şifrelemek">
+    <meta name="description"
+        content="fotoğraf şifrelemek, resimleri bulanıklaştırmak, resimleri gizlemek, puzzle fotoğraf yapmak, javascript ile şifrelemek">
+    <meta name="keywords"
+        content="fotoğraf şifrelemek, resimleri bulanıklaştırmak, resimleri gizlemek, puzzle fotoğraf yapmak, javascript ile şifrelemek">
     <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
     <title>Fotoğraf Karıştırma Algoritması / Yapay Gezegen</title>
     <style>
@@ -21,7 +24,8 @@
             align-items: center;
             justify-content: flex-start;
         }
-        header{
+
+        header {
             width: 90%;
             height: auto;
             margin: 15px auto;
@@ -33,11 +37,13 @@
             color: white;
             text-decoration: none;
         }
-        header a{
+
+        header a {
             text-decoration: none;
             color: white;
         }
-        main{
+
+        main {
             width: 90%;
             height: auto;
             margin: 15px auto;
@@ -46,6 +52,7 @@
             border: 1px solid #444;
             background-color: #222627;
         }
+
         #drop-area {
             width: 80%;
             height: 300px;
@@ -96,7 +103,8 @@
             margin-top: 20px;
         }
 
-        #download-button, #yaz-button {
+        #download-button,
+        #yaz-button {
             font-size: 16px;
             padding: 10px 20px;
             background-color: #37414a;
@@ -106,10 +114,14 @@
             border-radius: 5px;
             margin: 0 10px;
         }
-        #download-button:hover, #yaz-button:hover{
+
+        #download-button:hover,
+        #yaz-button:hover {
             background-color: #5d6e7c;
         }
-        #download-button:active, #yaz-button:active{
+
+        #download-button:active,
+        #yaz-button:active {
             background-color: #326e9f;
         }
 
@@ -120,7 +132,8 @@
         #yaz-button {
             display: none;
         }
-        h1{
+
+        h1 {
             width: 90%;
             height: auto;
             background-color: rgb(62, 73, 72);
@@ -131,7 +144,8 @@
             align-items: center;
             margin: 20px auto;
         }
-        p{
+
+        p {
             width: 90%;
             height: auto;
             text-align: center;
@@ -143,6 +157,7 @@
             align-items: center;
             margin: 20px auto;
         }
+
         .radio-container {
             display: flex;
             justify-content: center;
@@ -155,7 +170,8 @@
             margin-left: 5px;
             margin-right: 15px;
         }
-        footer{
+
+        footer {
             width: 90%;
             height: auto;
             margin: 15px auto;
@@ -166,205 +182,248 @@
             font-size: 15px;
             color: white;
         }
-        
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
+
 <body>
-<header><a href="/">Yapay Gezegen</a></header>
-<main>
-    <h1>Fotoğraf Karıştırma Algoritması</h1>
-    <p>Bu algoritma: fotoğrafınızı 5px-5px veya 1px-1px olacak şekilde parçalara böler. Her bir parçayı rastegele olacak şekilde karıştırır. Karıştırma işleminin sonucunda, sayısal değerler üretir. Bu değerleri kullanarak, fotoğrafınızı normal haline geri çevirebilirsiniz.</p>
-    <div id="drop-area">Buraya sürükleyin veya tıklayın</div>
-    <p>Sayısal değerler, kullanıcının bilgisayarında oluşmaktadır. Bu site, sayısal verilerinizi saklamaz. Fotoğraflarınızı herhangi bir sunucuya göndermez.</p>
-    <div class="radio-container">
-        <input type="radio" id="px10" name="pixel" value="10" checked>
-        <label for="px5">10px</label>
-        
-        <input type="radio" id="px5" name="pixel" value="5">
-        <label for="px5">5px</label>
-    
-        <input type="radio" id="px1" name="pixel" value="1">
-        <label for="px1">1px</label>
-    </div>
-    
-    <textarea id="text-input" placeholder="Geri çevirme işlemi için sayısal verileri girin.."></textarea>
-    <div id="button-container">
-        <button id="download-button">Resmi İndir</button>
-        <button id="yaz-button">Veriyi İndir</button>
-    </div>
-    <div id="canvas-container">
-        <canvas id="canvas"></canvas>
-    </div>
-</main>
-<footer>yapaygezegen.com</footer>
-</div>
-<script>
-    let dropArea = document.getElementById('drop-area');
-    let textInput = document.getElementById('text-input');
-    let downloadButton = document.getElementById('download-button');
-    let yazButton = document.getElementById('yaz-button');
-    let canvasContainer = document.getElementById('canvas-container');
-    let canvas = document.getElementById('canvas');
-    let context = canvas.getContext('2d');
-    canvasContainer.style.display = 'none';
-    let konumlar = []
-    let karma = []
-    let ekle = 0
-    var px = 10
-    let sayi
+    <header><a href="/">Yapay Gezegen</a></header>
+    <main>
+        <h1>Fotoğraf Karıştırma Algoritması</h1>
+        <p>Bu algoritma: fotoğrafınızı 10px, 5px veya 1px olacak şekilde parçalara böler. Her bir parçayı rastegele olacak şekilde karıştırır.
+            Karıştırma işleminin sonucunda, sayısal değerler üretir. Bu değerleri kullanarak, fotoğrafınızı normal haline geri
+            çevirebilirsiniz.</p>
+        <div id="drop-area">Buraya sürükleyin veya tıklayın</div>
+        <p>Sayısal değerler, kullanıcının bilgisayarında oluşmaktadır. Bu site, sayısal verilerinizi saklamaz. Fotoğraflarınızı herhangi
+            bir sunucuya göndermez.</p>
+        <div class="radio-container">
+            <input type="radio" id="px10" name="pixel" value="10" checked>
+            <label for="px10">10px</label>
 
-    const radioButtons = document.querySelectorAll('input[name="pixel"]');
+            <input type="radio" id="px5" name="pixel" value="5">
+            <label for="px5">5px</label>
 
-    radioButtons.forEach(radio => {
-        radio.addEventListener('change', function() {
-            if (this.checked) {
-                px = parseInt(this.value)
-            }
+            <input type="radio" id="px1" name="pixel" value="1">
+            <label for="px1">1px</label>
+        </div>
+
+        <textarea id="text-input" placeholder="Geri çevirme işlemi için sayısal verileri girin.."></textarea>
+        <div id="button-container">
+            <button id="download-button">Resmi İndir</button>
+            <button id="yaz-button">Veriyi İndir</button>
+        </div>
+        <div class="loader" id="loader"></div>
+        <div id="canvas-container">
+            <canvas id="canvas"></canvas>
+        </div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+    </div>
+    <script>
+        let dropArea = document.getElementById('drop-area');
+        let textInput = document.getElementById('text-input');
+        let downloadButton = document.getElementById('download-button');
+        let yazButton = document.getElementById('yaz-button');
+        let canvasContainer = document.getElementById('canvas-container');
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext('2d');
+        let loader = document.getElementById('loader');
+        canvasContainer.style.display = 'none';
+        let konumlar = []
+        let karma = []
+        let ekle = 0
+        let px = 10
+        let sayi
+
+        const radioButtons = document.querySelectorAll('input[name="pixel"]');
+        let px10Radio = document.getElementById('px10');
+        let px5Radio = document.getElementById('px5');
+        let px1Radio = document.getElementById('px1');
+
+
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (this.checked) {
+                    px = parseInt(this.value)
+                }
+            })
         })
-    })
 
-    function handleImageUpload(file) {
-        if (file) {
-            let reader = new FileReader();
+        function handleImageUpload(file) {
+            if (file) {
+                let reader = new FileReader();
+                loader.style.display = 'block';
+                canvasContainer.style.display = 'none';
 
-            reader.onload = function(e) {
-                let img = new Image();
-
-                img.onload = function() {
-
-                    canvas.width = img.width
-                    canvas.height = img.height
-                    ekle = 0
-                    let deger = (img.width * img.height) / (px * px)
-                    karma = new Array(deger)
-
-                    while (ekle < (deger)) {
-                        karma[ekle] = ekle;
-                        ekle++;
-                    }
-                    karma.sort(() => Math.random() - 0.5);
-                    konumlar = []
-                    for (let i = 0; i < img.height; i += px) {
-                        for (let j = 0; j < img.width; j += px) {
-                            konumlar.push([j, i]);
+                reader.onload = function (e) {
+                    let img = new Image();
+                    img.onload = function () {
+                        let width = img.width;
+                        let height = img.height;
+                        if (width % 5 !== 0 || height % 5 !== 0) {
+                            px = 1;
+                            px1Radio.checked = true;
+                            px5Radio.checked = false;
+                            px10Radio.checked = false;
+                        } else {
+                            radioButtons.forEach(radio => {
+                                if (radio.checked) {
+                                    px = parseInt(radio.value);
+                                }
+                            });
                         }
-                    }
 
-                    if (textInput.value.trim() !== "") {
-                        let inputKarma = textInput.value.split(",");
-                        if (inputKarma.length === karma.length) {
-                            karma = inputKarma;
-                            yazButton.style.display = 'none';
-                            textInput.value = "";
-                            for (let g = 0; g < deger; g++) {
-                                context.drawImage(img, konumlar[g][0], konumlar[g][1], px, px, konumlar[karma[g]][0], konumlar[karma[g]][1], px, px);
+                        canvas.width = img.width
+                        canvas.height = img.height
+                        ekle = 0
+                        let deger = (img.width * img.height) / (px * px)
+                        karma = new Array(deger)
+
+                        while (ekle < (deger)) {
+                            karma[ekle] = ekle;
+                            ekle++;
+                        }
+                        karma.sort(() => Math.random() - 0.5);
+                        konumlar = []
+                        for (let i = 0; i < img.height; i += px) {
+                            for (let j = 0; j < img.width; j += px) {
+                                konumlar.push([j, i]);
+                            }
+                        }
+                        if (textInput.value.trim() !== "") {
+                            let inputKarma = textInput.value.split(",");
+                            if (inputKarma.length === karma.length) {
+                                karma = inputKarma;
+                                yazButton.style.display = 'none';
+                                textInput.value = "";
+                                for (let g = 0; g < deger; g++) {
+                                    context.drawImage(img, konumlar[g][0], konumlar[g][1], px, px, konumlar[karma[g]][0], konumlar[karma[g]][1], px, px);
+                                }
+                            } else {
+                                alert("Girdiğiniz sayısal veri, resmin boyutlarıyla uyuşmuyor. Lütfen doğru veriyi girdiğinizden emin olun.");
                             }
                         } else {
-                            alert("Girdiğiniz sayısal veri, resmin boyutlarıyla uyuşmuyor. Lütfen doğru veriyi girdiğinizden emin olun.");
+                            yazButton.style.display = "inline-block";
+                            for (let g = 0; g < deger; g++) {
+                                context.drawImage(img, konumlar[karma[g]][0], konumlar[karma[g]][1], px, px, konumlar[g][0], konumlar[g][1], px, px);
+                            }
                         }
-                    } else {
-                        yazButton.style.display = "inline-block";
-                        for (let g = 0; g < deger; g++) {
-                            context.drawImage(img, konumlar[karma[g]][0], konumlar[karma[g]][1], px, px, konumlar[g][0], konumlar[g][1], px, px);
-                        }
+                        console.log("Toplam: " + deger + " parça");
+
+                        canvasContainer.style.display = 'flex';
+                        downloadButton.style.display = 'inline-block';
+                        loader.style.display = 'none';
+                        sayi = Math.floor(Math.random() * 10000)
                     }
-                    console.log("Toplam: " + deger + " parça");
-                    
-                    canvasContainer.style.display = 'flex';
-                    downloadButton.style.display = 'inline-block';
+                    img.src = e.target.result;
                 }
-                img.src = e.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
-    }
-
-    dropArea.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        dropArea.style.borderColor = 'green';
-    });
-
-    dropArea.addEventListener('dragleave', () => {
-        dropArea.style.borderColor = '#ccc';
-    });
-
-    dropArea.addEventListener('drop', (event) => {
-        event.preventDefault();
-        dropArea.style.borderColor = '#ccc';
-
-        const files = event.dataTransfer.files;
-        if (files.length > 0) {
-            handleImageUpload(files[0]);
-        }
-    });
-
-    dropArea.addEventListener('click', () => {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.onchange = (event) => {
-            const file = event.target.files[0];
-            handleImageUpload(file);
-        };
-        input.click();
-    });
-
-    downloadButton.addEventListener('click', () => {
-        const dataURL = canvas.toDataURL('image/png');
-        const a = document.createElement('a');
-        a.href = dataURL;
-        sayi = Math.floor(Math.random() * 10000)
-        a.download = "resim" + sayi + ".png";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    });
-
-    yazButton.addEventListener('click', async () => {
-    try {
-        navigator.clipboard.writeText(karma)
-        let textData = karma
-        let blob = new Blob([textData], { type: 'text/plain' })
-        const url = URL.createObjectURL(blob)
-        const a = document.createElement('a')
-        a.href = url
-        a.download = "veri" + sayi + ".txt"
-        document.body.appendChild(a)
-        a.click()
-        document.body.removeChild(a)
-        URL.revokeObjectURL(url)
-    } catch {
-        alert('Bu işlem yalnızca bilgisayarlarda çalışmaktadır.');
-    }
-    })
-
-    textInput.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        textInput.style.borderColor = 'green';
-    });
-
-    textInput.addEventListener('dragleave', () => {
-        textInput.style.borderColor = '#ccc';
-    });
-
-    textInput.addEventListener('drop', (event) => {
-        event.preventDefault();
-        textInput.style.borderColor = '#ccc';
-
-        const files = event.dataTransfer.files;
-        if (files.length > 0) {
-            const file = files[0];
-            if (file.type === 'text/plain') {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    textInput.value = e.target.result;
-                };
-                reader.readAsText(file);
-            } else {
-                alert('Lütfen sadece .txt dosyası bırakın.');
+                reader.readAsDataURL(file);
             }
         }
-    });
-</script>
+
+        dropArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropArea.style.borderColor = 'green';
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.style.borderColor = '#ccc';
+        });
+
+        dropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropArea.style.borderColor = '#ccc';
+
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                handleImageUpload(files[0]);
+            }
+        });
+
+        dropArea.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (event) => {
+                const file = event.target.files[0];
+                handleImageUpload(file);
+            };
+            input.click();
+        });
+
+        downloadButton.addEventListener('click', () => {
+            const dataURL = canvas.toDataURL('image/png');
+            const a = document.createElement('a');
+            a.href = dataURL;
+            a.download = "resim" + sayi + ".png";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+        yazButton.addEventListener('click', async () => {
+            try {
+                let textData = karma
+                let blob = new Blob([textData], { type: 'text/plain' })
+                const url = URL.createObjectURL(blob)
+                const a = document.createElement('a')
+                a.href = url
+                a.download = "veri" + sayi + ".txt"
+                document.body.appendChild(a)
+                a.click()
+                document.body.removeChild(a)
+                URL.revokeObjectURL(url)
+            } catch {
+                alert('Bu işlem yalnızca bilgisayarlarda çalışmaktadır.');
+            }
+        })
+
+        textInput.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            textInput.style.borderColor = 'green';
+        });
+
+        textInput.addEventListener('dragleave', () => {
+            textInput.style.borderColor = '#ccc';
+        });
+
+        textInput.addEventListener('drop', (event) => {
+            event.preventDefault();
+            textInput.style.borderColor = '#ccc';
+
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type === 'text/plain') {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        textInput.value = e.target.result;
+                    };
+                    reader.readAsText(file);
+                } else {
+                    alert('Lütfen sadece .txt dosyası bırakın.');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
