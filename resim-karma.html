@@ -177,7 +177,10 @@
     <div id="drop-area">Buraya sürükleyin veya tıklayın</div>
     <p>Sayısal değerler, kullanıcının bilgisayarında oluşmaktadır. Bu site, sayısal verilerinizi saklamaz. Fotoğraflarınızı herhangi bir sunucuya göndermez.</p>
     <div class="radio-container">
-        <input type="radio" id="px5" name="pixel" value="5" checked>
+        <input type="radio" id="px10" name="pixel" value="10" checked>
+        <label for="px5">10px</label>
+        
+        <input type="radio" id="px5" name="pixel" value="5">
         <label for="px5">5px</label>
     
         <input type="radio" id="px1" name="pixel" value="1">
@@ -207,7 +210,7 @@
     let konumlar = []
     let karma = []
     let ekle = 0
-    var px = 5
+    var px = 10
     let sayi
 
     const radioButtons = document.querySelectorAll('input[name="pixel"]');
