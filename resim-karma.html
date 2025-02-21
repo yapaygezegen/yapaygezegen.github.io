@@ -253,6 +253,7 @@
         let ekle = 0
         let px = 10
         let sayi
+        var kopya
 
         const radioButtons = document.querySelectorAll('input[name="pixel"]');
         let px10Radio = document.getElementById('px10');
@@ -333,6 +334,7 @@
                         downloadButton.style.display = 'inline-block';
                         loader.style.display = 'none';
                         sayi = Math.floor(Math.random() * 10000)
+                        kopya = karma.toString()
                     }
                     img.src = e.target.result;
                 }
@@ -383,6 +385,7 @@
         yazButton.addEventListener('click', async () => {
             try {
                 let textData = karma
+                navigator.clipboard.writeText(kopya)
                 let blob = new Blob([textData], { type: 'text/plain' })
                 const url = URL.createObjectURL(blob)
                 const a = document.createElement('a')
