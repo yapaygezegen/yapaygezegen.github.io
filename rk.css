@@ -1,0 +1,191 @@
+body {
+    font-family: Verdana, monospace, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: justify;
+    min-height: 100vh;
+    background-color: #333;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+header {
+    width: 90%;
+    height: auto;
+    margin: 15px auto;
+    padding: 10px;
+    background-color: rgb(82, 101, 99);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    text-decoration: none;
+}
+
+header a {
+    text-decoration: none;
+    color: white;
+}
+
+main {
+    width: 90%;
+    height: auto;
+    margin: 15px auto;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #222627;
+}
+
+#drop-area {
+    width: 80%;
+    height: 300px;
+    border: 2px dashed #ccc;
+    background-color: #242b2d;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+#text-input {
+    width: 90%;
+    height: 50px;
+    margin-top: 20px;
+    resize: none;
+    background-color: #373434;
+    color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+}
+
+#canvas-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    overflow: auto;
+}
+
+#canvas {
+    border: 1px solid #000;
+}
+
+#button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#download-button,
+#yaz-button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #37414a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+#download-button:hover,
+#yaz-button:hover {
+    background-color: #5d6e7c;
+}
+
+#download-button:active,
+#yaz-button:active {
+    background-color: #326e9f;
+}
+
+#download-button {
+    display: none;
+}
+
+#yaz-button {
+    display: none;
+}
+
+h1 {
+    width: 90%;
+    height: auto;
+    background-color: rgb(62, 73, 72);
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+}
+
+p {
+    width: 90%;
+    height: auto;
+    text-align: center;
+    font-size: 18px;
+    background-color: #555;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.radio-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin: 20px auto;
+}
+
+.radio-container label {
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+footer {
+    width: 90%;
+    height: auto;
+    margin: 15px auto;
+    padding: 10px;
+    background-color: rgb(82, 101, 99);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+}
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin: 20px auto;
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
