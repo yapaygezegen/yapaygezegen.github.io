@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="javascript with coptWithin fill metodları, dizi elemanlarını değiştirmek, dizi elemanlarını kopyalamak ve değiştirme">
+    <meta name="keywords" content="javascript with coptWithin fill metodları, dizi elemanlarını değiştirmek, dizi elemanlarını kopyalamak ve değiştirme">
+    <link rel="stylesheet"  href="style.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>JavaScript Array Metodları with() & coptWithin() & fill()</title>
+</head>
+<body>
+    <header><a href="/javascript/">Yapay Gezegen</a></header>
+    <main>
+        <h1>JavaScript Array Metodları:</br>with() & coptWithin() & fill()</h1>
+
+        <h2>with() Metodu</h2>
+
+        <p>with: dizinin istenilen index değerindeki elemanını değiştirir. Dizinin kendisi üzerinde değişiklik yapmaz. Değiştirlmiş haliyle yeni bir dizi döndürür.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi1</span><span id="a2"> = [</span><span id="a8">"a"</span><span id="a2">,</span><span id="a8">"b"</span><span id="a2">,</span><span id="a8">"c"</span><span id="a2">]</span></div><br><div><span id="a5">dizi1</span><span id="a2">.</span><span id="a4">with</span><span id="a2">(</span><span id="a3">0</span><span id="a2">,</span><span id="a8">"w"</span><span id="a2">) </span><span id="a0">// ["w","b","c"]</span></div><br><div><span id="a5">dizi1</span><span id="a2"> </span><span id="a0">// ["a","b","c"]</span></div></div>
+
+        <h2>coptWithin() Metodu</h2>
+
+        <p>coptWithin: dizinin birbirile değiştirir. Değiştirilmek istenilen index değeri yerine, dizi içinden bir aralık kopyalanır ve eklenir. Değiştirme işlemini dizinin kendisi üzerinde yaptığı için: orijinal dizi değişmiş olur.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi2</span><span id="a2"> = [</span><span id="a8">"a"</span><span id="a2">,</span><span id="a8">"b"</span><span id="a2">,</span><span id="a8">"c"</span><span id="a2">,</span><span id="a8">"d"</span><span id="a2">,</span><span id="a8">"e"</span><span id="a2">,</span><span id="a8">"f"</span><span id="a2">]</span></div><br><div><span id="a5">dizi2</span><span id="a2">.</span><span id="a4">copyWithin</span><span id="a2">(</span><span id="a3">0</span><span id="a2">,</span><span id="a3">3</span><span id="a2">,</span><span id="a3">4</span><span id="a2">) </span><span id="a0">// ["d","b","c","d","e","f"]</span></div></div>
+
+        <p>Aralık birden fazla elemanı kopyalıyor ise: aralık eleman sayısı kadar eleman değiştirilir.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi3</span><span id="a2"> = [</span><span id="a8">"a"</span><span id="a2">,</span><span id="a8">"b"</span><span id="a2">,</span><span id="a8">"c"</span><span id="a2">,</span><span id="a8">"d"</span><span id="a2">,</span><span id="a8">"e"</span><span id="a2">,</span><span id="a8">"f"</span><span id="a2">]</span></div><br><div><span id="a5">dizi3</span><span id="a2">.</span><span id="a4">copyWithin</span><span id="a2">(</span><span id="a3">0</span><span id="a2">,</span><span id="a3">3</span><span id="a2">,</span><span id="a3">6</span><span id="a2">) </span><span id="a0">// ["d","e","f","d","e","f"]</span></div></div>
+
+        <h2>fill() Metodu</h2>
+
+        <p>fill: diziyi elemanlarını, istenilen başka bir elemanla değiştirir. Dizinin tüm elemanları veya istenilen aralıktaki elemanları değiştirilebilir. Değiştirme işlemini dizinin kendisi üzerinde yaptığı için: orijinal dizi değişmiş olur.</p>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi4</span><span id="a2"> = [</span><span id="a3">0</span><span id="a2">,</span><span id="a3">1</span><span id="a2">,</span><span id="a3">2</span><span id="a2">,</span><span id="a3">3</span><span id="a2">,</span><span id="a3">4</span><span id="a2">,</span><span id="a3">5</span><span id="a2">]</span></div><br><div><span id="a5">dizi4</span><span id="a2">.</span><span id="a4">fill</span><span id="a2">(</span><span id="a3">9</span><span id="a2">) </span><span id="a0">// [9,9,9,9,9,9]</span></div></div>
+
+        <div class="kodAlan"><div><span id="a1">let</span><span id="a2"> </span><span id="a5">dizi5</span><span id="a2"> = [</span><span id="a8">"a"</span><span id="a2">,</span><span id="a8">"b"</span><span id="a2">,</span><span id="a8">"c"</span><span id="a2">,</span><span id="a8">"d"</span><span id="a2">,</span><span id="a8">"e"</span><span id="a2">,</span><span id="a8">"f"</span><span id="a2">]</span></div><br><div><span id="a5">dizi5</span><span id="a2">.</span><span id="a4">fill</span><span id="a2">(</span><span id="a8">"g"</span><span id="a2">,</span><span id="a3">0</span><span id="a2">,</span><span id="a3">3</span><span id="a2">) </span><span id="a0">// ["g","g","g","d","e","f"]</span></div></div>
+
+        <div id="sonraki"><a href="/javascript/">Array Metodları: reduce() & reduceRight()</a></div>
+    </main>
+    <footer>yapaygezegen.com</footer>
+</body>
+</html>
