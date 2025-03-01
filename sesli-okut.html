@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="banka hastane gibi ortamlar için seslendirme programı, sesle çapırma programı">
+    <meta name="keywords" content="banka hastane gibi ortamlar için seslendirme programı, sesle çapırma programı">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>Sesli Okut</title>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        #inputContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        #headerArea, #namesArea {
+            width: 50%;
+            height: 50px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #444;
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        #namesArea{
+            height: 150px;
+        }
+        
+        #buttonContainer {
+            display: flex;
+            justify-content: space-around;
+            width: 350px;
+            margin: 10px auto; 
+        }
+        
+        #createButtons, #clearButtons {
+            width: 150px;
+            height: 40px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #555;
+            color: #fff;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        #createButtons:hover, #clearButtons:hover {
+            background-color: #666;
+        }
+        
+        #radioContainer {
+            margin: 10px;
+        }
+        
+        #buttonsContainer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            place-items: center;
+            justify-content: center;
+            margin: 20px auto; 
+            width: 650px; 
+        }
+        
+        #buttonsContainer button {
+            width: 225px; 
+            height: 50px; 
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #555;
+            color: #fff;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+        
+        #buttonsContainer button:hover {
+            background-color: #666;
+        }
+        
+        .played {
+            background-color: #cc0000;
+            opacity: 0.5;
+        }
+        
+        .disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="inputContainer">
+        <textarea id="headerArea" placeholder="Birim Adı"></textarea>
+        <textarea id="namesArea" placeholder="Liste giriniz.."></textarea>
+        <div id="radioContainer">
+            <input type="radio" id="radio1" name="repeat" value="1" checked>
+            <label for="radio1">1</label>
+            <input type="radio" id="radio2" name="repeat" value="2">
+            <label for="radio2">2</label>
+        </div>
+        <div id="buttonContainer">
+            <button id="createButtons">Oluştur</button>
+            
+            <button id="clearButtons">Temizle</button>
+        </div>
+    </div>
+    <div id="buttonsContainer"></div>
+
+    <script>
+        let speaking = false;
+
+        document.getElementById('createButtons').addEventListener('click', function() {
+            var headerText = document.getElementById('headerArea').value.trim();
+            var names = document.getElementById('namesArea').value.trim().split('\n');
+            names = names.filter(name => name !== '');
+
+            document.getElementById('namesArea').value = '';
+
+            names.forEach(function(name) {
+                var button = document.createElement('button');
+                button.textContent = name;
+                button.addEventListener('click', function() {
+                    if (speaking) return;
+                    speaking = true;
+                    button.classList.add('disabled');
+
+                    var repeatCount = document.querySelector('input[name="repeat"]:checked').value;
+                    var speechCount = 0;
+
+                    function speakSequence() {
+                        if (speechCount < repeatCount) {
+                            setTimeout(() => {
+                                speakIntroThenName();
+                            }, 200);
+                            
+                        } else {
+                            speaking = false;
+                            button.classList.remove('disabled');
+                            button.classList.add('played');
+                        }
+                    }
+
+                    function speakIntroThenName() {
+                        var speech = new SpeechSynthesisUtterance();
+                        speech.text = headerText;
+                        speech.lang = 'tr-TR';
+                        speech.volume = 0.6;
+                        speech.rate = 1;
+                        speech.onend = function() {
+                            setTimeout(function() {
+                                var speech2 = new SpeechSynthesisUtterance();
+                                speech2.text = name;
+                                speech2.lang = 'tr-TR';
+                                speech2.volume = 1;
+                                speech2.rate = 1;
+                                speech2.onend = function() {
+                                    speechCount++;
+                                    setTimeout(speakSequence, 0);
+                                };
+                                window.speechSynthesis.speak(speech2);
+                            }, 1000);
+                        };
+                        window.speechSynthesis.speak(speech);
+                    }
+
+                    speakSequence();
+                });
+                document.getElementById('buttonsContainer').appendChild(button);
+            });
+        });
+
+        document.getElementById('clearButtons').addEventListener('click', function() {
+            var buttonsContainer = document.getElementById('buttonsContainer');
+            buttonsContainer.innerHTML = '';
+        });
+    </script>
+</body>
+</html>
