@@ -103,12 +103,21 @@
             opacity: 0.5;
             pointer-events: none;
         }
+        
+        .suggestion-list {
+            position: absolute;
+            background-color: #444;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
     <div id="inputContainer">
-        <textarea id="headerArea" placeholder="Birim Adı"></textarea>
-        <textarea id="namesArea" placeholder="Liste giriniz.."></textarea>
+        <textarea id="headerArea" placeholder="Birim Adı" spellcheck="false"></textarea>
+        <textarea id="namesArea" placeholder="Liste giriniz.." spellcheck="false"></textarea>
         <div id="radioContainer">
             <input type="radio" id="radio1" name="repeat" value="1" checked>
             <label for="radio1">1</label>
@@ -125,11 +134,67 @@
 
     <script>
         let speaking = false;
+        let storedHeaders = JSON.parse(localStorage.getItem('storedHeaders')) || [];
+
+        document.getElementById('headerArea').addEventListener('input', function() {
+            var inputText = document.getElementById('headerArea').value.trim();
+            if (inputText.length > 0) {
+                suggestHeaders(inputText);
+            } else {
+                document.getElementById('headerArea').placeholder = 'Birim Adı';
+                document.getElementById('headerArea').style.borderBottom = 'none';
+
+                var suggestionList = document.querySelector('.suggestion-list');
+                if (suggestionList) {
+                    suggestionList.remove();
+                }
+            }
+        });
+
+        function suggestHeaders(inputText) {
+            var suggestions = storedHeaders.filter(header => header.toLowerCase().startsWith(inputText.toLowerCase()));
+            if (suggestions.length > 0) {
+                var suggestionList = document.createElement('div');
+                suggestionList.className = 'suggestion-list';
+                suggestionList.style.top = `${document.getElementById('headerArea').offsetTop + document.getElementById('headerArea').offsetHeight}px`;
+                suggestionList.style.left = `${document.getElementById('headerArea').offsetLeft}px`;
+
+                suggestions.forEach(suggestion => {
+                    var suggestionItem = document.createElement('div');
+                    suggestionItem.textContent = suggestion;
+                    suggestionItem.style.padding = '5px';
+                    suggestionItem.style.cursor = 'pointer';
+                    suggestionItem.addEventListener('click', function() {
+                        document.getElementById('headerArea').value = suggestion;
+                        document.getElementById('headerArea').blur();
+                        suggestionList.remove();
+                    });
+                    suggestionList.appendChild(suggestionItem);
+                });
+
+                var previousList = document.querySelector('.suggestion-list');
+                if (previousList) {
+                    previousList.remove();
+                }
+
+                document.getElementById('inputContainer').appendChild(suggestionList);
+            } else {
+                var suggestionList = document.querySelector('.suggestion-list');
+                if (suggestionList) {
+                    suggestionList.remove();
+                }
+            }
+        }
 
         document.getElementById('createButtons').addEventListener('click', function() {
             var headerText = document.getElementById('headerArea').value.trim();
             var names = document.getElementById('namesArea').value.trim().split('\n');
             names = names.filter(name => name !== '');
+
+            if (!storedHeaders.includes(headerText)) {
+                storedHeaders.push(headerText);
+                localStorage.setItem('storedHeaders', JSON.stringify(storedHeaders));
+            }
 
             document.getElementById('namesArea').value = '';
 
@@ -161,7 +226,7 @@
                         var speech = new SpeechSynthesisUtterance();
                         speech.text = headerText;
                         speech.lang = 'tr-TR';
-                        speech.volume = 0.6;
+                        speech.volume = 0.9;
                         speech.rate = 1;
                         speech.onend = function() {
                             setTimeout(function() {
