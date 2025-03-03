@@ -25,6 +25,11 @@ document.addEventListener("mouseover", function(a) {
         document.querySelectorAll("p")[1].firstChild.firstChild.nodeValue = degistir(document.querySelectorAll("p")[1].firstChild.firstChild.nodeValue)
     }
 })
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        acKapa = true
+    }
+})
 document.addEventListener("click", function(b) {
     if(b.srcElement.dataset.icon == "send" && !acKapa){
         acKapa = true
