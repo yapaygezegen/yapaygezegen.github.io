@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="resim ölçeklendirme, resim boyutlandırma, fotoğrafı kare yapmak, fotoğraf ölçülerini değiştirmek">
+    <meta name="keywords" content="resim ölçeklendirme, resim boyutlandırma, fotoğrafı kare yapmak, fotoğraf ölçülerini değiştirmek">
+    <link rel="stylesheet"  href="rb.css">
+    <link href="/yg-32.png" rel="shortcut icon" type="image/x-icon">
+    <title>Resim Ölçeklendirme - Yapay Gezegen</title>
+</head>
+<body>
+    <header><a href="/">Yapay Gezegen</a></header>
+    <h1>Resim Ölçeklendir</h1>
+    <p>Genişlik ve yükseklik ölçüleri girilmediğinde: varsayılan olarak 1920 x 1080 olarak ölçeklendirilir. Ölçeklendirme işlemi, kullanıcının bilgisayarında gerçekleşmektedir. Resimleriniz herhangi bir sunucuya gönderilmez ve kaydedilmez. Resimleri toplu halde ölçeklendirebilirsiniz.</p>
+    <div id="uploadBox">
+        <p>Resimleri buraya sürükleyin veya tıklayın.</p>
+    </div>
+    <div class="container">
+        <input type="file" id="fileInput" accept="image/*" hidden multiple>
+        
+        <div class="input-group">
+            <input type="number" id="widthInput" list="widthOptions" placeholder="Genişlik">
+            <input type="number" id="heightInput" list="heightOptions" placeholder="Yükseklik">
+        </div>
+
+        <button class="clear-btn" id="clearBtn" style="display: none;">Temizle</button>
+        
+        <datalist id="widthOptions"></datalist>
+        <datalist id="heightOptions"></datalist>
+
+        <div id="previewContainer"></div>
+        
+    </div>
+    <script src="rb.js"></script>
+</body>
+</html>
