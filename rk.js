@@ -19,7 +19,6 @@ let px10Radio = document.getElementById('px10');
 let px5Radio = document.getElementById('px5');
 let px1Radio = document.getElementById('px1');
 
-
 radioButtons.forEach(radio => {
     radio.addEventListener('change', function () {
         if (this.checked) {
@@ -39,66 +38,74 @@ function handleImageUpload(file) {
             img.onload = function () {
                 let width = img.width;
                 let height = img.height;
-                if (width % 5 !== 0 || height % 5 !== 0) {
-                    px = 1;
-                    px1Radio.checked = true;
-                    px5Radio.checked = false;
-                    px10Radio.checked = false;
-                } else {
-                    radioButtons.forEach(radio => {
-                        if (radio.checked) {
-                            px = parseInt(radio.value);
-                        }
-                    });
-                }
 
-                canvas.width = img.width
-                canvas.height = img.height
-                ekle = 0
-                let deger = (img.width * img.height) / (px * px)
-                karma = new Array(deger)
+                if (width % 10 !== 0 || width % 10 === 5 || height % 10 !== 0 || height % 10 === 5) {
+                    width = Math.round(width / 10) * 10;
+                    height = Math.round(height / 10) * 10;
 
-                while (ekle < (deger)) {
-                    karma[ekle] = ekle;
-                    ekle++;
-                }
-                karma.sort(() => Math.random() - 0.5);
-                konumlar = []
-                for (let i = 0; i < img.height; i += px) {
-                    for (let j = 0; j < img.width; j += px) {
-                        konumlar.push([j, i]);
-                    }
-                }
-                if (textInput.value.trim() !== "") {
-                    let inputKarma = textInput.value.split(",");
-                    if (inputKarma.length === karma.length) {
-                        karma = inputKarma;
-                        yazButton.style.display = 'none';
-                        textInput.value = "";
-                        for (let g = 0; g < deger; g++) {
-                            context.drawImage(img, konumlar[g][0], konumlar[g][1], px, px, konumlar[karma[g]][0], konumlar[karma[g]][1], px, px);
-                        }
-                    } else {
-                        alert("Girdiğiniz sayısal veri, resmin boyutlarıyla uyuşmuyor. Lütfen doğru veriyi girdiğinizden emin olun.");
+                    let resizedCanvas = document.createElement('canvas');
+                    resizedCanvas.width = width;
+                    resizedCanvas.height = height;
+                    let resizedContext = resizedCanvas.getContext('2d');
+                    resizedContext.drawImage(img, 0, 0, width, height);
+
+                    img.src = resizedCanvas.toDataURL();
+                    img.onload = function () {
+                        devamEt(img, width, height);
                     }
                 } else {
-                    yazButton.style.display = "inline-block";
-                    for (let g = 0; g < deger; g++) {
-                        context.drawImage(img, konumlar[karma[g]][0], konumlar[karma[g]][1], px, px, konumlar[g][0], konumlar[g][1], px, px);
-                    }
+                    devamEt(img, width, height);
                 }
-                console.log("Toplam: " + deger + " parça");
-
-                canvasContainer.style.display = 'flex';
-                downloadButton.style.display = 'inline-block';
-                loader.style.display = 'none';
-                sayi = Math.floor(Math.random() * 10000)
-                kopya = karma.toString()
             }
             img.src = e.target.result;
         }
         reader.readAsDataURL(file);
     }
+}
+
+function devamEt(img, width, height) {
+    canvas.width = width
+    canvas.height = height
+    ekle = 0
+    let deger = (img.width * img.height) / (px * px)
+    karma = new Array(deger)
+
+    while (ekle < (deger)) {
+        karma[ekle] = ekle;
+        ekle++;
+    }
+    karma.sort(() => Math.random() - 0.5);
+    konumlar = []
+    for (let i = 0; i < img.height; i += px) {
+        for (let j = 0; j < img.width; j += px) {
+            konumlar.push([j, i]);
+        }
+    }
+    if (textInput.value.trim() !== "") {
+        let inputKarma = textInput.value.split(",");
+        if (inputKarma.length === karma.length) {
+            karma = inputKarma;
+            yazButton.style.display = 'none';
+            textInput.value = "";
+            for (let g = 0; g < deger; g++) {
+                context.drawImage(img, konumlar[g][0], konumlar[g][1], px, px, konumlar[karma[g]][0], konumlar[karma[g]][1], px, px);
+            }
+        } else {
+            alert("Girdiğiniz sayısal veri, resmin boyutlarıyla uyuşmuyor. Lütfen doğru veriyi girdiğinizden emin olun.");
+        }
+    } else {
+        yazButton.style.display = "inline-block";
+        for (let g = 0; g < deger; g++) {
+            context.drawImage(img, konumlar[karma[g]][0], konumlar[karma[g]][1], px, px, konumlar[g][0], konumlar[g][1], px, px);
+        }
+    }
+    console.log("Toplam: " + deger + " parça");
+
+    canvasContainer.style.display = 'flex';
+    downloadButton.style.display = 'inline-block';
+    loader.style.display = 'none';
+    sayi = Math.floor(Math.random() * 10000)
+    kopya = karma.toString()
 }
 
 dropArea.addEventListener('dragover', (event) => {
@@ -185,4 +192,4 @@ textInput.addEventListener('drop', (event) => {
             alert('Lütfen sadece .txt dosyası bırakın.');
         }
     }
-});
+})
