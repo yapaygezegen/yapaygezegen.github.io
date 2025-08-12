@@ -411,21 +411,24 @@
          * Çemberi canvas üzerine çizer.
          */
         Circle.prototype.draw = function() {
-            ctx.strokeStyle = this.color; // Normal çizgi rengi
-            ctx.lineWidth = 6; // Normal çizgi kalınlığı
+            ctx.fillStyle = this.color; // Normal çizgi rengi
+            ctx.globalAlpha = 0.35
+            
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.stroke();
+            ctx.arc(parseInt(this.x),parseInt(this.y), parseInt(this.radius), 0, Math.PI * 2);
+            ctx.fill();
 
+            ctx.globalAlpha = 1
             // Eğer bu çember doğru kutucukla doldurulmuşsa ek bir kenarlık çiz
             if (this.isFilled) {
-                ctx.strokeStyle = '#FFF'; // Parlak yeşil kenarlık (isteğe bağlı renk)
-                ctx.lineWidth = 2;          // Daha kalın kenarlık
+                ctx.fillStyle = '#FFF'; // Parlak yeşil kenarlık (isteğe bağlı renk)
+                ctx.globalAlpha = 0.1
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius + 5, 0, Math.PI * 2); // Çemberin dışına doğru biraz daha büyük çiz
-                ctx.stroke();
+                ctx.arc(this.x, this.y, this.radius + 2, 0, Math.PI * 2); // Çemberin dışına doğru biraz daha büyük çiz
+                ctx.fill();
+                ctx.globalAlpha = 1
             }
         };
 
@@ -902,7 +905,7 @@
             PLAYER_SPEED = minDim * 0.005; 
 
             // Oyuncu kutusunu oluştur (her seviyede ortaya sıfırla)
-            player = new Box(canvas.width / 2 - playerSize / 2, canvas.height / 2 - playerSize / 2, playerSize, playerSize, '#FF5733'); 
+            player = new Box(canvas.width / 2 - playerSize / 2, canvas.height / 2 - playerSize / 2, playerSize, playerSize, '#2c2cdd'); 
 
             // Mevcut seviyenin konum verilerini al
             const currentLevelData = levels[currentLevel];
@@ -917,7 +920,7 @@
 
             // Her bir sabit konum için kutu ve çember oluştur
             for (let i = 0; i < NUM_MOVABLE_BOXES; i++) {
-                const itemColor = `hsl(${i * 90}, 70%, 50%)`; 
+                const itemColor = `hsl(${i * 90}, 60%, 50%)`; 
 
                 const boxPos = boxPositions[i];
                 movableBoxes.push(new Box(canvas.width * boxPos.x - boxSize / 2, canvas.height * boxPos.y - boxSize / 2, boxSize, boxSize, itemColor));
