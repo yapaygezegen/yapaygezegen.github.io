@@ -13,6 +13,7 @@ function degistir(veri, duzTers = 1) {
         for (let j = 0; j < dizi1.length; j++) {
             if (veri[i] == a[j]) {
                 sonuc += b[j]
+                break
             }
         }
     }
