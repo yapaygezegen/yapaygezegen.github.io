@@ -1235,9 +1235,29 @@
         let currentDifficulty = 'hard';
 
         const difficultyConfig = {
-            easy: { allowed: ['normal', 'time', 'launch_grant', 'turn_bomb', 'death', 'multi'], intervals: { multi: 2, death: 2, turn_bomb: 3, launch_grant: 4, time: 6 }, probabilities: { multi: 0.7, death: 0.65, turn_bomb: 0.35, launch_grant: 0.5, time: 0.25 } },
-            medium: { allowed: ['normal', 'time', 'launch_grant', 'turn_bomb', 'death', 'multi', 'star', 'laser', 'bomb', 'rainbow'], intervals: { multi: 12, death: 6, turn_bomb: 12, launch_grant: 12, time: 12, star: 24, laser: 18, bomb: 30, rainbow: 18 }, probabilities: { multi: 0.65, death: 0.3, turn_bomb: 0.7, launch_grant: 0.75, time: 0.6, star: 0.45, laser: 0.55, bomb: 0.75, rainbow: 0.65 } },
-            hard: { allowed: ['normal', 'time', 'launch_grant', 'turn_bomb', 'death', 'multi', 'star', 'laser', 'bomb', 'rainbow', 'fire_boss', 'ice_boss', 'lightning_boss'], intervals: { multi: 24, death: 12, turn_bomb: 24, launch_grant: 36, time: 1, star: 30, laser: 42, bomb: 24, rainbow: 60, fire_boss: 198, ice_boss: 66, lightning_boss: 36 }, probabilities: { multi: 0.5, death: 0.5, turn_bomb: 0.4, launch_grant: 0.4, time: 0.02, star: 0.4, laser: 0.6, bomb: 0.5, rainbow: 0.5, fire_boss: 1.0, ice_boss: 1.0, lightning_boss: 1.0 } }
+            easy: {
+                allowed: ['normal', 'time', 'launch_grant', 'turn_bomb', 'death', 'multi'],
+
+                intervals: { multi: 2, death: 2, turn_bomb: 3, launch_grant: 4, time: 6 },
+
+                probabilities: { multi: 0.7, death: 0.65, turn_bomb: 0.35, launch_grant: 0.5, time: 0.25 }
+            },
+
+            medium: {
+                allowed: ['normal', 'time', 'launch_grant', 'turn_bomb', 'death', 'multi', 'star', 'laser', 'bomb', 'rainbow'],
+
+                intervals: { multi: 12, death: 6, turn_bomb: 12, launch_grant: 12, time: 12, star: 12, laser: 18, bomb: 30, rainbow: 18 },
+
+                probabilities: { multi: 0.65, death: 0.3, turn_bomb: 0.7, launch_grant: 0.75, time: 0.6, star: 0.7, laser: 0.55, bomb: 0.75, rainbow: 0.65 }
+            },
+
+            hard: {
+                allowed: ['normal', 'time', 'launch_grant', 'turn_bomb', 'death', 'multi', 'star', 'laser', 'bomb', 'rainbow', 'fire_boss', 'ice_boss', 'lightning_boss'],
+
+                intervals: { multi: 24, death: 12, turn_bomb: 24, launch_grant: 36, time: 1, star: 12, laser: 42, bomb: 24, rainbow: 60, fire_boss: 198, ice_boss: 66, lightning_boss: 36 },
+
+                probabilities: { multi: 0.5, death: 0.5, turn_bomb: 0.4, launch_grant: 0.4, time: 0.02, star: 0.6, laser: 0.6, bomb: 0.5, rainbow: 0.5, fire_boss: 1.0, ice_boss: 1.0, lightning_boss: 1.0 }
+            }
         };
 
         const canvas = document.getElementById('gameCanvas');
@@ -1332,33 +1352,44 @@
         // Değişkenler (Brick Spawn)
         let pendingDeathBrick = false; let pendingMultiBrick = false; let pendingLaserBrick = false; let pendingRainbowBrick = false; let pendingTimeBrick = false; let pendingBombBrick = false; let pendingStarBrick = false; let pendingTurnBombBrick = false; let pendingLaunchBrick = false;
 
-        // SES DOSYALARI
-        const audio = {
-            background: new Audio('sound/background.ogg'), //
-            button: new Audio('sound/buton4.ogg'), //
-            multi: new Audio('sound/multi.ogg'), //
-            multi2: new Audio('sound/m4.ogg'), //
-            eraser: new Audio('sound/eraser2.ogg'), //
-            bomb: new Audio('sound/bb15.ogg'),
-            laser: new Audio('sound/lazer.ogg'), //
-            star: new Audio('sound/star5.ogg'), //
-            time: new Audio('sound/time.ogg'), //
-            rainbow: new Audio('sound/rainbow.ogg'), //
-            lose: new Audio('sound/lose.ogg'), //
-            win: new Audio('sound/win.ogg'), //
-            brick: new Audio('sound/brick.ogg'), //
-        };
+        // --- GECİKME DÜZELTME: WEB AUDIO API KULLANIMI ---
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+        const soundBuffers = {};
+        let bgMusicSource = null;
 
-        // Ses ayarları
-        audio.background.loop = true;
-        audio.background.volume = 0.5;
+        // Dosya yolları
+        const soundUrls = {
+            background: 'sound/background3.ogg',
+            button: 'sound/buton7.ogg',
+            multi: 'sound/multi.ogg',
+            multi2: 'sound/m4.ogg',
+            eraser: 'sound/eraser2.ogg',
+            bomb: 'sound/bb16.ogg',
+            laser: 'sound/lazer.ogg',
+            star: 'sound/star8.ogg',
+            time: 'sound/time.ogg',
+            rainbow: 'sound/rainbow.ogg',
+            lose: 'sound/lose.ogg',
+            win: 'sound/win.ogg',
+            brick: 'sound/brick.ogg',
+        };
 
         btnEN.addEventListener('click', () => { playSoundEffect('button'); setLanguage('en') });
         btnTR.addEventListener('click', () => { playSoundEffect('button'); setLanguage('tr') });
-        startBtn.addEventListener('click', () => { handleNicknameSave(); startGame(); });
+        startBtn.addEventListener('click', () => {
+            if (isMusicOn) {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                playBgMusic();
+            }
+            handleNicknameSave();
+            startGame();
+        });
         nicknameShow.addEventListener('click', () => { nicknameInput.style.display = 'block'; nicknameShow.style.display = 'none'; nicknameInput.value = playerNickname; nicknameInput.focus(); });
+
         restartBtn.addEventListener('click', () => { startGame(); });
         returnMenuBtn.addEventListener('click', () => { playSoundEffect('button'); showMenu(); });
+
         infoBtn.addEventListener('click', () => { playSoundEffect('button'); startScreen.style.display = 'none'; infoScreen.style.display = 'flex'; });
         closeInfoBtn.addEventListener('click', () => { playSoundEffect('button'); infoScreen.style.display = 'none'; startScreen.style.display = 'flex'; });
         settingsBtn.addEventListener('click', () => { playSoundEffect('button'); openSettings(); });
@@ -1384,14 +1415,15 @@
         function renderPaletteSelector() { paletteContainer.innerHTML = ''; palettes.forEach((p, index) => { const div = document.createElement('div'); div.className = `palette-option ${index === currentPaletteIndex ? 'selected' : ''}`; div.onclick = () => selectPalette(index); const nameSpan = document.createElement('span'); nameSpan.className = 'palette-name'; nameSpan.innerText = p.name; div.appendChild(nameSpan); const row = document.createElement('div'); row.className = 'color-preview-row'; p.colors.forEach(c => { const dot = document.createElement('div'); dot.className = 'color-dot'; dot.style.backgroundColor = c; row.appendChild(dot); }); div.appendChild(row); paletteContainer.appendChild(div); }); }
         function selectPalette(index) { currentPaletteIndex = index; baseColors = [...palettes[index].colors]; localStorage.setItem('hexBreakerPalette', index); renderPaletteSelector(); }
 
+        // --- GECİKME DÜZELTME: YENİ AUDIO FONKSİYONLARI ---
         function toggleAudio(type) {
             if (type === 'music') {
                 isMusicOn = !isMusicOn;
                 localStorage.setItem('hexBreakerMusic', isMusicOn);
                 if (isMusicOn) {
-                    audio.background.play().catch(e => { });
+                    playBgMusic();
                 } else {
-                    audio.background.pause();
+                    stopBgMusic();
                 }
             } else if (type === 'sfx') {
                 isSfxOn = !isSfxOn;
@@ -1400,20 +1432,59 @@
             updateAudioButtons();
         }
 
+        function playBgMusic() {
+            if (!soundBuffers['background']) return;
+            // Zaten çalıyorsa durdurup yeniden başlatma (çoklu sesi önle)
+            if (bgMusicSource) return;
+
+            bgMusicSource = audioCtx.createBufferSource();
+            bgMusicSource.buffer = soundBuffers['background'];
+            bgMusicSource.loop = true;
+            // Müzik ses seviyesini ayarla (gain node)
+            const gainNode = audioCtx.createGain();
+            gainNode.gain.value = 0.4; // %50 ses
+            bgMusicSource.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            bgMusicSource.start(0);
+        }
+
+        function stopBgMusic() {
+            if (bgMusicSource) {
+                try {
+                    bgMusicSource.stop();
+                } catch (e) {
+                    // Ignore errors if already stopped
+                }
+                bgMusicSource = null;
+            }
+        }
+
+        function playSoundEffect(name) {
+            if (!isSfxOn || !soundBuffers[name]) return;
+
+            const source = audioCtx.createBufferSource();
+            source.buffer = soundBuffers[name];
+
+            const gainNode = audioCtx.createGain();
+
+            // --- PRATİK ÇÖZÜM BURADA ---
+            // Gelen sesin adı 'button' ise ses seviyesini otomatik olarak 0.5 yapıyoruz.
+            if (name === 'button') {
+                gainNode.gain.value = 0.4;
+            } else {
+                gainNode.gain.value = 0.4;
+            }
+            // ---------------------------
+
+            source.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            source.start(0);
+        }
+
         function updateAudioButtons() {
             const bgLabel = document.getElementById('bgMusicStatus'); const sfxLabel = document.getElementById('sfxStatus');
             bgMusicToggle.className = isMusicOn ? 'toggle-btn toggle-on' : 'toggle-btn toggle-off'; bgLabel.innerText = translations[isMusicOn ? 'statusOn' : 'statusOff'][currentLang];
             sfxToggle.className = isSfxOn ? 'toggle-btn toggle-on' : 'toggle-btn toggle-off'; sfxLabel.innerText = translations[isSfxOn ? 'statusOn' : 'statusOff'][currentLang];
-        }
-
-        function playSoundEffect(name) {
-            if (!isSfxOn) return;
-            if (audio[name]) {
-                // Sesi başa sarıp çal (overlap için)
-                audio[name].currentTime = 0;
-                audio[name].play().catch(e => {
-                });
-            }
         }
 
         function loadUserData() {
@@ -1430,7 +1501,36 @@
         }
         function handleNicknameSave() { if (nicknameInput.style.display !== 'none') { let val = nicknameInput.value.trim(); playerNickname = val; localStorage.setItem('hexBreakerNickname2', playerNickname); if (val !== "") { nicknameInput.style.display = 'none'; nicknameShow.style.display = 'block'; nicknameShow.innerText = playerNickname; } } }
 
-        class BackgroundStar { constructor() { this.init(); } init() { this.x = Math.random() * width; this.y = Math.random() * height; this.depth = Math.random(); this.size = Math.random() * 1.5; this.speed = (this.depth * 0.5) + 0.1; this.brightness = Math.random() * 0.5 + 0.1; } update(parallaxX, dtFactor) { this.y += this.speed * dtFactor; this.x += parallaxX * this.depth * 0.05 * dtFactor; if (this.y > height) this.y = 0; if (this.x > width) this.x = 0; if (this.x < 0) this.x = width; } draw() { ctx.fillStyle = `rgba(255, 255, 255, ${this.brightness})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } }
+        class BackgroundStar {
+            constructor() { this.init(); }
+            init() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.depth = Math.random();
+                this.size = Math.random() * 1.5;
+
+                // --- HIZ AYARI BURADA YAPILDI ---
+                // Eski: this.speed = (this.depth * 0.5) + 0.1;
+                // Yeni (Daha Yavaş): Çarpanları düşürdük (0.15 ve 0.02)
+                this.speed = (this.depth * 0.15) + 0.02;
+
+                this.brightness = Math.random() * 0.5 + 0.1;
+            }
+            update(parallaxX, dtFactor) {
+                this.y += this.speed * dtFactor;
+                this.x += parallaxX * this.depth * 0.05 * dtFactor;
+                if (this.y > height) this.y = 0;
+                if (this.x > width) this.x = 0;
+                if (this.x < 0) this.x = width;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.brightness})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
         class Particle { constructor(x, y, color) { this.activate(x, y, color); } activate(x, y, color) { this.x = x; this.y = y; this.color = color; const angle = Math.random() * Math.PI * 2; const speed = Math.random() * 3 + 1; this.vx = Math.cos(angle) * speed; this.vy = Math.sin(angle) * speed; this.life = 1.0; this.decay = 0.03; this.size = Math.random() * 3 + 1; } update(dtFactor) { this.x += this.vx * dtFactor; this.y += this.vy * dtFactor; this.life -= this.decay * dtFactor; } draw() { ctx.globalAlpha = Math.max(0, this.life); ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1.0; } }
         class BombBlast { constructor(x, y, maxRadius) { this.x = x; this.y = y; this.maxRadius = maxRadius; this.currentRadius = 10; this.life = 1.0; this.decay = 0.04; } update(dtFactor) { this.life -= this.decay * dtFactor; if (this.currentRadius < this.maxRadius) { this.currentRadius += (this.maxRadius - this.currentRadius) * 0.2 * dtFactor; } } draw() { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.max(0, this.life); ctx.beginPath(); ctx.arc(this.x, this.y, this.currentRadius, 0, Math.PI * 2); ctx.lineWidth = 10; ctx.strokeStyle = '#FF4500'; ctx.stroke(); ctx.fillStyle = `rgba(255, 69, 0, ${this.life * 0.3})`; ctx.fill(); ctx.restore(); } }
         class FloatingText { constructor(x, y, text, color) { this.x = x; this.y = y; this.text = text; this.color = color; this.life = 1.0; this.dy = -1.5; } update(dtFactor) { this.y += this.dy * dtFactor; this.life -= 0.02 * dtFactor; } draw() { ctx.save(); ctx.globalAlpha = Math.max(0, this.life); ctx.fillStyle = this.color; ctx.font = "bold 20px Arial"; ctx.textAlign = "center"; ctx.fillText(this.text, this.x, this.y); ctx.restore(); } }
@@ -1788,7 +1888,13 @@
                     for (let j = 0; j < targets.length; j++) {
                         let target = targets[j];
                         if (target.active) {
-                            const dx = ball.x - target.x; const dy = ball.y - target.y; const distSq = dx * dx + dy * dy; const combinedRadius = ball.radius + target.radius; const combinedRadiusSq = combinedRadius * combinedRadius;
+                            // --- OPTİMİZASYON: Dikey Uzaklık Kontrolü ---
+                            // Eğer top ve hedef dikeyde çok uzaksa, karekök hesabına girme.
+                            const distY = Math.abs(ball.y - target.y);
+                            const combinedRadius = ball.radius + target.radius;
+                            if (distY > combinedRadius + 5) continue;
+
+                            const dx = ball.x - target.x; const dy = ball.y - target.y; const distSq = dx * dx + dy * dy; const combinedRadiusSq = combinedRadius * combinedRadius;
                             if (distSq <= combinedRadiusSq) {
                                 const dist = Math.sqrt(distSq); let shouldBounce = (target.type !== 'death');
                                 if (shouldBounce && dist > 0) {
@@ -1912,24 +2018,35 @@
             ctx.fillText(Math.ceil(countdownTime), 0, 2); ctx.restore();
         }
 
+        // --- GÜNCELLEMİŞ OPTİMİZE OYUN DÖNGÜSÜ ---
         function loop(timestamp) {
-            if (!lastTime) lastTime = timestamp; const deltaTime = (timestamp - lastTime) / 1000; lastTime = timestamp;
-            const safeDelta = Math.min(deltaTime, 0.1); const dtFactor = safeDelta * 60;
+            if (!lastTime) lastTime = timestamp;
+            const deltaTime = (timestamp - lastTime) / 1000;
+            lastTime = timestamp;
 
-            ctx.fillStyle = '#1a1a1a'; ctx.fillRect(0, 0, width, height);
+            const safeDelta = Math.min(deltaTime, 0.1);
+            const dtFactor = safeDelta * 60; // 60 FPS'e normalize et
 
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fillRect(0, 0, width, height);
+
+            // Parallax - Oyun durumundan bağımsız (background)
             let parallaxX = 0;
-            if (gameState === 'PLAYING' && balls.length > 0) { let sumX = 0; balls.forEach(b => sumX += b.x); const avgX = sumX / balls.length; parallaxX = (width / 2 - avgX) * 0.05; }
+            if (balls.length > 0) {
+                let sumX = 0;
+                balls.forEach(b => sumX += b.x);
+                const avgX = sumX / balls.length;
+                parallaxX = (width / 2 - avgX) * 0.05;
+            }
             bgStars.forEach(star => { star.update(parallaxX, dtFactor); star.draw(); });
 
-            // --- INTRO EFEKT MANTIĞI ---
             if (gameState === 'COUNTDOWN') {
                 countdownTime -= safeDelta;
                 introHexRotation += 0.08 * dtFactor;
 
-                if (balls.length > 0) balls[0].draw(); // Top arkada
-                drawIntroHex(); // Şekil
-                drawCountdownNumber(); // Sayı
+                if (balls.length > 0) balls[0].draw();
+                drawIntroHex();
+                drawCountdownNumber();
 
                 if (countdownTime <= 0) { gameState = 'PLAYING'; launchBallFromCenter(); }
 
@@ -1937,32 +2054,64 @@
                 targets.forEach(t => t.draw());
 
             } else if (gameState === 'PLAYING') {
-                // OYUN BAŞLADI AMA EFEKT DEVAM EDİYORSA (BUHARLAŞMA)
+                // Intro Sönümleme
                 if (introFadeAlpha > 0) {
-                    introFadeAlpha -= 0.02 * dtFactor; // Yavaşça görünmez ol
-                    introScale += 0.0125 * dtFactor;     // Yavaşça büyü (Buhar gibi yayıl)
-                    introHexRotation += 0.1 * dtFactor;// Dönmeye devam et
-                    drawIntroHex(); // Hala çiz
+                    introFadeAlpha -= 0.02 * dtFactor;
+                    introScale += 0.0125 * dtFactor;
+                    introHexRotation += 0.1 * dtFactor;
+                    drawIntroHex();
                 }
 
-                // ... (Geri kalan oyun mantığı aynen kalıyor) ...
-                gameTime -= safeDelta; if (gameTime <= 0) { gameTime = 0; finishGame(false, 'time'); }
-                timerDisplay.innerText = Math.ceil(gameTime);
-                if (gameTime <= 20) timerDisplay.classList.add('low-time'); else timerDisplay.classList.remove('low-time');
-                ballDisplay.innerText = balls.length;
-                if (displayedScore < score) { displayedScore += 2; scoreDisplay.innerText = displayedScore; } else if (displayedScore > score) { displayedScore = score; scoreDisplay.innerText = displayedScore; }
-                if (screenShake > 0) { screenShake -= safeDelta; const intensity = 15; const dx = (Math.random() - 0.5) * intensity; const dy = (Math.random() - 0.5) * intensity; gameContainer.style.transform = `translate(${dx}px, ${dy}px)`; } else { gameContainer.style.transform = 'none'; }
+                gameTime -= safeDelta;
+                if (gameTime <= 0) { gameTime = 0; finishGame(false, 'time'); }
+
+                // UI Update (DOM optimization: sadece değişince)
+                updateUI();
+
+                // Ekran Titremesi
+                if (screenShake > 0) {
+                    screenShake -= safeDelta;
+                    const intensity = 15;
+                    const dx = (Math.random() - 0.5) * intensity;
+                    const dy = (Math.random() - 0.5) * intensity;
+                    gameContainer.style.transform = `translate(${dx}px, ${dy}px)`;
+                } else {
+                    gameContainer.style.transform = 'none';
+                }
 
                 if (hexagon) hexagon.draw();
+
+                // Targets Update & Draw
                 targets.forEach(t => { t.update(dtFactor); t.draw(); });
-                for (let i = floatingTexts.length - 1; i >= 0; i--) { const ft = floatingTexts[i]; ft.update(dtFactor); if (ft.life <= 0) floatingTexts.splice(i, 1); else ft.draw(); }
-                for (let i = lasers.length - 1; i >= 0; i--) { const l = lasers[i]; l.update(dtFactor); if (l.life <= 0) lasers.splice(i, 1); else l.draw(); }
-                for (let i = bombBlasts.length - 1; i >= 0; i--) { const bb = bombBlasts[i]; bb.update(dtFactor); if (bb.life <= 0) bombBlasts.splice(i, 1); else bb.draw(); }
-                for (let i = particles.length - 1; i >= 0; i--) { const p = particles[i]; p.update(dtFactor); if (p.life <= 0) { recycleParticle(p); particles.splice(i, 1); } else { p.draw(); } }
+
+                // Particles & Effects (Reverse Loop for safe splicing)
+                for (let i = floatingTexts.length - 1; i >= 0; i--) {
+                    const ft = floatingTexts[i];
+                    ft.update(dtFactor);
+                    if (ft.life <= 0) floatingTexts.splice(i, 1); else ft.draw();
+                }
+                for (let i = lasers.length - 1; i >= 0; i--) {
+                    const l = lasers[i];
+                    l.update(dtFactor);
+                    if (l.life <= 0) lasers.splice(i, 1); else l.draw();
+                }
+                for (let i = bombBlasts.length - 1; i >= 0; i--) {
+                    const bb = bombBlasts[i];
+                    bb.update(dtFactor);
+                    if (bb.life <= 0) bombBlasts.splice(i, 1); else bb.draw();
+                }
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.update(dtFactor);
+                    if (p.life <= 0) { recycleParticle(p); particles.splice(i, 1); } else { p.draw(); }
+                }
+
+                // Balls Update & Check Collisions
                 balls.forEach(ball => { ball.update(dtFactor); ball.draw(); });
                 if (hexagon) checkCollisions();
+
             } else {
-                // GAMEOVER DURUMUNDA DA ÇİZİM YAP (Donmuş görüntü için)
+                // GAMEOVER Render
                 if (hexagon) hexagon.draw();
                 targets.forEach(t => t.draw());
                 floatingTexts.forEach(ft => ft.draw());
@@ -1975,49 +2124,40 @@
             animationId = requestAnimationFrame(loop);
         }
 
+        function updateUI() {
+            // Metin değişmiyorsa DOM'a dokunma (Reflow engelleme)
+            const timeStr = Math.ceil(gameTime).toString();
+            if (timerDisplay.innerText !== timeStr) {
+                timerDisplay.innerText = timeStr;
+                if (gameTime <= 20) timerDisplay.classList.add('low-time');
+                else timerDisplay.classList.remove('low-time');
+            }
+            if (ballDisplay.innerText !== balls.length.toString()) ballDisplay.innerText = balls.length;
+
+            if (displayedScore !== score) {
+                if (displayedScore < score) displayedScore += 2;
+                else if (displayedScore > score) displayedScore = score;
+                scoreDisplay.innerText = displayedScore;
+            }
+        }
+
+        // --- GECİKME DÜZELTME: SESLERİ FETCH VE DECODE ETME ---
+        function loadSound(key, url) {
+            return fetch(url)
+                .then(response => response.arrayBuffer())
+                .then(arrayBuffer => audioCtx.decodeAudioData(arrayBuffer))
+                .then(audioBuffer => {
+                    soundBuffers[key] = audioBuffer;
+                })
+                .catch(e => console.error("Error loading sound " + key, e));
+        }
+
         function preloadAudio() {
-            return new Promise((resolve) => {
-                let loadedCount = 0;
-                const audioKeys = Object.keys(audio);
-                const totalAudio = audioKeys.length;
-
-                if (totalAudio === 0) {
-                    resolve();
-                    return;
-                }
-
-                const checkLoad = () => {
-                    loadedCount++;
-                    if (loadedCount >= totalAudio) {
-                        resolve();
-                    }
-                };
-
-                audioKeys.forEach(key => {
-                    const sound = audio[key];
-                    // Force preload
-                    sound.preload = 'auto';
-
-                    // Check if already loaded
-                    if (sound.readyState >= 3) {
-                        checkLoad();
-                    } else {
-                        sound.addEventListener('canplaythrough', checkLoad, { once: true });
-                        sound.addEventListener('error', () => {
-                            checkLoad(); // Proceed even if error
-                        }, { once: true });
-                        // Trigger load
-                        sound.load();
-                    }
-                });
-
-                // Timeout fallback (3 seconds)
-                setTimeout(() => {
-                    if (loadedCount < totalAudio) {
-                        resolve();
-                    }
-                }, 3000);
-            });
+            const promises = [];
+            for (const key in soundUrls) {
+                promises.push(loadSound(key, soundUrls[key]));
+            }
+            return Promise.all(promises);
         }
 
         function init() {
@@ -2031,14 +2171,24 @@
 
             resize();
 
-            // Start loading audio
+            // SES BAŞLATMA (TARAYICI ENGELİNİ AŞMAK İÇİN)
+            const unlockAudio = () => {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                // İlk tıklamada müziği başlat
+                if (isMusicOn && !bgMusicSource) {
+                    playBgMusic();
+                }
+                document.body.removeEventListener('click', unlockAudio);
+                document.body.removeEventListener('touchstart', unlockAudio);
+            };
+            document.body.addEventListener('click', unlockAudio);
+            document.body.addEventListener('touchstart', unlockAudio);
+
+            // SIKI YÜKLEME: Sesler bitmeden menü açılmaz
             preloadAudio().then(() => {
                 const loadingScreen = document.getElementById('loadingScreen');
-
-                // Start music immediately if enabled
-                if (isMusicOn) {
-                    audio.background.play().catch(e => { });
-                }
 
                 if (loadingScreen) {
                     loadingScreen.style.opacity = '0';
