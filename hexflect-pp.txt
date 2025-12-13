@@ -1,0 +1,96 @@
+MOBILE GAME PRIVACY NOTICE
+December 13, 2025
+
+The privacy of all our Users is very important to us. When you use our Service as a Game User, we (as the Game Publisher) keep your Personal Data on your own device. This Privacy Notice explains how we protect and process your Personal Data. We recommend that you read it carefully.
+
+Data consisting of your activities within the Game is stored on your own device to provide you with a better service.
+
+1. What is specified in this Privacy Notice?
+
+-Types of Personal Data processed,
+-Purposes of processing Personal Data,
+-Locations where Personal Data is processed,
+-Security measures applied to protect Personal Data,
+-Limits of liability regarding third parties,
+-Viewing, changing, and deleting your Personal Data,
+-Children's Privacy,
+-Security,
+-Changes made to this Privacy Notice,
+-What to do if you have questions or remarks?
+
+2. Types of Personal Data processed
+
+A. Personal Data used by our Service
+
+We use Anonymous Data to improve our Service. This information will not be disclosed publicly via the Service.
+
+This game uses AdMob (Google Inc.) as an ad delivery tool, and AdMob may automatically receive user information. Regarding the information to be acquired, purpose of use, provision to third parties, etc., please check the ad delivery company's game privacy policy link below.
+
+Google Advertising Policy:
+https://policies.google.com/technologies/ads
+
+B. Automatically generated information
+
+Like most other websites and online services, we collect and process automatically generated information about how you use the game. The collected information includes your progress status within the game.
+
+This also occurs regarding automatically generated information about how you use the game. Such information helps us better understand how the game is used and produce services suitable for your needs as a user.
+
+If push notification ads are active in the game, information about BleshSDK, which works integrated with the game, is presented below:
+
+Through BleshSDK, access is obtained to the Users’ notification permission status, bluetooth status information, device information, advertising identifier (IDFA), location, carrier, and installed game list information, and necessary security measures are taken for the privacy of this provided information.
+
+In the event that the User wishes to save the campaign image sent to them to their photo album, the User’s photo album and camera are accessed, and the screenshot is saved to the photo album.
+
+Information is used securely and only for the necessary duration, solely for the purpose of sending push notifications through the Game to the extent permitted by the User. Information is shared with third parties only for the realization of the said purposes, and publication or disclosure of information outside this scope is not permitted.
+
+3. Purposes of processing Personal Data:
+
+A. Purposes
+
+-The Parties process Personal Data for the following purposes:
+-To enable you to use the Service,
+-To keep information regarding our Service up to date,
+-To improve and/or customize the Service,
+-To identify you and/or customize the Service,
+-To provide support.
+
+B. Transmission of Personal Data to third parties
+
+We do not sell, trade, or rent your Personal Data to third parties without your prior consent.
+
+4. Locations where Personal Data is processed
+
+In order to provide you with a better service, your personal data is: stored solely on the user's device.
+
+5. What security measures are applied to protect Personal Data?
+
+The security of your data and the security of other Users is very important to us. We have taken technical and organizational measures to protect your Personal Data against loss or any unlawful processing.
+
+6. Limits of liability regarding third parties
+
+Our Service may contain hyperlinks to services and products offered by third parties and/or websites or services of partners, advertisers, and other third parties.
+
+The Parties have no control or influence over the content, websites, or services of these third parties. Different privacy policies may apply to the use of third-party websites and services. This Privacy Notice relates only to Personal Data obtained by the parties through your use of the Service for their own purposes. The Parties accept no responsibility regarding the content, practices, or operation of third-party websites and 
+services.
+
+7. Viewing and Deleting Personal Data
+
+Personal data processed using the game can be viewed by the user in the relevant area within the Game. All saved data can be deleted by the user by resetting the Game memory.
+
+8. Children's Privacy
+
+Personal information regarding children is not knowingly or intentionally collected.
+
+9. Security
+
+Measures are applied to ensure the security of your personal information, minimize the risk of damage, loss of information, and unauthorized access or use of information. However, these measures cannot provide absolute information security. Therefore, efforts are made to ensure the security of your personal information, but this is not guaranteed, and you cannot reasonably expect that the Game and related databases will be immune from any wrongful conduct, malfunction, unauthorized obstructions or access, or other misuse and abuse.
+
+10. Changes Made to this Privacy Notice
+
+This Notice may be updated at any time. The Parties will publish an updated version of the Privacy Notice via the Service. The Parties advise you to check this page from time to time to be informed of changes the parties will make to this Privacy Notice and to be informed about how they will protect your Personal Data. It is your responsibility to periodically review this Privacy Notice and be informed about updates, and you accept and undertake this.
+
+You agree to be bound by any of the changes made to this Notice. Your continued use of the Game after the change takes effect will indicate your acceptance of the modified Notice. If you do not accept the modified Notice, you must uninstall the Game and avoid using it further.
+
+11. What to do if you have any questions or remarks?
+
+If you have any questions or remarks regarding this Privacy Notice, please contact us by sending an email.
