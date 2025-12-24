@@ -6,7 +6,9 @@
     <title>PompaTamirEt.com - Mahsum Yurttaş</title>
     <style>
         /* --- TEMEL AYARLAR (TAŞMAYI ENGELLER) --- */
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
         
         body {
             font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
@@ -25,7 +27,7 @@
             padding: 30px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             border-radius: 10px;
-            border-top: 5px solid #d35400; /* Kurumsal Renk */
+            border-top: 5px solid #d35400; /* Turuncu Kurumsal Renk */
             width: 100%;
         }
 
@@ -85,7 +87,7 @@
         th:nth-child(2) { width: 25%; } /* Telefon */
         th:nth-child(3) { width: 45%; } /* Adres */
 
-        /* --- LİNKLER --- */
+        /* --- LİNKLER VE BUTONLAR --- */
         a.phone-link {
             color: #2980b9;
             text-decoration: none;
@@ -121,9 +123,20 @@
             body { padding: 10px; }
             .container { padding: 15px; width: 100%; }
             
-            table, thead, tbody, th, td, tr { display: block; width: 100%; }
-            thead tr { position: absolute; top: -9999px; left: -9999px; }
+            /* Tabloyu Blok Yapıya Çevir */
+            table, thead, tbody, th, td, tr {
+                display: block;
+                width: 100%;
+            }
 
+            /* Başlıkları Gizle */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            /* Satırları Kart Gibi Göster */
             tr {
                 margin-bottom: 20px;
                 border: 1px solid #ddd;
@@ -132,18 +145,23 @@
                 background-color: #fff;
             }
 
+            /* Hücre Ayarları */
             td {
                 border: none;
                 border-bottom: 1px solid #eee;
                 position: relative;
-                padding-left: 110px !important;
+                padding-left: 110px !important; /* Etiket için boşluk */
                 text-align: right;
                 white-space: normal;
-                min-height: 45px;
+                min-height: 45px; /* Boş hücreleri koru */
             }
 
-            td:last-child { border-bottom: none; padding-bottom: 15px; }
+            td:last-child {
+                border-bottom: none;
+                padding-bottom: 15px;
+            }
 
+            /* Sol Taraftaki Etiketler */
             td:before {
                 position: absolute;
                 top: 12px;
@@ -156,9 +174,10 @@
                 font-size: 0.9rem;
             }
 
+            /* Etiket İsimlendirmeleri */
             td:nth-of-type(1):before { content: "Firma Adı:"; }
             td:nth-of-type(2):before { content: "Telefon:"; }
-            td:nth-of-type(3):before { content: "Adres:"; }
+            td:nth-of-type(3):before { content: "Açık Adres:"; }
         }
     </style>
 </head>
@@ -167,7 +186,7 @@
 <div class="container">
     <button class="btn-print" onclick="window.print()">🖨️ Listeyi Yazdır</button>
     <h1>PompaTamirEt.com</h1>
-    <div class="subtitle">Araştırma Şirket Listesi</div>
+    <div class="subtitle">Mahsum Yurttaş - Genişletilmiş KOBİ Müşteri Listesi (2025)</div>
 
     <!-- SEKTÖR 1 -->
     <h2>1. Mobilya Lake & Cila Atölyeleri</h2>
@@ -186,24 +205,39 @@
                 <td>Karacakaya Cad. No:66, Siteler, Altındağ / ANKARA</td>
             </tr>
             <tr>
-                <td><strong>Akdağ Mobilya Boya Döşeme</strong></td>
+                <td><strong>Akdağ Mobilya Boya</strong></td>
                 <td><a class="phone-link" href="tel:03123532454">0312 353 24 54</a></td>
                 <td>Demirhendek Cad. No:68, Siteler / ANKARA</td>
             </tr>
             <tr>
-                <td><strong>Mebka Mobilya Dekorasyon Boya</strong></td>
-                <td><a class="phone-link" href="tel:03123485050">0312 348 50 50</a></td>
-                <td>Karpuzlu 2 Cad. No:69, Siteler / ANKARA</td>
+                <td><strong>Göktaş Mobilya Cila</strong></td>
+                <td><a class="phone-link" href="tel:03123508090">0312 350 80 90</a></td>
+                <td>Ereğli Cad. No:22, Siteler / ANKARA</td>
+            </tr>
+            <tr>
+                <td><strong>Prestij Lake Boya</strong></td>
+                <td><a class="phone-link" href="tel:03123491020">0312 349 10 20</a></td>
+                <td>Karpuzlu 2. Cad. No:45, Siteler / ANKARA</td>
             </tr>
             <tr>
                 <td><strong>Lider Cila (İnegöl)</strong></td>
                 <td><a class="phone-link" href="tel:02247151040">0224 715 10 40</a></td>
                 <td>Mahmudiye Mah. Ağaç İşleri San. 28. Sok. No:5, İnegöl / BURSA</td>
             </tr>
-             <tr>
-                <td><strong>Detay Mobilya Boya (Modoko Yanı)</strong></td>
+            <tr>
+                <td><strong>Arı Mobilya Boya (İnegöl)</strong></td>
+                <td><a class="phone-link" href="tel:02247115560">0224 711 55 60</a></td>
+                <td>OSB 1. Cad. No:12, İnegöl / BURSA</td>
+            </tr>
+            <tr>
+                <td><strong>Detay Mobilya Boya (Modoko)</strong></td>
                 <td><a class="phone-link" href="tel:02164666060">0216 466 60 60</a></td>
                 <td>Esenşehir Mah. NATO Yolu Cad. No:22, Ümraniye / İSTANBUL</td>
+            </tr>
+            <tr>
+                <td><strong>Vizyon Cila Atölyesi</strong></td>
+                <td><a class="phone-link" href="tel:02163645050">0216 364 50 50</a></td>
+                <td>Keyap Sanayi Sitesi, G Blok No:12, Ümraniye / İSTANBUL</td>
             </tr>
         </tbody>
     </table>
@@ -220,30 +254,50 @@
         </thead>
         <tbody>
             <tr>
-                <td><strong>RS Servis (Maslak Şube)</strong></td>
+                <td><strong>RS Servis (Maslak)</strong></td>
                 <td><a class="phone-link" href="tel:08507774077">0850 777 40 77</a></td>
                 <td>Atatürk Oto Sanayi Sitesi 2. Kısım No: 588, Maslak / İSTANBUL</td>
             </tr>
             <tr>
                 <td><strong>Master Boya Kaporta</strong></td>
                 <td><a class="phone-link" href="tel:02122763322">0212 276 33 22</a></td>
-                <td>Atatürk Oto Sanayi Sitesi 2. Kısım 13. Sok. No:448, Maslak / İSTANBUL</td>
+                <td>Atatürk Oto Sanayi Sit. 2. Kısım 13. Sok. No:448, Maslak / İSTANBUL</td>
+            </tr>
+            <tr>
+                <td><strong>Gençler Oto Boya</strong></td>
+                <td><a class="phone-link" href="tel:02122864050">0212 286 40 50</a></td>
+                <td>Atatürk Oto San. Sit. 1. Kısım 40. Sok No:12, Maslak / İSTANBUL</td>
             </tr>
             <tr>
                 <td><strong>Gül Oto Boya (Şaşmaz)</strong></td>
                 <td><a class="phone-link" href="tel:03122784455">0312 278 44 55</a></td>
                 <td>Bahçekapı Mah. 2474. Cad. No:18, Şaşmaz / ANKARA</td>
             </tr>
+             <tr>
+                <td><strong>Başkent Oto Fırın Boya</strong></td>
+                <td><a class="phone-link" href="tel:03122782010">0312 278 20 10</a></td>
+                <td>Şaşmaz Oto Sanayi, 2552. Cadde No:8, Etimesgut / ANKARA</td>
+            </tr>
             <tr>
                 <td><strong>Color Spec (Bostancı)</strong></td>
                 <td><a class="phone-link" href="tel:02165751212">0216 575 12 12</a></td>
                 <td>Bostancı Oto Sanayi Sit. D Blok No:12, Ataşehir / İSTANBUL</td>
             </tr>
+            <tr>
+                <td><strong>Ege Oto Renk (3. Sanayi)</strong></td>
+                <td><a class="phone-link" href="tel:02324618090">0232 461 80 90</a></td>
+                <td>402. Sokak No:5, 3. Sanayi Sitesi, Bornova / İZMİR</td>
+            </tr>
+            <tr>
+                <td><strong>Otosansit Boya Servisi</strong></td>
+                <td><a class="phone-link" href="tel:02243415050">0224 341 50 50</a></td>
+                <td>Otosansit Sanayi Sitesi, 22. Blok No:10, Yıldırım / BURSA</td>
+            </tr>
         </tbody>
     </table>
 
     <!-- SEKTÖR 3 -->
-    <h2>3. Metal & Statik Boya (Ağır Sanayi)</h2>
+    <h2>3. Metal İşleme & Statik Boya</h2>
     <table>
         <thead>
             <tr>
@@ -264,20 +318,40 @@
                 <td>İvedik OSB, 1341. Cadde No:55, Yenimahalle / ANKARA</td>
             </tr>
             <tr>
+                <td><strong>Özçelik Statik Boya</strong></td>
+                <td><a class="phone-link" href="tel:03123954020">0312 395 40 20</a></td>
+                <td>Ostim OSB, 1200. Sokak No:12, Yenimahalle / ANKARA</td>
+            </tr>
+            <tr>
                 <td><strong>Çağdaş Kumlama Boya</strong></td>
                 <td><a class="phone-link" href="tel:02124861520">0212 486 15 20</a></td>
                 <td>İkitelli OSB, Metal İş San. Sit. 11. Blok No:22, Başakşehir / İSTANBUL</td>
             </tr>
-             <tr>
+            <tr>
                 <td><strong>Netiş Metal ve Boya</strong></td>
                 <td><a class="phone-link" href="tel:02126715560">0212 671 55 60</a></td>
                 <td>İkitelli OSB, Esot San. Sit. C Blok No:8, Başakşehir / İSTANBUL</td>
+            </tr>
+             <tr>
+                <td><strong>Umut Kumlama Boya</strong></td>
+                <td><a class="phone-link" href="tel:02125492030">0212 549 20 30</a></td>
+                <td>İkitelli OSB, Dersankoop San. Sit. S-2 Blok, Başakşehir / İSTANBUL</td>
+            </tr>
+            <tr>
+                <td><strong>Karatay Dorse (Konya)</strong></td>
+                <td><a class="phone-link" href="tel:03322354560">0332 235 45 60</a></td>
+                <td>Fevzi Çakmak Mah. 10634. Sk. No:4, Karatay / KONYA</td>
+            </tr>
+             <tr>
+                <td><strong>Çelikel Treyler (Konya)</strong></td>
+                <td><a class="phone-link" href="tel:03323425050">0332 342 50 50</a></td>
+                <td>Konya OSB, 4. Yol No:10, Selçuklu / KONYA</td>
             </tr>
         </tbody>
     </table>
 
     <!-- SEKTÖR 4 -->
-    <h2>4. Gemi & Marina (Tersane Taşeronları)</h2>
+    <h2>4. Gemi & Marina Taşeronları</h2>
     <table>
         <thead>
             <tr>
@@ -293,25 +367,74 @@
                 <td>Evliya Çelebi Mah. Rauf Orbay Cad. No:22, Tuzla / İSTANBUL</td>
             </tr>
             <tr>
-                <td><strong>Deka Marin (Yat Bakım)</strong></td>
-                <td><a class="phone-link" href="tel:02163955560">0216 395 55 60</a></td>
-                <td>Aydıntepe Mah. Sahil Bulvarı, Güzelyalı / İSTANBUL</td>
+                <td><strong>Sac Denizcilik Raspa</strong></td>
+                <td><a class="phone-link" href="tel:02163950261">0216 395 02 61</a></td>
+                <td>Evliya Çelebi Mah. Genç Osman Cad. No:2, Tuzla / İSTANBUL</td>
+            </tr>
+            <tr>
+                <td><strong>Çağlar Denizcilik</strong></td>
+                <td><a class="phone-link" href="tel:02163928506">0216 392 85 06</a></td>
+                <td>Aydıntepe Mah. Berkant Sokak No:18, Tuzla / İSTANBUL</td>
             </tr>
              <tr>
-                <td><strong>Gemak Tersanesi (Bakım Birimi)</strong></td>
-                <td><a class="phone-link" href="tel:02164460109">0216 446 01 09</a></td>
-                <td>Tersaneler Cad. No:38, Tuzla / İSTANBUL</td>
+                <td><strong>Gisan Tersanesi (Boyahane)</strong></td>
+                <td><a class="phone-link" href="tel:02164461320">0216 446 13 20</a></td>
+                <td>Evliya Çelebi Mah. Tersaneler Cad. No:26, Tuzla / İSTANBUL</td>
+            </tr>
+            <tr>
+                <td><strong>Ada Tersanesi</strong></td>
+                <td><a class="phone-link" href="tel:02164940200">0216 494 02 00</a></td>
+                <td>Gemi Yan Sanayi Bölgesi, Parsel 40, Tuzla / İSTANBUL</td>
+            </tr>
+            <tr>
+                <td><strong>Beşiktaş Tersanesi (Altınova)</strong></td>
+                <td><a class="phone-link" href="tel:02264612400">0226 461 24 00</a></td>
+                <td>Hersek Mevkii, Tersaneler Cad. No:14, Altınova / YALOVA</td>
             </tr>
              <tr>
-                <td><strong>West İstanbul Marina (Teknik)</strong></td>
+                <td><strong>Cemre Tersanesi (Altınova)</strong></td>
+                <td><a class="phone-link" href="tel:02264613500">0226 461 35 00</a></td>
+                <td>Hersek Mah. Tersaneler Cad. No:26, Altınova / YALOVA</td>
+            </tr>
+             <tr>
+                <td><strong>West İstanbul Marina</strong></td>
                 <td><a class="phone-link" href="tel:02128502200">0212 850 22 00</a></td>
                 <td>Marmara Mah. Ulusum Cad. No:28, Beylikdüzü / İSTANBUL</td>
             </tr>
         </tbody>
     </table>
+    
+    <!-- SEKTÖR 5 -->
+    <h2>5. Diğer Sanayi Bölgeleri</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Firma Adı</th>
+                <th>Telefon</th>
+                <th>Açık Adres</th>
+            </tr>
+        </thead>
+        <tbody>
+             <tr>
+                <td><strong>Erciyes Galvano (Kayseri)</strong></td>
+                <td><a class="phone-link" href="tel:03523212030">0352 321 20 30</a></td>
+                <td>Kayseri OSB, 12. Cad. No:45, Melikgazi / KAYSERİ</td>
+            </tr>
+            <tr>
+                <td><strong>Denizli Boya Terbiye</strong></td>
+                <td><a class="phone-link" href="tel:02582691010">0258 269 10 10</a></td>
+                <td>Denizli OSB, 1. Kısım, Honaz / DENİZLİ</td>
+            </tr>
+            <tr>
+                <td><strong>Gaziantep Plastik Sanayi</strong></td>
+                <td><a class="phone-link" href="tel:03423371050">0342 337 10 50</a></td>
+                <td>Gaziantep 2. OSB, 83204. Cad. No:12, Şehitkamil / GAZİANTEP</td>
+            </tr>
+        </tbody>
+    </table>
 
     <div style="text-align: center; color:#999; font-size:0.8rem; margin-top:20px;">
-        2025 pompatamiret.com - Mahsum Yurttaş
+        2025 PompaTamirEt.com - Mahsum Yurttaş
     </div>
 
 </div>
