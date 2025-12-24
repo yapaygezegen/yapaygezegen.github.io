@@ -3,334 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PompaTamirEt.com - Potansiyel Müşteri Listesi</title>
+    <title>PompaTamirEt.com - Mobil Uyumlu Müşteri Listesi</title>
     <style>
+        /* --- GENEL AYARLAR --- */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            background-color: #f4f7f6;
             color: #333;
             margin: 0;
             padding: 20px;
+            line-height: 1.6;
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            border-top: 5px solid #d35400; /* Turuncu Kurumsal Renk */
         }
+
+        /* --- BAŞLIKLAR --- */
         h1 {
             text-align: center;
             color: #2c3e50;
-            border-bottom: 2px solid #e74c3c;
-            padding-bottom: 15px;
+            margin-bottom: 5px;
+            font-size: 1.8rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
             margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
         }
         h2 {
-            background-color: #2c3e50;
+            background-color: #34495e;
             color: #fff;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 1.2rem;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 1.1rem;
             margin-top: 30px;
+            margin-bottom: 10px;
         }
+
+        /* --- MASAÜSTÜ TABLO STİLİ --- */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
-            font-size: 0.95rem;
+            table-layout: fixed; /* Sütun genişliklerini sabitler */
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px 15px;
-            text-align: left;
-        }
+        
         th {
             background-color: #ecf0f1;
             color: #2c3e50;
-            font-weight: bold;
+            font-weight: 700;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
         }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
+
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+            word-wrap: break-word; /* Uzun kelimeleri kırar */
+            vertical-align: middle;
+            font-size: 0.95rem;
         }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        a:hover {
-            text-decoration: underline;
+
+        /* Sütun Genişlikleri (Masaüstü için) */
+        th:nth-child(1) { width: 20%; } /* Firma */
+        th:nth-child(2) { width: 15%; } /* Web */
+        th:nth-child(3) { width: 13%; } /* Tel */
+        th:nth-child(4) { width: 37%; } /* Adres */
+        th:nth-child(5) { width: 15%; } /* Sosyal */
+
+        /* --- LİNKLER VE BUTONLAR --- */
+        a.web-link {
             color: #2980b9;
+            text-decoration: none;
+            font-weight: 600;
         }
-        .footer {
+        .social-btn {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.8rem;
             text-align: center;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #7f8c8d;
+            width: 80%;
         }
+        .linkedin { background-color: #0077b5; }
+        .instagram { background-color: #e1306c; }
+        .facebook { background-color: #3b5998; }
+        .google { background-color: #7f8c8d; }
+
+        /* Yazdır Butonu */
         .btn-print {
             display: block;
-            width: 200px;
+            width: 100%;
+            max-width: 200px;
             margin: 0 auto 20px auto;
-            padding: 10px;
+            padding: 12px;
             background-color: #27ae60;
             color: white;
             text-align: center;
+            border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 1rem;
         }
-        .btn-print:hover {
-            background-color: #219150;
+
+        /* --- MOBİL UYUMLULUK (RESPONSIVE MAGIC) --- */
+        @media screen and (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 15px; }
+            
+            /* Tabloyu Dağıt ve Blok Yap */
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            /* Tablo Başlıklarını Gizle (Mobilde gerek yok) */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            /* Her Satırı Bir "Kart" Gibi Göster */
+            tr {
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                background-color: #fff;
+                overflow: hidden; /* Taşmaları engelle */
+            }
+
+            /* Hücre Ayarları */
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 35% !important; /* Başlık için soldan boşluk */
+                text-align: right; /* İçeriği sağa yasla */
+                white-space: normal;
+            }
+
+            td:last-child {
+                border-bottom: none;
+                padding-bottom: 15px;
+            }
+
+            /* CSS ile Hücre Başlıklarını Ekleme (Sol Tarafa) */
+            td:before {
+                position: absolute;
+                top: 12px;
+                left: 10px;
+                width: 30%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: #2c3e50;
+            }
+
+            /* Hangi sütuna hangi başlık geleceğini tanımlıyoruz */
+            td:nth-of-type(1):before { content: "Firma Adı:"; }
+            td:nth-of-type(2):before { content: "Web:"; }
+            td:nth-of-type(3):before { content: "Telefon:"; }
+            td:nth-of-type(4):before { content: "Adres:"; }
+            td:nth-of-type(5):before { content: "Sosyal:"; }
+
+            /* Mobilde Buton ve Link Ayarları */
+            .social-btn { width: 100%; box-sizing: border-box; }
+            a.web-link { word-break: break-all; display: block; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>PompaTamirEt.com - Hedef Müşteri Listesi</h1>
-    <div class="btn-print" onclick="window.print()">Listeyi Yazdır / PDF Yap</div>
+    <button class="btn-print" onclick="window.print()">🖨️ Listeyi Yazdır</button>
+    <h1>PompaTamirEt.com</h1>
+    <div class="subtitle">Potansiyel Müşteri ve Hedef Pazar Listesi</div>
 
     <!-- SEKTÖR 1 -->
-    <h2>1. Gemi İnşa, Tersane & Raspa (Yüksek Potansiyel)</h2>
+    <h2>1. Gemi İnşa & Tersane</h2>
     <table>
         <thead>
             <tr>
                 <th>Firma Adı</th>
                 <th>Web Sitesi</th>
                 <th>Telefon</th>
-                <th>Adres</th>
+                <th>Açık Adres</th>
                 <th>Sosyal Medya</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Tersan Tersanecilik</td>
-                <td><a href="http://tersanshipyard.com" target="_blank">tersanshipyard.com</a></td>
+                <td><strong>Tersan Tersanecilik</strong></td>
+                <td><a class="web-link" href="http://tersanshipyard.com" target="_blank">tersanshipyard.com</a></td>
                 <td>0226 465 62 00</td>
-                <td>Altınova / Yalova</td>
-                <td>LinkedIn</td>
+                <td>Tavşanlı Beldesi, Tersaneler Cad. No:6, Altınova / Yalova</td>
+                <td><a class="social-btn linkedin" href="https://www.linkedin.com/company/tersan-shipyard" target="_blank">LinkedIn</a></td>
             </tr>
             <tr>
-                <td>Sedef Gemi İnşaatı</td>
-                <td><a href="http://sedefshipyard.com" target="_blank">sedefshipyard.com</a></td>
+                <td><strong>Sedef Gemi İnşaatı</strong></td>
+                <td><a class="web-link" href="http://sedefshipyard.com" target="_blank">sedefshipyard.com</a></td>
                 <td>0216 581 77 00</td>
-                <td>Tuzla / İstanbul</td>
-                <td>Instagram</td>
+                <td>Tersaneler Cad. No:10, Tuzla / İstanbul</td>
+                <td><a class="social-btn instagram" href="https://www.instagram.com/sedefshipyard" target="_blank">Instagram</a></td>
             </tr>
             <tr>
-                <td>Gemak Şirketler Grubu</td>
-                <td><a href="http://gemak.com" target="_blank">gemak.com</a></td>
+                <td><strong>Gemak Grup</strong></td>
+                <td><a class="web-link" href="http://gemak.com" target="_blank">gemak.com</a></td>
                 <td>0216 446 01 09</td>
-                <td>Tuzla / İstanbul</td>
-                <td>LinkedIn</td>
+                <td>Tersaneler Cad. No:38, Tuzla / İstanbul</td>
+                <td><a class="social-btn linkedin" href="https://www.linkedin.com/company/gemak-group" target="_blank">LinkedIn</a></td>
             </tr>
             <tr>
-                <td>Atılım Gemi Raspa</td>
-                <td><a href="http://atilimgemi.com" target="_blank">atilimgemi.com</a></td>
+                <td><strong>Atılım Gemi Raspa</strong></td>
+                <td><a class="web-link" href="http://atilimgemi.com" target="_blank">atilimgemi.com</a></td>
                 <td>0216 392 95 95</td>
-                <td>Pendik / İstanbul</td>
-                <td>Facebook</td>
+                <td>Güzelyalı Mah. Yakut Sk. No:26, Pendik / İstanbul</td>
+                <td><a class="social-btn facebook" href="https://www.facebook.com/atilimgemiraspa" target="_blank">Facebook</a></td>
             </tr>
              <tr>
-                <td>Ayhan Denizcilik</td>
-                <td><a href="http://ayhandenizcilik.com.tr" target="_blank">ayhandenizcilik.com.tr</a></td>
+                <td><strong>Ayhan Denizcilik</strong></td>
+                <td><a class="web-link" href="http://ayhandenizcilik.com.tr" target="_blank">ayhandenizcilik.com.tr</a></td>
                 <td>0543 494 10 55</td>
-                <td>Tuzla / İstanbul</td>
-                <td>Mevcut</td>
-            </tr>
-             <tr>
-                <td>Bayem Raspa Boya</td>
-                <td><a href="http://bayemraspaboya.com" target="_blank">bayemraspaboya.com</a></td>
-                <td>0535 661 51 27</td>
-                <td>Konyaaltı / Antalya</td>
-                <td>Mevcut</td>
+                <td>Aydınlı SB Mah. Gemi Yan San. Sitesi, Tuzla / İstanbul</td>
+                <td><a class="social-btn google" href="https://www.google.com/search?q=Ayhan+Denizcilik+İletişim" target="_blank">Google Ara</a></td>
             </tr>
         </tbody>
     </table>
 
     <!-- SEKTÖR 2 -->
-    <h2>2. Endüstriyel Boya & Korozyon Koruma</h2>
+    <h2>2. Endüstriyel Boya & Korozyon</h2>
     <table>
         <thead>
             <tr>
                 <th>Firma Adı</th>
                 <th>Web Sitesi</th>
                 <th>Telefon</th>
-                <th>Adres</th>
+                <th>Açık Adres</th>
                 <th>Sosyal Medya</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Vegapaint</td>
-                <td><a href="http://vegapaint.com.tr" target="_blank">vegapaint.com.tr</a></td>
+                <td><strong>Vegapaint</strong></td>
+                <td><a class="web-link" href="http://vegapaint.com.tr" target="_blank">vegapaint.com.tr</a></td>
                 <td>0216 394 83 61</td>
-                <td>Tuzla / İstanbul</td>
-                <td>Instagram</td>
+                <td>İstanbul Deri OSB, Meşin Sok. No:6, Tuzla / İstanbul</td>
+                <td><a class="social-btn instagram" href="https://www.instagram.com/vegapaint" target="_blank">Instagram</a></td>
             </tr>
             <tr>
-                <td>Aspro Group</td>
-                <td><a href="http://asprogroup.com.tr" target="_blank">asprogroup.com.tr</a></td>
+                <td><strong>Aspro Group</strong></td>
+                <td><a class="web-link" href="http://asprogroup.com.tr" target="_blank">asprogroup.com.tr</a></td>
                 <td>0322 882 10 00</td>
-                <td>Seyhan / Adana</td>
-                <td>LinkedIn</td>
+                <td>Yeşiloba Mah. 46003 Sk. No:6, Seyhan / Adana</td>
+                <td><a class="social-btn linkedin" href="https://www.linkedin.com/company/asprogroup" target="_blank">LinkedIn</a></td>
             </tr>
             <tr>
-                <td>Prosys Koruyucu Sistemler</td>
-                <td><a href="http://prosys.com.tr" target="_blank">prosys.com.tr</a></td>
+                <td><strong>Prosys Koruyucu</strong></td>
+                <td><a class="web-link" href="http://prosys.com.tr" target="_blank">prosys.com.tr</a></td>
                 <td>0216 469 33 20</td>
-                <td>Ataşehir / İstanbul</td>
-                <td>LinkedIn</td>
+                <td>Küçükbakkalköy Mah. Kayışdağı Cad. No:1, Ataşehir / İstanbul</td>
+                <td><a class="social-btn linkedin" href="https://www.linkedin.com/company/prosys-koruyucu-sistemler" target="_blank">LinkedIn</a></td>
             </tr>
-            <tr>
-                <td>Denizoğulları Kumlama</td>
-                <td><a href="http://denizogullarikumlama.com" target="_blank">denizogullarikumlama.com</a></td>
+             <tr>
+                <td><strong>Denizoğulları</strong></td>
+                <td><a class="web-link" href="http://denizogullarikumlama.com" target="_blank">denizogullarikumlama.com</a></td>
                 <td>0532 641 26 24</td>
-                <td>Tuzla / İstanbul</td>
-                <td>Mevcut</td>
+                <td>Aydınlı Mah. Gürpınar Cad. No:12, Tuzla / İstanbul</td>
+                <td><a class="social-btn google" href="https://www.google.com/search?q=Denizoğulları+Kumlama" target="_blank">Google Ara</a></td>
             </tr>
         </tbody>
     </table>
 
     <!-- SEKTÖR 3 -->
-    <h2>3. Çelik Konstrüksiyon İmalatçıları</h2>
+    <h2>3. Çelik Konstrüksiyon</h2>
     <table>
         <thead>
             <tr>
                 <th>Firma Adı</th>
                 <th>Web Sitesi</th>
                 <th>Telefon</th>
-                <th>Adres</th>
-                <th>Platform</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Bayrakcı Metal</td>
-                <td><a href="http://bayrakcimetal.com.tr" target="_blank">bayrakcimetal.com.tr</a></td>
-                <td>0212 671 67 04</td>
-                <td>İkitelli / İstanbul</td>
-                <td>LinkedIn</td>
-            </tr>
-            <tr>
-                <td>Kass Steel Construction</td>
-                <td><a href="http://kasscelik.com.tr" target="_blank">kasscelik.com.tr</a></td>
-                <td>0312 815 21 24</td>
-                <td>Kazan / Ankara</td>
-                <td>Mevcut</td>
-            </tr>
-            <tr>
-                <td>Irmak Çelik Yapı</td>
-                <td><a href="http://irmakcelikyapi.com" target="_blank">irmakcelikyapi.com</a></td>
-                <td>0262 728 15 35</td>
-                <td>Dilovası / Kocaeli</td>
-                <td>Mevcut</td>
-            </tr>
-            <tr>
-                <td>Efor Endüstriyel</td>
-                <td><a href="http://eforendustriyel.com.tr" target="_blank">eforendustriyel.com.tr</a></td>
-                <td>0318 321 32 50</td>
-                <td>Yahşihan / Kırıkkale</td>
-                <td>Mevcut</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <!-- SEKTÖR 4 -->
-    <h2>4. Yol Çizgi & Zemin Kaplama (Epoksi)</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Firma Adı</th>
-                <th>Web Sitesi</th>
-                <th>Telefon</th>
-                <th>Adres</th>
+                <th>Açık Adres</th>
                 <th>Sosyal Medya</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Roadsan Yol Çizgi</td>
-                <td><a href="http://roadsan.com.tr" target="_blank">roadsan.com.tr</a></td>
-                <td>0212 590 61 61</td>
-                <td>Hadımköy / İstanbul</td>
-                <td>Instagram</td>
+                <td><strong>Bayrakcı Metal</strong></td>
+                <td><a class="web-link" href="http://bayrakcimetal.com.tr" target="_blank">bayrakcimetal.com.tr</a></td>
+                <td>0212 671 67 04</td>
+                <td>İkitelli OSB, Atatürk Bulvarı No:102, Başakşehir / İstanbul</td>
+                <td><a class="social-btn linkedin" href="https://www.linkedin.com/company/bayrakcimetal" target="_blank">LinkedIn</a></td>
             </tr>
             <tr>
-                <td>Akzemin Mühendislik</td>
-                <td><a href="http://akzeminmuhendislik.com" target="_blank">akzeminmuhendislik.com</a></td>
-                <td>0216 313 10 10</td>
-                <td>Ümraniye / İstanbul</td>
-                <td>Mevcut</td>
-            </tr>
-             <tr>
-                <td>MGA Trafik</td>
-                <td><a href="http://mgatrafik.com.tr" target="_blank">mgatrafik.com.tr</a></td>
-                <td>0541 525 43 26</td>
-                <td>Ostim / Ankara</td>
-                <td>Mevcut</td>
+                <td><strong>Kass Steel</strong></td>
+                <td><a class="web-link" href="http://kasscelik.com.tr" target="_blank">kasscelik.com.tr</a></td>
+                <td>0312 815 21 24</td>
+                <td>Keresteciler San. Sit. 2. Cad. No:12, Kahramankazan / Ankara</td>
+                <td><a class="social-btn google" href="https://www.google.com/search?q=Kass+Steel+Ankara" target="_blank">Google Ara</a></td>
             </tr>
             <tr>
-                <td>Med Zemin</td>
-                <td><a href="http://epoksiboyafiyatlari.com.tr" target="_blank">epoksiboyafiyatlari.com.tr</a></td>
-                <td>0212 699 12 33</td>
-                <td>Esenyurt / İstanbul</td>
-                <td>Instagram</td>
+                <td><strong>Irmak Çelik Yapı</strong></td>
+                <td><a class="web-link" href="http://irmakcelikyapi.com" target="_blank">irmakcelikyapi.com</a></td>
+                <td>0262 728 15 35</td>
+                <td>Mermerciler San. Sit. 32. Sok. No:8, Dilovası / Kocaeli</td>
+                <td><a class="social-btn google" href="https://www.google.com/search?q=Irmak+Çelik+Yapı+Dilovası" target="_blank">Google Ara</a></td>
             </tr>
         </tbody>
     </table>
 
-    <!-- SEKTÖR 5 -->
-    <h2>5. Büyük Ölçekli Üretim (Otomotiv & Mobilya)</h2>
+    <!-- SEKTÖR 4 -->
+    <h2>4. Yol Çizgi & Zemin Kaplama</h2>
     <table>
         <thead>
             <tr>
                 <th>Firma Adı</th>
                 <th>Web Sitesi</th>
                 <th>Telefon</th>
-                <th>Adres</th>
-                <th>Not</th>
+                <th>Açık Adres</th>
+                <th>Sosyal Medya</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Farhym Otomotiv</td>
-                <td><a href="http://farhym.com" target="_blank">farhym.com</a></td>
-                <td>0312 398 02 54</td>
-                <td>Akyurt / Ankara</td>
-                <td>Boyahane</td>
+                <td><strong>Roadsan</strong></td>
+                <td><a class="web-link" href="http://roadsan.com.tr" target="_blank">roadsan.com.tr</a></td>
+                <td>0212 590 61 61</td>
+                <td>Hadımköy Mah. Gen. Mustafa Özyanar Cad. Arnavutköy/İst</td>
+                <td><a class="social-btn instagram" href="https://www.instagram.com/roadsan" target="_blank">Instagram</a></td>
             </tr>
             <tr>
-                <td>Çalıklar Otomotiv</td>
-                <td><a href="http://caliklar.com" target="_blank">caliklar.com</a></td>
-                <td>0532 313 76 73</td>
-                <td>İkitelli / İstanbul</td>
-                <td>Yan Sanayi</td>
+                <td><strong>Akzemin Müh.</strong></td>
+                <td><a class="web-link" href="http://akzeminmuhendislik.com" target="_blank">akzeminmuhendislik.com</a></td>
+                <td>0216 313 10 10</td>
+                <td>Şerifali Mah. Turgut Özal Bulv. No:140, Ümraniye / İstanbul</td>
+                <td><a class="social-btn google" href="https://www.google.com/search?q=Akzemin+Mühendislik" target="_blank">Google Ara</a></td>
             </tr>
             <tr>
-                <td>İstikbal Mobilya</td>
-                <td><a href="http://istikbal.com.tr" target="_blank">istikbal.com.tr</a></td>
-                <td>0352 322 00 50</td>
-                <td>Melikgazi / Kayseri</td>
-                <td>Fabrika</td>
+                <td><strong>Med Zemin</strong></td>
+                <td><a class="web-link" href="http://epoksiboyafiyatlari.com.tr" target="_blank">epoksiboyafiyatlari.com.tr</a></td>
+                <td>0212 699 12 33</td>
+                <td>Bağlarçeşme Mah. 19 Mayıs Bulv. No:18, Esenyurt / İstanbul</td>
+                <td><a class="social-btn instagram" href="https://www.instagram.com/medzemin" target="_blank">Instagram</a></td>
             </tr>
-            <tr>
-                <td>Bürotime</td>
-                <td><a href="http://burotime.com" target="_blank">burotime.com</a></td>
-                <td>0332 248 11 11</td>
-                <td>OSB / Konya</td>
-                <td>Fabrika</td>
+             <tr>
+                <td><strong>Erbay Trafik</strong></td>
+                <td><a class="web-link" href="http://erbaytrafik.com" target="_blank">erbaytrafik.com</a></td>
+                <td>0216 393 44 47</td>
+                <td>Aydınlı Mah. Patlayıcı Maddeler Yolu Cad. Tuzla / İstanbul</td>
+                <td><a class="social-btn facebook" href="https://www.facebook.com/erbaytrafik" target="_blank">Facebook</a></td>
             </tr>
         </tbody>
     </table>
 
-    <div class="footer">
-        <p>Bu liste PompaTamirEt.com pazar araştırması için oluşturulmuştur.</p>
+    <!-- SEKTÖR 5 -->
+    <h2>5. Fabrikalar (Otomotiv & Mobilya)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Firma Adı</th>
+                <th>Web Sitesi</th>
+                <th>Telefon</th>
+                <th>Açık Adres</th>
+                <th>Sosyal Medya</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Farhym Otomotiv</strong></td>
+                <td><a class="web-link" href="http://farhym.com" target="_blank">farhym.com</a></td>
+                <td>0312 398 02 54</td>
+                <td>Büğdüz Mah. Çankırı Bulv. No:88, Akyurt / Ankara</td>
+                <td><a class="social-btn linkedin" href="https://www.linkedin.com/company/farhym-automotive" target="_blank">LinkedIn</a></td>
+            </tr>
+            <tr>
+                <td><strong>İstikbal Mobilya</strong></td>
+                <td><a class="web-link" href="http://istikbal.com.tr" target="_blank">istikbal.com.tr</a></td>
+                <td>0352 322 00 50</td>
+                <td>OSB 43. Cad. No:25, Melikgazi / Kayseri</td>
+                <td><a class="social-btn instagram" href="https://www.instagram.com/istikbal" target="_blank">Instagram</a></td>
+            </tr>
+            <tr>
+                <td><strong>Bürotime</strong></td>
+                <td><a class="web-link" href="http://burotime.com" target="_blank">burotime.com</a></td>
+                <td>0332 248 11 11</td>
+                <td>Konya OSB, Evrenköy Cad. No:5, Selçuklu / Konya</td>
+                <td><a class="social-btn linkedin" href="https://www.linkedin.com/company/burotime" target="_blank">LinkedIn</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align: center; color:#999; font-size:0.8rem; margin-top:20px;">
+        2025 PompaTamirEt.com - Pazar Araştırması
     </div>
+
 </div>
 
 </body>
