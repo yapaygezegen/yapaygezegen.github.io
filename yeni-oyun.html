@@ -129,7 +129,7 @@
             padding-top: env(safe-area-inset-top); /* Çentik desteği */
             transition: background 0.5s;
         }
-        #mainMenu { background: #121212; gap: 15px; } 
+        #mainMenu { background: #121212; gap: 10px; } 
         #gameModal { background: rgba(0, 0, 0, 0.9); z-index: 60; }
         #settingsModal { background: #121212; z-index: 55; }
         .settings-container {
@@ -147,8 +147,31 @@
         h1 { font-size: 42px; margin: 0; color: #eee; font-weight: 800; letter-spacing: 2px; }
         h2 { color: #fff; margin: 20px 0 10px 0; font-size: 18px; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 8px; width: 100%; text-align: left; }
         
-        #highScoreDisplay { color: #f1c40f; font-size: 16px; font-weight: bold; margin-bottom: 5px; background: rgba(255, 255, 255, 0.05); padding: 5px 15px; border-radius: 20px; }
-        #modalTitle { font-size: 25px; margin: 0; color: #fff; font-weight: bold; }
+        /* GÜNCELLEME: Score Stilleri */
+        #highScoreDisplay { 
+            color: #f1c40f; 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin-bottom: 5px; 
+            background: rgba(255, 255, 255, 0.05); 
+            padding: 5px 15px; 
+            border-radius: 20px; 
+        }
+        
+        #htsDisplay { 
+            color: #2d4da5; /* Normal Mod butonu rengi */
+            font-size: 16px; 
+            font-weight: bold; 
+            display: none; 
+            margin-bottom: 5px;
+            background: rgba(255, 255, 255, 0.05); /* High Score ile aynı arkaplan */
+            padding: 5px 15px; 
+            border-radius: 20px; 
+            text-transform: uppercase;
+        }
+
+        .info-line { color: #888; font-size: 18px; margin: 0; font-weight: bold; display: block; text-align: center;}
+
         p { color: #888; font-size: 18px; margin: 0; font-weight: bold; }
         .btn {
             cursor: pointer; border: none; font-family: 'Segoe UI', sans-serif;
@@ -197,13 +220,19 @@
 </head>
 <body>
     <div id="mainMenu">
-    <h1 id="gameTitle">RotaCube</h1>
-    <div id="highScoreDisplay">HIGH SCORE: 0</div>
-    <p id="menuDesc">Level 1</p>
-    <div style="width:100%; height:10px;"></div>
-    <button id="settingsBtn" class="btn btn-settings">SETTINGS</button>
-    <button id="mainActionBtn" class="btn btn-primary">NORMAL MODE</button>
-    <button id="endlessActionBtn" class="btn btn-endless">ENDLESS MODE</button>
+        <h1 id="gameTitle">RotaCube</h1>
+        
+        <!-- GÜNCELLEME: İstenilen Sıralama -->
+        <div id="highScoreDisplay">HIGH SCORE: 0</div>
+        <div id="htsDisplay">HIGH TIME SCORE: 0</div>
+        
+        <p id="menuDesc" class="info-line">Level: 1</p>
+        <p id="timeScoreDisplay" class="info-line">Time Score: 0</p>
+        
+        <div style="width:100%; height:5px;"></div>
+        <button id="settingsBtn" class="btn btn-settings">SETTINGS</button>
+        <button id="mainActionBtn" class="btn btn-primary">NORMAL MODE</button>
+        <button id="endlessActionBtn" class="btn btn-endless">ENDLESS MODE</button>
     </div>
 
     <div id="settingsModal">
@@ -248,8 +277,8 @@
 
 <script>
     const COLORS = [
-    '#FF0000', '#0088FF', '#00FF00', '#FFFF00', '#FF00FF',
-    '#00FFFF', '#FFA500', '#800080', '#FFFFFF', '#FFC0CB'
+    '#FF0000', '#0088FF', '#00FF00', '#FFFF00', '#00FFFF',
+    '#800080', '#FFA500', '#FFFFFF', '#FFC0CB', '#FF00FF'
     ];
 
     const THEMES = {
@@ -259,11 +288,6 @@
         paper: { bg: '#e3d2aa', container: '#f4e4bc', canvas: '#fffdf0', stroke: '#8b4513', text: '#3e2723', skel: 'rgba(139, 69, 19, 0.2)', wall: '#795548', hud: '#8b4513' }
     };
 
-    /* 
-       GÜNCELLEME 1: LEVEL_DATA
-       Burada 'rotSpeed' (Rotation Speed) parametresi eklendi.
-       rotSpeed: 30 -> Saniyede 30 derece döner.
-    */
     const LEVEL_DATA = [
         { time: 30, 
             squares: [{ gridSize: 2, layout: [0, 1, 1, 0], xPos: 0.5, yPos: 0.5 }], 
@@ -289,8 +313,28 @@
             walls: [{x: 0.2, y: 0.2, w: 0.1, h: 0.1, angle: 45}, {x: 0.8, y: 0.2, w: 0.1, h: 0.1, angle: -45}, {x: 0.2, y: 0.8, w: 0.1, h: 0.1, angle: -45}, {x: 0.8, y: 0.8, w: 0.1, h: 0.1, angle: 45}] },
 
         { time: 60, 
-            squares: [{ gridSize: 2, layout: [4,5,6,7], xPos: 0.5, yPos: 0.25 }, { gridSize: 2, layout: [0,1,2,3], xPos: 0.25, yPos: 0.75 }, { gridSize: 2, layout: [0,1,2,3], xPos: 0.75, yPos: 0.75 }] }
-        
+            squares: [{ gridSize: 2, layout: [4,5,6,7], xPos: 0.5, yPos: 0.25 }, { gridSize: 2, layout: [0,1,2,3], xPos: 0.25, yPos: 0.75 }, { gridSize: 2, layout: [0,1,2,3], xPos: 0.75, yPos: 0.75 }] },
+        { time: 120, // level 10
+            squares: [{ gridSize: 4, layout: Array(25).fill(0).map((_,i)=>i%4), xPos:0.5, yPos:0.25 }, { gridSize: 4, layout: Array(25).fill(0).map((_,i)=>i%4), xPos:0.5, yPos:0.725 }]},
+        { time: 180, 
+            squares: [{ gridSize: 5, layout: Array(25).fill(0).map((_,i)=>i%5), xPos:0.5, yPos:0.25 }, { gridSize: 5, layout: Array(25).fill(0).map((_,i)=>i%5), xPos:0.5, yPos:0.725 }]},
+        { time: 180,
+            squares: [{ gridSize: 4, layout: [0,1,2,3,5, 3,2,1,0,5, 0,1,5,2,3, 5,3,2,1,0], xPos: 0.5, yPos: 0.5 }],
+            walls: [{x: 0.2, y: 0.2, w: 0.1, h: 0.1, angle: 45, rotSpeed: 30}, {x: 0.8, y: 0.2, w: 0.1, h: 0.1, angle: -45, rotSpeed: 30}, {x: 0.2, y: 0.8, w: 0.1, h: 0.1, angle: -45, rotSpeed: 30}, {x: 0.8, y: 0.8, w: 0.1, h: 0.1, angle: 45, rotSpeed: 30}] },
+        { time: 240,
+            squares: [{ gridSize: 7, layout: Array(49).fill(0).map((_,i)=>i%7), xPos:0.5, yPos:0.5 }],
+            walls: [{x: 0.5, y: 0.15, w: 0.1, h: 0.2, angle: 15}, {x: 0.5, y: 0.85, w: 0.1, h: 0.2, angle: 15}] },
+        { time: 300,
+            squares: [{ gridSize: 6, layout: [1,1,2,3,5,3, 3,2,8,8,1,5, 8,0,1,3,2,3, 5,3,8,2,1,0, 1,2,1,8,3,2, 3,2,3,8,0,5], xPos: 0.5, yPos: 0.5 }],
+            walls: [{x: 0.5, y: 0.15, w: 0.05, h: 0.15, angle: 45, rotSpeed: 30}, {x: 0.5, y: 0.85, w: 0.05, h: 0.15, angle: -45, rotSpeed: 30}] },
+        { time: 300,
+            squares: [{ gridSize: 7, layout: Array(49).fill(0).map((_,i)=>i%7), xPos:0.3, yPos:0.3 }, { gridSize: 7, layout: Array(49).fill(0).map((_,i)=>i%7), xPos:0.7, yPos:0.7 }], },
+        { time: 400,
+            squares: [{ gridSize: 5, layout: Array(25).fill(0).map((_,i)=>i%5), xPos:0.25, yPos:0.25 }, { gridSize: 5, layout: Array(25).fill(0).map((_,i)=>i%5), xPos:0.75, yPos:0.25 },{ gridSize: 5, layout: Array(25).fill(0).map((_,i)=>i%5), xPos:0.25, yPos:0.75 }, { gridSize: 5, layout: Array(25).fill(0).map((_,i)=>i%5), xPos:0.75, yPos:0.75 }],
+            walls: [{x: 0.5, y: 0.5, w: 0.125, h: 0.1, angle:45}]},
+        { time: 300, // 17
+            squares: [{ gridSize: 6, layout: [1,1,2,3,5,3, 3,2,7,7,1,5, 7,0,1,3,2,3, 5,3,7,2,1,0, 1,2,1,7,3,2, 3,2,3,7,0,5], xPos: 0.5, yPos: 0.5 }],
+            walls: [{x: 0.5, y: 0.15, w: 0.05, h: 0.15, angle: 45, rotSpeed: 30}, {x: 0.5, y: 0.85, w: 0.05, h: 0.15, angle: -45, rotSpeed: 30}] },
     ];
 
     const canvas = document.getElementById('gameCanvas');
@@ -303,8 +347,14 @@
     let gameState = 'MENU';
     let gameMode = 'STORY';
     let lastTime = 0;
+    
+    // Değişkenler ve LocalStorage
     let savedLevel = parseInt(localStorage.getItem('level3')) || 1;
     let highScore = parseInt(localStorage.getItem('rotaCubeHighScore')) || 0;
+    let timeScore = parseInt(localStorage.getItem('rotaCubeTimeScore')) || 0; // Biriken süre
+    let highTimeScore = parseInt(localStorage.getItem('rotaCubeHighTimeScore')) || 0; // En iyi biriken süre
+    let isGameFinished = localStorage.getItem('rotaCubeGameFinished') === 'true'; // Oyun daha önce bitirildi mi?
+
     let isSoundOn = localStorage.getItem('rotaCubeSound') !== 'false';
     let currentTheme = localStorage.getItem('rotaCubeTheme') || 'dark';
     let currentLevel = savedLevel;
@@ -340,6 +390,8 @@
     const soundBtn = document.getElementById('soundBtn');
     const topRightBtn = document.getElementById('topRightBtn');
     const highScoreDisplay = document.getElementById('highScoreDisplay');
+    const htsDisplay = document.getElementById('htsDisplay');
+    const timeScoreDisplay = document.getElementById('timeScoreDisplay');
     
     // MADDE 8: Global Sağ Tık Engeli (JS)
     window.addEventListener('contextmenu', function (e) { e.preventDefault(); }, { passive: false });
@@ -355,14 +407,27 @@
         } else {
             mainActionBtn.innerText = "NORMAL MODE";
             mainActionBtn.style.backgroundColor = "#273c75";
-            document.getElementById('menuDesc').innerText = "Level " + currentLevel;
+            document.getElementById('menuDesc').innerText = "Level: " + currentLevel;
         }
+
+        // Time Score Gösterimi (Renk gri, Level ile aynı)
+        timeScoreDisplay.innerText = "Time Score: " + timeScore;
+
         highScoreDisplay.innerText = "HIGH SCORE: " + highScore;
+        
+        // HTS sadece oyun daha önce bitirilmişse görünür
+        if (isGameFinished) {
+            htsDisplay.style.display = 'block';
+            htsDisplay.innerText = "HIGH TIME SCORE: " + highTimeScore;
+        } else {
+            htsDisplay.style.display = 'none';
+        }
+
         soundBtn.innerText = isSoundOn ? "SOUND: ON" : "SOUND: OFF";
         soundBtn.style.color = isSoundOn ? "#e1b12c" : "#e84118";
 
         document.querySelectorAll('#themeList .option-card').forEach(el => {
-        el.classList.toggle('active', el.dataset.val === currentTheme);
+            el.classList.toggle('active', el.dataset.val === currentTheme);
         });
     }
 
@@ -431,7 +496,6 @@
         const gap = 10;
         const safeMargin = 20;
 
-        // UI Layer artık padding aldığı için görsel olarak biraz daha yer kaplayabilir
         const availableHeight = screenH - uiHeight - gap - safeMargin; 
         const availableWidth = screenW - safeMargin;
 
@@ -450,7 +514,6 @@
         gameWidth = w;
         gameHeight = h;
 
-        // MADDE 9: Retina / High DPI Optimizasyonu (Max 1.5x)
         dpr = Math.min(window.devicePixelRatio || 1, 1.5);
         canvas.width = gameWidth * dpr;
         canvas.height = gameHeight * dpr;
@@ -502,9 +565,14 @@
         if (audioCtx.state === 'suspended') audioCtx.resume();
         audioUnlocked = true;
         
-        // MADDE 10: Ekran Döndürme Kilidi
         if (screen.orientation && screen.orientation.lock) {
             screen.orientation.lock('portrait').catch(e => {});
+        }
+
+        // Bölüm 1 ise Time Score sıfırla
+        if (level === 1) {
+            timeScore = 0;
+            localStorage.setItem('rotaCubeTimeScore', 0);
         }
 
         localStorage.setItem('level', level);
@@ -538,7 +606,6 @@
         if (audioCtx.state === 'suspended') audioCtx.resume();
         audioUnlocked = true;
         
-        // MADDE 10: Ekran Döndürme Kilidi
         if (screen.orientation && screen.orientation.lock) {
             screen.orientation.lock('portrait').catch(e => {});
         }
@@ -678,7 +745,6 @@
                     cx: w.x, cy: w.y, cw: w.w, ch: w.h,
                     angle: w.angle || 0,
                     angleRad: (w.angle || 0) * (Math.PI / 180),
-                    /* GÜNCELLEME 2: Hız verisini al */
                     rotSpeed: w.rotSpeed || 0,
                     pixelX: 0, pixelY: 0, pixelW: 0, pixelH: 0
                 });
@@ -691,6 +757,9 @@
     }
 
     function resetGame() {
+        timeScore = 0;
+        localStorage.setItem('rotaCubeTimeScore', 0);
+        
         localStorage.setItem('level', 1);
         currentLevel = 1;
         updateUI();
@@ -716,12 +785,11 @@
     function update(dt) {
         if (gameState !== 'PLAYING') return;
         
-        /* GÜNCELLEME 3: Duvarları Hareket Ettir */
         if (walls.length > 0) {
             walls.forEach(w => {
                 if (w.rotSpeed && w.rotSpeed !== 0) {
-                    w.angle += w.rotSpeed * dt; // Açı güncelle (Derece)
-                    w.angleRad = w.angle * (Math.PI / 180); // Radyana çevir
+                    w.angle += w.rotSpeed * dt;
+                    w.angleRad = w.angle * (Math.PI / 180);
                 }
             });
         }
@@ -731,14 +799,12 @@
             if (timeLeft <= 0) { timeLeft = 0; gameOver(); }
                 document.getElementById('timerDisplay').innerText = "TIME: " + Math.ceil(timeLeft);
         } else {
-            // Skor Animasyonu
             if (displayedScore < endlessScore) {
                 displayedScore += 2;
                 if (displayedScore > endlessScore) displayedScore = endlessScore;
             }
             document.getElementById('leftDisplay').innerText = "SCORE: " + displayedScore;
 
-            // Özel Cisim Spawn Kontrolü
             const hasSpecialItem = specialItems.some(i => i.active);
             const hasSuperBall = balls.some(b => b.isSuper);
             
@@ -768,10 +834,9 @@
             if (ft.life <= 0) floatingTexts.splice(i, 1);
         }
 
-        // Partikül Güncellemesi
         for (let i = particles.length - 1; i >= 0; i--) {
             let p = particles[i];
-            p.life -= dt * 2.5; // Daha hızlı kaybolsun
+            p.life -= dt * 2.5; 
             p.x += p.vx * dt;
             p.y += p.vy * dt;
             if (p.life <= 0) particles.splice(i, 1);
@@ -792,7 +857,6 @@
             b.x += b.vx * dt;
             b.y += b.vy * dt;
 
-            // Süper Top Partikül
             if (b.isSuper) {
                 if (Math.random() < 0.2) { 
                      particles.push({
@@ -800,7 +864,7 @@
                         y: b.y + (Math.random()-0.5)*5,
                         vx: (Math.random()-0.5) * 10,
                         vy: (Math.random()-0.5) * 10,
-                        life: 0.5, // Kısa ömür
+                        life: 0.5, 
                         size: b.radius * (0.2 + Math.random() * 0.2) 
                      });
                 }
@@ -1137,11 +1201,32 @@
         playSound('win');
 
         if (gameMode === 'STORY') {
+            // Bölüm bittiğinde kalan süreyi Time Score'a ekle
+            let timeBonus = Math.ceil(timeLeft);
+            timeScore += timeBonus;
+            localStorage.setItem('rotaCubeTimeScore', timeScore);
+
             if (currentLevel >= MAX_LEVEL) {
+                // GÜNCELLEME: Oyun Bitti, HTS Kontrolü
+                isGameFinished = true;
+                localStorage.setItem('rotaCubeGameFinished', 'true');
+                
+                // Final skoru sakla (ekranda göstermek için)
+                let finalScore = timeScore;
+
+                if (timeScore > highTimeScore) {
+                    highTimeScore = timeScore;
+                    localStorage.setItem('rotaCubeHighTimeScore', highTimeScore);
+                } else {
+                    // Eğer rekor kırılmadıysa sıfırla
+                    timeScore = 0;
+                    localStorage.setItem('rotaCubeTimeScore', 0);
+                }
+
                 currentLevel = 1;
                 localStorage.setItem('level3', currentLevel);
                 updateUI();
-                showModal('GAME_WIN');
+                showModal('GAME_WIN', finalScore); // Skoru parametre olarak gönder
             } else {
                 localStorage.setItem('level3', currentLevel + 1);
                 showModal('LEVEL_WIN');
@@ -1164,7 +1249,7 @@
         goHome();
     }
 
-    function showModal(type) {
+    function showModal(type, customScore) {
         gameModal.style.display = 'flex';
         const title = document.getElementById('modalTitle');
         const desc = document.getElementById('modalDesc');
@@ -1172,7 +1257,9 @@
         btnGroup.innerHTML = '';
 
         if (type === 'LEVEL_WIN') {
-            title.innerText = "AWESOME!"; desc.innerText = "Level " + (currentLevel) + " Completed";
+            title.innerText = "AWESOME!"; 
+            // GÜNCELLEME: Time Score yazısı
+            desc.innerText = "Level " + (currentLevel) + " Completed\nTime Score: " + timeScore;
             let btnHome = document.createElement('button'); btnHome.className = "btn modal-btn btn-outline"; btnHome.innerText = "HOME";
             btnHome.onclick = goHome;
             let btnNext = document.createElement('button'); btnNext.className = "btn modal-btn btn-next"; btnNext.innerText = "NEXT";
@@ -1186,11 +1273,13 @@
             btnGroup.appendChild(btnRetry);
         }
         else if (type === 'GAME_WIN') {
-            title.innerText = "CONGRATULATIONS!"; desc.innerText = "You finished all levels!";
+            title.innerText = "CONGRATULATIONS!"; 
+            // GÜNCELLEME: Time Score yazısı ve skor gösterimi
+            // customScore varsa onu kullan (sıfırlanmadan önceki değer)
+            let displayScore = customScore !== undefined ? customScore : timeScore;
+            desc.innerText = "You finished all levels!\nFinal Time Score: " + displayScore;
             let btnHome = document.createElement('button'); btnHome.className = "btn modal-btn btn-next"; btnHome.innerText = "HOME";
             btnHome.onclick = goHome;
-            let btnHome2 = document.createElement('button'); btnHome2.className = "btn modal-btn btn-next"; btnHome2.innerText = "HOME";
-            btnHome2.onclick = () => { goHome(); };
             btnGroup.appendChild(btnHome);
         }
         else if (type === 'ENDLESS_SAVE') {
