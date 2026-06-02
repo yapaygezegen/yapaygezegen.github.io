@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>XAUT / USDT Canlı Grafik</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #131722;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+            color: #2962ff;
+            background: rgba(19, 23, 34, 0.9);
+            padding: 12px 24px;
+            border-radius: 4px;
+            pointer-events: none;
+            z-index: 10;
+            border: 1px solid #2a2e39;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="toast"
+        style="display:none; position:absolute; top:20px; right:20px; background:#26a69a; color:white; padding:15px 25px; border-radius:8px; font-family:sans-serif; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.5); pointer-events:none;">
+        <strong id="toastTitle" style="font-size:16px;">Sinyal Onaylandı</strong><br>
+        <span id="toastBody" style="font-size:14px; opacity:0.9;">Mesaj</span>
+    </div>
+
+    <div class="chart-container">
+        <div id="loader" class="loading">Veriler Senkronize Ediliyor...</div>
+        <canvas id="cryptoChart"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('cryptoChart');
+        const ctx = canvas.getContext('2d');
+        const loader = document.getElementById('loader');
+
+        const symbol = 'XAUTUSDT';
+        const limit15m = 300;
+
+        // --- MOBİL ARKA PLAN CANLI TUTMA MOTORU ---
+        // Android Chrome, ses çalan sekmeleri arka planda uyutmaz.
+        // İnsan kulağının duyamayacağı kadar kısık (~sessiz) bir ses döngüsü
+        // çalarak sekmenin arka planda canlı kalmasını sağlıyoruz.
+        let keepAliveCtx = null;
+        function startSilentKeepAlive() {
+            try {
+                keepAliveCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = keepAliveCtx.createOscillator();
+                const gainNode = keepAliveCtx.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(keepAliveCtx.destination);
+                oscillator.type = 'sine';
+                oscillator.frequency.value = 1; // 1 Hz - insan kulağı duymaz
+                gainNode.gain.setValueAtTime(0.001, keepAliveCtx.currentTime); // Neredeyse sıfır ses
+                oscillator.start();
+            } catch (e) { }
+        }
+
+        // Kullanıcı sayfaya ilk dokunduğunda (mobil gereksinim) sessiz sesi başlat
+        document.addEventListener('click', () => {
+            if (!keepAliveCtx) startSilentKeepAlive();
+        }, { once: true });
+
+        // --- SES VE TOAST MOTORU ---
+        function playBeep() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const currentTime = audioCtx.currentTime;
+
+                for (let i = 0; i < 5; i++) {
+                    const oscillator = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 880;
+                    gainNode.gain.setValueAtTime(0.1, currentTime);
+
+                    // Her bir bip 0.2 saniye sürer, arada 0.1 saniye sessizlik olur
+                    const startTime = currentTime + (i * 0.3);
+                    const stopTime = startTime + 0.2;
+
+                    oscillator.start(startTime);
+                    oscillator.stop(stopTime);
+                }
+            } catch (e) { }
+        }
+
+        function showToast(title, body, type) {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastBody').innerText = body;
+            toast.style.background = type.includes('Al') ? '#26a69a' : '#ef5350';
+            toast.style.display = 'block';
+            playBeep();
+            setTimeout(() => { toast.style.display = 'none'; }, 10000);
+        }
+
+        // --- MATEMATİK MOTORU ---
+        function calculateEMA(candles, period) {
+            let ema = new Array(candles.length).fill(null);
+            if (candles.length < period) return ema;
+
+            let sum = 0;
+            for (let i = 0; i < period; i++) sum += candles[i].close;
+            ema[period - 1] = sum / period;
+
+            let k = 2 / (period + 1);
+            for (let i = period; i < candles.length; i++) {
+                ema[i] = candles[i].close * k + ema[i - 1] * (1 - k);
+            }
+            return ema;
+        }
+
+        function calculateATR(candles, period = 14) {
+            let atr = new Array(candles.length).fill(null);
+            if (candles.length <= period) return atr;
+
+            let trs = [0];
+            for (let i = 1; i < candles.length; i++) {
+                let hL = candles[i].high - candles[i].low;
+                let hC = Math.abs(candles[i].high - candles[i - 1].close);
+                let lC = Math.abs(candles[i].low - candles[i - 1].close);
+                trs.push(Math.max(hL, hC, lC));
+            }
+
+            let sum = 0;
+            for (let i = 1; i <= period; i++) sum += trs[i];
+            atr[period] = sum / period;
+
+            for (let i = period + 1; i < candles.length; i++) {
+                atr[i] = (atr[i - 1] * (period - 1) + trs[i]) / period;
+            }
+            return atr;
+        }
+
+        function calculateBB(candles, period = 20, multiplier = 2) {
+            let bb = new Array(candles.length).fill(null);
+            if (candles.length < period) return bb;
+
+            for (let i = period - 1; i < candles.length; i++) {
+                let slice = candles.slice(i - period + 1, i + 1);
+                let avg = slice.reduce((sum, c) => sum + c.close, 0) / period;
+                let variance = slice.reduce((sum, c) => sum + Math.pow(c.close - avg, 2), 0) / period;
+                let stdDev = Math.sqrt(variance);
+                bb[i] = { middle: avg, upper: avg + multiplier * stdDev, lower: avg - multiplier * stdDev };
+            }
+            return bb;
+        }
+
+        function parseKlines(data) {
+            return data.map(c => ({
+                time: c[0], open: parseFloat(c[1]), high: parseFloat(c[2]), low: parseFloat(c[3]), close: parseFloat(c[4])
+            }));
+        }
+
+        function mapSecurityData(baseCandles, higherCandles) {
+            let mapped = new Array(baseCandles.length).fill(null);
+            higherCandles.forEach((hCandle, hIdx) => {
+                if (hIdx === 0) return;
+                let prevHCandle = higherCandles[hIdx - 1];
+                baseCandles.forEach((bCandle, bIdx) => {
+                    if (bCandle.time >= prevHCandle.time && bCandle.time < hCandle.time) {
+                        mapped[bIdx] = prevHCandle;
+                    }
+                });
+            });
+            let lastH = higherCandles[higherCandles.length - 1];
+            baseCandles.forEach((bCandle, bIdx) => {
+                if (bCandle.time >= lastH.time) mapped[bIdx] = lastH;
+            });
+            return mapped;
+        }
+
+        let cachedData = null;
+
+        // --- MOBİL İÇİN SERVICE WORKER KAYDI ---
+        let swRegistration = null;
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(reg => {
+                swRegistration = reg;
+            }).catch(err => console.log('Service Worker kaydı başarısız:', err));
+        }
+
+        // Sayfa ilk açıldığında geçmiş bildirim hafızasını tamamen sıfırla
+        localStorage.removeItem('lastNotifiedSignalKey');
+        let lastNotifiedSignalKey = null;
+
+        // Bildirim iznini proaktif olarak almak için sayfaya ilk tıklandığında izin iste
+        document.addEventListener('click', () => {
+            if ("Notification" in window && Notification.permission === "default") {
+                Notification.requestPermission();
+            }
+        }, { once: true });
+
+        async function fetchAndDraw(forceFetch = true) {
+            try {
+                if (forceFetch || !cachedData) {
+                    const [res15m, res4h, res1d, res1w] = await Promise.all([
+                        fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=15m&limit=${limit15m}`).then(r => r.json()),
+                        fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=4h&limit=200`).then(r => r.json()),
+                        fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d&limit=100`).then(r => r.json()),
+                        fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1w&limit=50`).then(r => r.json())
+                    ]);
+                    cachedData = { res15m, res4h, res1d, res1w };
+                }
+
+                loader.style.display = 'none';
+
+                const c15m = parseKlines(cachedData.res15m);
+                const c4h = parseKlines(cachedData.res4h);
+                const c1d = parseKlines(cachedData.res1d);
+                const c1w = parseKlines(cachedData.res1w);
+
+                const mapped4h = mapSecurityData(c15m, c4h);
+                const mapped1d = mapSecurityData(c15m, c1d);
+                const mapped1w = mapSecurityData(c15m, c1w);
+
+                const ema9 = calculateEMA(c15m, 9);
+                const ema21 = calculateEMA(c15m, 21);
+                const atr = calculateATR(c15m, 14);
+                const bb = calculateBB(c15m, 20, 2);
+
+                // --- ALAN VE REPSONSIVE HESAPLAMALARI ---
+                const isMobile = window.innerWidth < 768;
+                const paddingLeft = 10;
+                const paddingRight = isMobile ? 65 : 80;
+                const paddingTop = 30;
+                const paddingBottom = 30;
+
+                const logicWidth = canvas.width / (window.devicePixelRatio || 1);
+                const logicHeight = canvas.height / (window.devicePixelRatio || 1);
+
+                const chartWidth = logicWidth - paddingLeft - paddingRight;
+                const chartHeight = logicHeight - paddingTop - paddingBottom;
+
+                const visibleCount = isMobile ? 40 : 75;
+                const startIndex = c15m.length - visibleCount;
+                const visibleCandles = c15m.slice(startIndex);
+
+                // --- ODAKLI Y EKSENİ ÖLÇEKLENDİRME MOTORU ---
+                let activeHighs = [];
+                let activeLows = [];
+
+                visibleCandles.forEach((c, i) => {
+                    const idx = startIndex + i;
+                    activeHighs.push(c.high);
+                    activeLows.push(c.low);
+
+                    if (bb[idx]) {
+                        activeHighs.push(bb[idx].upper);
+                        activeLows.push(bb[idx].lower);
+                    }
+                    if (ema9[idx]) { activeHighs.push(ema9[idx]); activeLows.push(ema9[idx]); }
+                    if (ema21[idx]) { activeHighs.push(ema21[idx]); activeLows.push(ema21[idx]); }
+                });
+
+                let maxPrice = Math.max(...activeHighs);
+                let minPrice = Math.min(...activeLows);
+
+                let priceRange = maxPrice - minPrice;
+                const yMax = maxPrice + priceRange * 0.1;
+                const yMin = minPrice - priceRange * 0.1;
+                const yRange = yMax - yMin;
+
+                ctx.clearRect(0, 0, logicWidth, logicHeight);
+                const candleSpacing = chartWidth / visibleCount;
+
+                // --- 1. BOLLINGER BANT DOLGUSU ---
+                ctx.fillStyle = 'rgba(33, 150, 243, 0.04)';
+                ctx.beginPath();
+                let firstBb = true;
+                visibleCandles.forEach((c, i) => {
+                    const idx = startIndex + i; if (!bb[idx]) return;
+                    const x = paddingLeft + (i * candleSpacing) + (candleSpacing / 2);
+                    const y = paddingTop + chartHeight - ((bb[idx].upper - yMin) / yRange) * chartHeight;
+                    if (firstBb) { ctx.moveTo(x, y); firstBb = false; } else ctx.lineTo(x, y);
+                });
+                for (let i = visibleCount - 1; i >= 0; i--) {
+                    const idx = startIndex + i; if (!bb[idx]) continue;
+                    const x = paddingLeft + (i * candleSpacing) + (candleSpacing / 2);
+                    const y = paddingTop + chartHeight - ((bb[idx].lower - yMin) / yRange) * chartHeight;
+                    ctx.lineTo(x, y);
+                }
+                ctx.fill();
+
+                // --- 2. EMA BULUT DOLGUSU ---
+                for (let i = 0; i < visibleCount - 1; i++) {
+                    const idx = startIndex + i;
+                    if (ema9[idx] === null || ema21[idx] === null || ema9[idx + 1] === null || ema21[idx + 1] === null) continue;
+                    const x1 = paddingLeft + (i * candleSpacing) + (candleSpacing / 2);
+                    const x2 = paddingLeft + ((i + 1) * candleSpacing) + (candleSpacing / 2);
+                    const yEma9_1 = paddingTop + chartHeight - ((ema9[idx] - yMin) / yRange) * chartHeight;
+                    const yEma21_1 = paddingTop + chartHeight - ((ema21[idx] - yMin) / yRange) * chartHeight;
+                    const yEma9_2 = paddingTop + chartHeight - ((ema9[idx + 1] - yMin) / yRange) * chartHeight;
+                    const yEma21_2 = paddingTop + chartHeight - ((ema21[idx + 1] - yMin) / yRange) * chartHeight;
+
+                    ctx.fillStyle = ema9[idx] > ema21[idx] ? 'rgba(76, 175, 80, 0.12)' : 'rgba(244, 67, 54, 0.12)';
+                    ctx.beginPath(); ctx.moveTo(x1, yEma9_1); ctx.lineTo(x2, yEma9_2); ctx.lineTo(x2, yEma21_2); ctx.lineTo(x1, yEma21_1); ctx.closePath(); ctx.fill();
+                }
+
+                // --- 3. IZGARA VE EKSEN ÇİZİMİ ---
+                ctx.strokeStyle = '#2a2e39'; ctx.lineWidth = 1; ctx.fillStyle = '#848e9c';
+                ctx.font = isMobile ? '10px sans-serif' : '11px sans-serif';
+                for (let i = 0; i <= 5; i++) {
+                    const y = paddingTop + (chartHeight / 5) * i;
+                    ctx.beginPath(); ctx.moveTo(paddingLeft, y); ctx.lineTo(logicWidth - paddingRight, y); ctx.stroke();
+                    ctx.textAlign = 'left';
+                    const gridPrice = yMax - (yRange / 5) * i;
+                    ctx.fillText(gridPrice.toFixed(2), logicWidth - paddingRight + 8, y + 4);
+                }
+
+                // --- 4. İNDİKATÖR HAT ÇİZGİLERİ ---
+                ctx.lineWidth = 1.5;
+                const drawLine = (data, color) => {
+                    ctx.strokeStyle = color; ctx.beginPath();
+                    let firstPoint = true;
+                    visibleCandles.forEach((c, i) => {
+                        const idx = startIndex + i; if (data[idx] === null) return;
+                        const x = paddingLeft + (i * candleSpacing) + (candleSpacing / 2);
+                        const y = paddingTop + chartHeight - ((data[idx] - yMin) / yRange) * chartHeight;
+                        if (firstPoint) { ctx.moveTo(x, y); firstPoint = false; } else ctx.lineTo(x, y);
+                    }); ctx.stroke();
+                };
+                drawLine(ema9, '#4caf50');
+                drawLine(ema21, '#f44336');
+
+                // --- 5. TARİHSEL MUM VE PINE SİNYAL MOTORU ---
+                const sFunc = (type, x, priceTarget, text, color, size) => {
+                    const yPos = paddingTop + chartHeight - ((priceTarget - yMin) / yRange) * chartHeight;
+                    if (yPos < paddingTop || yPos > paddingTop + chartHeight) return;
+
+                    ctx.fillStyle = color; ctx.beginPath();
+                    const sMod = isMobile ? 0.75 : 1;
+                    if (type === 'up') {
+                        ctx.moveTo(x, yPos - (8 + size) * sMod); ctx.lineTo(x - (5 + size) * sMod, yPos); ctx.lineTo(x + (5 + size) * sMod, yPos);
+                    } else {
+                        ctx.moveTo(x, yPos + (8 + size) * sMod); ctx.lineTo(x - (5 + size) * sMod, yPos); ctx.lineTo(x + (5 + size) * sMod, yPos);
+                    }
+                    ctx.fill(); ctx.fillStyle = '#fff'; ctx.font = isMobile ? '8px sans-serif' : '9px sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText(text, x, type === 'up' ? yPos - (12 + size) * sMod : yPos + (16 + size) * sMod);
+                };
+
+                visibleCandles.forEach((candle, i) => {
+                    const idx = startIndex + i;
+                    const x = paddingLeft + (i * candleSpacing) + (candleSpacing / 2);
+
+                    const yOpen = paddingTop + chartHeight - ((candle.open - yMin) / yRange) * chartHeight;
+                    const yClose = paddingTop + chartHeight - ((candle.close - yMin) / yRange) * chartHeight;
+                    const yHigh = paddingTop + chartHeight - ((candle.high - yMin) / yRange) * chartHeight;
+                    const yLow = paddingTop + chartHeight - ((candle.low - yMin) / yRange) * chartHeight;
+
+                    const isBull = candle.close >= candle.open;
+                    ctx.strokeStyle = isBull ? '#26a69a' : '#ef5350';
+                    ctx.fillStyle = ctx.strokeStyle;
+
+                    ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x, yHigh); ctx.lineTo(x, yLow); ctx.stroke();
+                    ctx.fillRect(x - (candleSpacing * 0.7) / 2, Math.min(yOpen, yClose), candleSpacing * 0.7, Math.max(Math.abs(yClose - yOpen), 1));
+
+                    const modulo = isMobile ? 8 : 12;
+                    if (i % modulo === 0) {
+                        ctx.fillStyle = '#848e9c';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(new Date(candle.time).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }), x, logicHeight - 12);
+                    }
+
+                    const currentAtr = atr[idx] || 1;
+                    const offset_G = currentAtr * 0.5;
+                    const offset_H = currentAtr * 1.5;
+
+                    if (mapped4h[idx] && mapped4h[idx - 1]) {
+                        let cur = mapped4h[idx], prev = mapped4h[idx - 1];
+                        if (prev.close <= prev.open && cur.close > cur.open) sFunc('up', x, candle.low - offset_G * 2, '4H Al', '#26a69a', 0);
+                        if (prev.close >= prev.open && cur.close < cur.open) sFunc('down', x, candle.high + offset_G * 2, '4H Sat', '#ef5350', 0);
+                    }
+
+                    if (mapped1d[idx] && mapped1d[idx - 1]) {
+                        let cur = mapped1d[idx], prev = mapped1d[idx - 1];
+                        if (prev.close <= prev.open && cur.close > cur.open) sFunc('up', x, candle.low - offset_G * 4, 'G Al', '#4caf50', 2);
+                        if (prev.close >= prev.open && cur.close < cur.open) sFunc('down', x, candle.high + offset_G * 4, 'G Sat', '#f44336', 2);
+                    }
+
+                    if (mapped1w[idx] && mapped1w[idx - 1]) {
+                        let cur = mapped1w[idx], prev = mapped1w[idx - 1];
+                        if (prev.close <= prev.open && cur.close > cur.open) sFunc('up', x, candle.low - offset_H, 'H Al', '#1ce70e', 4);
+                        if (prev.close >= prev.open && cur.close < cur.open) sFunc('down', x, candle.high + offset_H, 'H Sat', '#eb1f1f', 4);
+                    }
+                });
+
+                // --- 6. ANLIK CANLI FİYAT ÇİZGİSİ ---
+                const lastCandle = c15m[c15m.length - 1];
+                const yCurrent = paddingTop + chartHeight - ((lastCandle.close - yMin) / yRange) * chartHeight;
+
+                if (yCurrent >= paddingTop && yCurrent <= paddingTop + chartHeight) {
+                    ctx.strokeStyle = lastCandle.close >= lastCandle.open ? '#26a69a' : '#ef5350';
+                    ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(paddingLeft, yCurrent); ctx.lineTo(logicWidth - paddingRight, yCurrent); ctx.stroke(); ctx.setLineDash([]);
+
+                    const lblW = isMobile ? 58 : 68;
+                    ctx.fillStyle = ctx.strokeStyle; ctx.fillRect(logicWidth - paddingRight + 4, yCurrent - 10, lblW, 20);
+                    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'left';
+                    ctx.fillText(lastCandle.close.toFixed(2), logicWidth - paddingRight + 8, yCurrent + 4);
+                }
+
+                // --- 7. BİLDİRİM MOTORU ---
+                let latestSignalTime = 0;
+                let latestSignalText = "";
+
+                c15m.forEach((candle, idx) => {
+                    if (idx === 0) return;
+                    if (mapped4h[idx] && mapped4h[idx - 1]) {
+                        let cur = mapped4h[idx], prev = mapped4h[idx - 1];
+                        if (prev.close <= prev.open && cur.close > cur.open) { latestSignalTime = candle.time; latestSignalText = '4H Al'; }
+                        if (prev.close >= prev.open && cur.close < cur.open) { latestSignalTime = candle.time; latestSignalText = '4H Sat'; }
+                    }
+                    if (mapped1d[idx] && mapped1d[idx - 1]) {
+                        let cur = mapped1d[idx], prev = mapped1d[idx - 1];
+                        if (prev.close <= prev.open && cur.close > cur.open) { latestSignalTime = candle.time; latestSignalText = 'G Al'; }
+                        if (prev.close >= prev.open && cur.close < cur.open) { latestSignalTime = candle.time; latestSignalText = 'G Sat'; }
+                    }
+                    if (mapped1w[idx] && mapped1w[idx - 1]) {
+                        let cur = mapped1w[idx], prev = mapped1w[idx - 1];
+                        if (prev.close <= prev.open && cur.close > cur.open) { latestSignalTime = candle.time; latestSignalText = 'H Al'; }
+                        if (prev.close >= prev.open && cur.close < cur.open) { latestSignalTime = candle.time; latestSignalText = 'H Sat'; }
+                    }
+                });
+
+                const now = Date.now();
+                if (latestSignalTime > 0) {
+                    const signalKey = latestSignalTime + "_" + latestSignalText;
+                    const timePassed = now - latestSignalTime;
+                    const fifteenMinsPassed = (timePassed >= 15 * 60 * 1000);
+                    // 2 saatten yeni bir sinyalse bildirimi gönder (eski sinyalleri spamlememek için)
+                    const isFresh = (timePassed <= 2 * 60 * 60 * 1000);
+
+                    if (fifteenMinsPassed && lastNotifiedSignalKey !== signalKey) {
+                        if (!isFresh) {
+                            // Çok eski sinyali sessizce atla
+                            lastNotifiedSignalKey = signalKey;
+                            localStorage.setItem('lastNotifiedSignalKey', signalKey);
+                        } else {
+                            const notifyTitle = "Sinyal Onaylandı: " + latestSignalText;
+                            const notifyOptions = {
+                                body: `XAUT/USDT grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 15 dakika geçti.`,
+                                vibrate: [200, 100, 200, 100, 400] // Telefondaysa titreşim yapar
+                            };
+
+                            const triggerSysNotification = () => {
+                                if (swRegistration) {
+                                    swRegistration.showNotification(notifyTitle, notifyOptions);
+                                } else {
+                                    new Notification(notifyTitle, notifyOptions);
+                                }
+                            };
+
+                            if ("Notification" in window) {
+                                if (Notification.permission === "granted") {
+                                    triggerSysNotification();
+                                } else if (Notification.permission !== "denied") {
+                                    Notification.requestPermission().then(permission => {
+                                        if (permission === "granted") triggerSysNotification();
+                                    });
+                                }
+                            }
+
+                            // Telefon için ekstra Titreşim API'si (Eğer tarayıcı izin veriyorsa)
+                            if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 400]);
+
+                            // Tarayıcı/İşletim sistemi bildirimi engellese bile site içi görsel ve sesli uyarı ver:
+                            showToast("Sinyal Onaylandı: " + latestSignalText, `XAUT/USDT grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 15 dakika geçti.`, latestSignalText);
+
+                            lastNotifiedSignalKey = signalKey;
+                            localStorage.setItem('lastNotifiedSignalKey', signalKey);
+                        }
+                    }
+                }
+
+            } catch (error) {
+                console.error("Hata:", error);
+                loader.innerText = "Bağlantı veya Veri Hatası.";
+            }
+        }
+
+        // --- TAM EKRAN VE YENİLEME MOTORU ---
+        function resizeCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            ctx.scale(dpr, dpr);
+
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+
+            fetchAndDraw(false);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // --- ARKA PLAN ZAMANLAYICI MOTORU (WEB WORKER) ---
+        // Tarayıcılar arka plan sekmelerindeki setTimeout işlemlerini yavaşlatır (throttling).
+        // Web Worker'lar ise arka planda da tam hızda çalışmaya devam eder.
+        const workerCode = `
+            self.onmessage = function(e) {
+                if (e.data.cmd === 'setTimeout') {
+                    setTimeout(() => self.postMessage('tick'), e.data.time);
+                }
+            };
+        `;
+        const blob = new Blob([workerCode], { type: 'application/javascript' });
+        const workerUrl = URL.createObjectURL(blob);
+        const timerWorker = new Worker(workerUrl);
+
+        timerWorker.onmessage = function () {
+            startDataLoop();
+        };
+
+        function startDataLoop() {
+            fetchAndDraw(true).finally(() => {
+                timerWorker.postMessage({ cmd: 'setTimeout', time: 15000 });
+            });
+        }
+
+        // Sekme tekrar aktif olduğunda anlık güncelleme yap
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                fetchAndDraw(true);
+            }
+        });
+
+        // İlk Ateşleme
+        (() => {
+            resizeCanvas();
+            startDataLoop();
+        })();
+    </script>
+</body>
+
+</html>
