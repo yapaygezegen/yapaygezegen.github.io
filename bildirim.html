@@ -101,7 +101,7 @@
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 const currentTime = audioCtx.currentTime;
 
-                for (let i = 0; i < 5; i++) {
+                for (let i = 0; i < 10; i++) {
                     const oscillator = audioCtx.createOscillator();
                     const gainNode = audioCtx.createGain();
 
@@ -465,11 +465,11 @@
                 if (latestSignalTime > 0) {
                     const signalKey = latestSignalTime + "_" + latestSignalText;
                     const timePassed = now - latestSignalTime;
-                    const fifteenMinsPassed = (timePassed >= 15 * 60 * 1000);
+                    const twentyFiveMinsPassed = (timePassed >= 25 * 60 * 1000);
                     // 2 saatten yeni bir sinyalse bildirimi gönder (eski sinyalleri spamlememek için)
                     const isFresh = (timePassed <= 2 * 60 * 60 * 1000);
 
-                    if (fifteenMinsPassed && lastNotifiedSignalKey !== signalKey) {
+                    if (twentyFiveMinsPassed && lastNotifiedSignalKey !== signalKey) {
                         if (!isFresh) {
                             // Çok eski sinyali sessizce atla
                             lastNotifiedSignalKey = signalKey;
@@ -477,7 +477,7 @@
                         } else {
                             const notifyTitle = "Sinyal Onaylandı: " + latestSignalText;
                             const notifyOptions = {
-                                body: `XAUT/USDT grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 15 dakika geçti.`,
+                                body: `XAUT/USDT grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 25 dakika geçti.`,
                                 vibrate: [200, 100, 200, 100, 400] // Telefondaysa titreşim yapar
                             };
 
