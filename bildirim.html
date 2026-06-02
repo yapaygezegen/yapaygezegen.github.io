@@ -47,6 +47,39 @@
             z-index: 10;
             border: 1px solid #2a2e39;
         }
+
+        .symbol-buttons {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            z-index: 100;
+            display: flex;
+            gap: 6px;
+        }
+
+        .symbol-btn {
+            padding: 6px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #848e9c;
+            font-family: sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .symbol-btn:active {
+            transform: scale(0.95);
+        }
+
+        .symbol-btn.active {
+            background: rgba(41, 98, 255, 0.25);
+            border-color: #2962ff;
+            color: #ffffff;
+        }
     </style>
 </head>
 
@@ -56,6 +89,11 @@
         style="display:none; position:absolute; top:20px; right:20px; background:#26a69a; color:white; padding:15px 25px; border-radius:8px; font-family:sans-serif; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.5); pointer-events:none;">
         <strong id="toastTitle" style="font-size:16px;">Sinyal Onaylandı</strong><br>
         <span id="toastBody" style="font-size:14px; opacity:0.9;">Mesaj</span>
+    </div>
+
+    <div class="symbol-buttons">
+        <button id="btnGold" class="symbol-btn active" onclick="switchSymbol('XAUTUSDT', this)">🥇 Altın</button>
+        <button id="btnSilver" class="symbol-btn" onclick="switchSymbol('XAGUSDT', this)">🥈 Gümüş</button>
     </div>
 
     <div class="chart-container">
@@ -68,8 +106,26 @@
         const ctx = canvas.getContext('2d');
         const loader = document.getElementById('loader');
 
-        const symbol = 'XAUTUSDT';
+        let symbol = 'XAUTUSDT';
         const limit15m = 300;
+
+        function switchSymbol(newSymbol, btnEl) {
+            if (symbol === newSymbol) return;
+            symbol = newSymbol;
+            cachedData = null;
+            document.title = (newSymbol === 'XAUTUSDT' ? 'XAUT' : 'XAG') + ' / USDT Canlı Grafik';
+            document.querySelectorAll('.symbol-btn').forEach(b => b.classList.remove('active'));
+            btnEl.classList.add('active');
+            loader.style.display = 'block';
+            loader.innerText = 'Veriler Senkronize Ediliyor...';
+            fetchAndDraw(true);
+        }
+
+        // Gümüş (XAGUSDT) sadece Binance Futures'da var, Altın (XAUTUSDT) ise Spot'ta.
+        function getApiBase() {
+            if (symbol === 'XAGUSDT') return 'https://fapi.binance.com/fapi/v1/klines';
+            return 'https://api.binance.com/api/v3/klines';
+        }
 
         // --- MOBİL ARKA PLAN CANLI TUTMA MOTORU ---
         // Android Chrome, ses çalan sekmeleri arka planda uyutmaz.
@@ -233,11 +289,12 @@
         async function fetchAndDraw(forceFetch = true) {
             try {
                 if (forceFetch || !cachedData) {
+                    const apiBase = getApiBase();
                     const [res15m, res4h, res1d, res1w] = await Promise.all([
-                        fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=15m&limit=${limit15m}`).then(r => r.json()),
-                        fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=4h&limit=200`).then(r => r.json()),
-                        fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d&limit=100`).then(r => r.json()),
-                        fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1w&limit=50`).then(r => r.json())
+                        fetch(`${apiBase}?symbol=${symbol}&interval=15m&limit=${limit15m}`).then(r => r.json()),
+                        fetch(`${apiBase}?symbol=${symbol}&interval=4h&limit=200`).then(r => r.json()),
+                        fetch(`${apiBase}?symbol=${symbol}&interval=1d&limit=100`).then(r => r.json()),
+                        fetch(`${apiBase}?symbol=${symbol}&interval=1w&limit=50`).then(r => r.json())
                     ]);
                     cachedData = { res15m, res4h, res1d, res1w };
                 }
