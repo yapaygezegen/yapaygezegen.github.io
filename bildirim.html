@@ -565,14 +565,14 @@
                 if (latestSignalTime > 0) {
                     const signalKey = latestSignalTime + "_" + latestSignalText;
                     const timePassed = now - latestSignalTime;
-                    const twentyFiveMinsPassed = (timePassed >= 25 * 60 * 1000);
+                    const thirtyFiveMinsPassed = (timePassed >= 35 * 60 * 1000);
                     // 2 saatten yeni bir sinyalse bildirimi gönder
                     const isFresh = (timePassed <= 2 * 60 * 60 * 1000);
 
                     const storageKey = 'lastNotifiedSignalKey_' + s;
                     const lastNotified = lastNotifiedSignals[s] || localStorage.getItem(storageKey);
 
-                    if (twentyFiveMinsPassed && lastNotified !== signalKey) {
+                    if (thirtyFiveMinsPassed && lastNotified !== signalKey) {
                         if (!isFresh) {
                             // Çok eski sinyali sessizce atla
                             lastNotifiedSignals[s] = signalKey;
@@ -581,7 +581,7 @@
                             const label = s === 'XAUTUSDT' ? 'XAUT/USDT' : 'XAG/USDT';
                             const notifyTitle = `Sinyal Onaylandı (${label}): ` + latestSignalText;
                             const notifyOptions = {
-                                body: `${label} grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 25 dakika geçti.`,
+                                body: `${label} grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 35 dakika geçti.`,
                                 vibrate: [200, 100, 200, 100, 400] // Telefondaysa titreşim yapar
                             };
 
@@ -607,7 +607,7 @@
                             if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 400]);
 
                             // Görsel ve sesli toast uyarısı
-                            showToast(`Sinyal Onaylandı: ${latestSignalText} (${label})`, `${label} grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 15 dakika geçti.`, latestSignalText);
+                            showToast(`Sinyal Onaylandı: ${latestSignalText} (${label})`, `${label} grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 35 dakika geçti.`, latestSignalText);
 
                             lastNotifiedSignals[s] = signalKey;
                             localStorage.setItem(storageKey, signalKey);
