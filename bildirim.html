@@ -85,10 +85,8 @@
 
 <body>
 
-    <div id="toast"
-        style="display:none; position:absolute; top:20px; right:20px; background:#26a69a; color:white; padding:15px 25px; border-radius:8px; font-family:sans-serif; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.5); pointer-events:none;">
-        <strong id="toastTitle" style="font-size:16px;">Sinyal Onaylandı</strong><br>
-        <span id="toastBody" style="font-size:14px; opacity:0.9;">Mesaj</span>
+    <div id="toastContainer"
+        style="position:absolute; top:20px; right:20px; display:flex; flex-direction:column; gap:10px; z-index:9999; pointer-events:none;">
     </div>
 
     <div class="symbol-buttons">
@@ -109,10 +107,14 @@
         let symbol = 'XAUTUSDT';
         const limit15m = 300;
 
+        let cachedData = {
+            XAUTUSDT: null,
+            XAGUSDT: null
+        };
+
         function switchSymbol(newSymbol, btnEl) {
             if (symbol === newSymbol) return;
             symbol = newSymbol;
-            cachedData = null;
             document.title = (newSymbol === 'XAUTUSDT' ? 'XAUT' : 'XAG') + ' / USDT Canlı Grafik';
             document.querySelectorAll('.symbol-btn').forEach(b => b.classList.remove('active'));
             btnEl.classList.add('active');
@@ -122,8 +124,8 @@
         }
 
         // Gümüş (XAGUSDT) sadece Binance Futures'da var, Altın (XAUTUSDT) ise Spot'ta.
-        function getApiBase() {
-            if (symbol === 'XAGUSDT') return 'https://fapi.binance.com/fapi/v1/klines';
+        function getApiBase(s) {
+            if (s === 'XAGUSDT') return 'https://fapi.binance.com/fapi/v1/klines';
             return 'https://api.binance.com/api/v3/klines';
         }
 
@@ -178,15 +180,31 @@
             } catch (e) { }
         }
 
+        // Sinyal Al/Sat durumuna göre renk ve sesli toast gösterimi
         function showToast(title, body, type) {
-            const toast = document.getElementById('toast');
-            if (!toast) return;
-            document.getElementById('toastTitle').innerText = title;
-            document.getElementById('toastBody').innerText = body;
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+
+            const toast = document.createElement('div');
             toast.style.background = type.includes('Al') ? '#26a69a' : '#ef5350';
-            toast.style.display = 'block';
+            toast.style.color = 'white';
+            toast.style.padding = '15px 25px';
+            toast.style.borderRadius = '8px';
+            toast.style.fontFamily = 'sans-serif';
+            toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.5)';
+            toast.style.transition = 'opacity 0.5s ease';
+
+            toast.innerHTML = `<strong style="font-size:16px;">${title}</strong><br><span style="font-size:14px; opacity:0.9;">${body}</span>`;
+
+            container.appendChild(toast);
             playBeep();
-            setTimeout(() => { toast.style.display = 'none'; }, 10000);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    toast.remove();
+                }, 500);
+            }, 10000);
         }
 
         // --- MATEMATİK MOTORU ---
@@ -265,8 +283,6 @@
             return mapped;
         }
 
-        let cachedData = null;
-
         // --- MOBİL İÇİN SERVICE WORKER KAYDI ---
         let swRegistration = null;
         if ('serviceWorker' in navigator) {
@@ -276,8 +292,12 @@
         }
 
         // Sayfa ilk açıldığında geçmiş bildirim hafızasını tamamen sıfırla
-        localStorage.removeItem('lastNotifiedSignalKey');
-        let lastNotifiedSignalKey = null;
+        localStorage.removeItem('lastNotifiedSignalKey_XAUTUSDT');
+        localStorage.removeItem('lastNotifiedSignalKey_XAGUSDT');
+        let lastNotifiedSignals = {
+            XAUTUSDT: null,
+            XAGUSDT: null
+        };
 
         // Bildirim iznini proaktif olarak almak için sayfaya ilk tıklandığında izin iste
         document.addEventListener('click', () => {
@@ -286,25 +306,30 @@
             }
         }, { once: true });
 
+        async function fetchSymbolData(s) {
+            const apiBase = getApiBase(s);
+            const [res15m, res4h, res1d, res1w] = await Promise.all([
+                fetch(`${apiBase}?symbol=${s}&interval=15m&limit=${limit15m}`).then(r => r.json()),
+                fetch(`${apiBase}?symbol=${s}&interval=4h&limit=200`).then(r => r.json()),
+                fetch(`${apiBase}?symbol=${s}&interval=1d&limit=100`).then(r => r.json()),
+                fetch(`${apiBase}?symbol=${s}&interval=1w&limit=50`).then(r => r.json())
+            ]);
+            return { res15m, res4h, res1d, res1w };
+        }
+
         async function fetchAndDraw(forceFetch = true) {
             try {
-                if (forceFetch || !cachedData) {
-                    const apiBase = getApiBase();
-                    const [res15m, res4h, res1d, res1w] = await Promise.all([
-                        fetch(`${apiBase}?symbol=${symbol}&interval=15m&limit=${limit15m}`).then(r => r.json()),
-                        fetch(`${apiBase}?symbol=${symbol}&interval=4h&limit=200`).then(r => r.json()),
-                        fetch(`${apiBase}?symbol=${symbol}&interval=1d&limit=100`).then(r => r.json()),
-                        fetch(`${apiBase}?symbol=${symbol}&interval=1w&limit=50`).then(r => r.json())
-                    ]);
-                    cachedData = { res15m, res4h, res1d, res1w };
+                if (forceFetch || !cachedData[symbol]) {
+                    cachedData[symbol] = await fetchSymbolData(symbol);
                 }
 
                 loader.style.display = 'none';
 
-                const c15m = parseKlines(cachedData.res15m);
-                const c4h = parseKlines(cachedData.res4h);
-                const c1d = parseKlines(cachedData.res1d);
-                const c1w = parseKlines(cachedData.res1w);
+                const data = cachedData[symbol];
+                const c15m = parseKlines(data.res15m);
+                const c4h = parseKlines(data.res4h);
+                const c1d = parseKlines(data.res1d);
+                const c1w = parseKlines(data.res1w);
 
                 const mapped4h = mapSecurityData(c15m, c4h);
                 const mapped1d = mapSecurityData(c15m, c1d);
@@ -495,7 +520,25 @@
                     ctx.fillText(lastCandle.close.toFixed(2), logicWidth - paddingRight + 8, yCurrent + 4);
                 }
 
-                // --- 7. BİLDİRİM MOTORU ---
+            } catch (error) {
+                console.error("Hata:", error);
+                loader.innerText = "Bağlantı veya Veri Hatası.";
+            }
+        }
+
+        // --- 7. BİLDİRİM MOTORU ---
+        function checkNotificationsForSymbol(s, data) {
+            if (!data) return;
+            try {
+                const c15m = parseKlines(data.res15m);
+                const c4h = parseKlines(data.res4h);
+                const c1d = parseKlines(data.res1d);
+                const c1w = parseKlines(data.res1w);
+
+                const mapped4h = mapSecurityData(c15m, c4h);
+                const mapped1d = mapSecurityData(c15m, c1d);
+                const mapped1w = mapSecurityData(c15m, c1w);
+
                 let latestSignalTime = 0;
                 let latestSignalText = "";
 
@@ -523,18 +566,22 @@
                     const signalKey = latestSignalTime + "_" + latestSignalText;
                     const timePassed = now - latestSignalTime;
                     const twentyFiveMinsPassed = (timePassed >= 25 * 60 * 1000);
-                    // 2 saatten yeni bir sinyalse bildirimi gönder (eski sinyalleri spamlememek için)
+                    // 2 saatten yeni bir sinyalse bildirimi gönder
                     const isFresh = (timePassed <= 2 * 60 * 60 * 1000);
 
-                    if (twentyFiveMinsPassed && lastNotifiedSignalKey !== signalKey) {
+                    const storageKey = 'lastNotifiedSignalKey_' + s;
+                    const lastNotified = lastNotifiedSignals[s] || localStorage.getItem(storageKey);
+
+                    if (twentyFiveMinsPassed && lastNotified !== signalKey) {
                         if (!isFresh) {
                             // Çok eski sinyali sessizce atla
-                            lastNotifiedSignalKey = signalKey;
-                            localStorage.setItem('lastNotifiedSignalKey', signalKey);
+                            lastNotifiedSignals[s] = signalKey;
+                            localStorage.setItem(storageKey, signalKey);
                         } else {
-                            const notifyTitle = "Sinyal Onaylandı: " + latestSignalText;
+                            const label = s === 'XAUTUSDT' ? 'XAUT/USDT' : 'XAG/USDT';
+                            const notifyTitle = `Sinyal Onaylandı (${label}): ` + latestSignalText;
                             const notifyOptions = {
-                                body: `XAUT/USDT grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 25 dakika geçti.`,
+                                body: `${label} grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 25 dakika geçti.`,
                                 vibrate: [200, 100, 200, 100, 400] // Telefondaysa titreşim yapar
                             };
 
@@ -556,21 +603,19 @@
                                 }
                             }
 
-                            // Telefon için ekstra Titreşim API'si (Eğer tarayıcı izin veriyorsa)
+                            // Telefon için ekstra Titreşim API'si
                             if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 400]);
 
-                            // Tarayıcı/İşletim sistemi bildirimi engellese bile site içi görsel ve sesli uyarı ver:
-                            showToast("Sinyal Onaylandı: " + latestSignalText, `XAUT/USDT grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 15 dakika geçti.`, latestSignalText);
+                            // Görsel ve sesli toast uyarısı
+                            showToast(`Sinyal Onaylandı: ${latestSignalText} (${label})`, `${label} grafiğinde son yanan ${latestSignalText} sinyalinin üzerinden 15 dakika geçti.`, latestSignalText);
 
-                            lastNotifiedSignalKey = signalKey;
-                            localStorage.setItem('lastNotifiedSignalKey', signalKey);
+                            lastNotifiedSignals[s] = signalKey;
+                            localStorage.setItem(storageKey, signalKey);
                         }
                     }
                 }
-
-            } catch (error) {
-                console.error("Hata:", error);
-                loader.innerText = "Bağlantı veya Veri Hatası.";
+            } catch (err) {
+                console.error("Bildirim kontrol hatası:", err);
             }
         }
 
@@ -607,10 +652,27 @@
             startDataLoop();
         };
 
-        function startDataLoop() {
-            fetchAndDraw(true).finally(() => {
+        async function startDataLoop() {
+            try {
+                // Önce aktif sembolü güncelle ve çiz
+                await fetchAndDraw(true);
+
+                // Diğer sembolü arka planda güncelle (kullanıcıyı engellemeden)
+                const otherSymbol = symbol === 'XAUTUSDT' ? 'XAGUSDT' : 'XAUTUSDT';
+                try {
+                    cachedData[otherSymbol] = await fetchSymbolData(otherSymbol);
+                } catch (e) {
+                    console.error("Diğer sembol güncellenirken hata oluştu:", e);
+                }
+
+                // Her iki sembol için de bildirim kontrolü yap
+                checkNotificationsForSymbol('XAUTUSDT', cachedData['XAUTUSDT']);
+                checkNotificationsForSymbol('XAGUSDT', cachedData['XAGUSDT']);
+            } catch (err) {
+                console.error("Döngü hatası:", err);
+            } finally {
                 timerWorker.postMessage({ cmd: 'setTimeout', time: 15000 });
-            });
+            }
         }
 
         // Sekme tekrar aktif olduğunda anlık güncelleme yap
