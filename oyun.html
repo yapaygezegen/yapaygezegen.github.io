@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <title>Oyun</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000000;
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            background-color: transparent;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas></canvas>
+
+    <script>
+        // --- PATH2D ÖNBELLEĞİ ---
+        const PATH_BACK_ICON = new Path2D("M19 12 H5 M12 19 L5 12 L12 5");
+        const PATH_SETTINGS_BODY = new Path2D("M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915");
+        const PATH_HISTORY_1 = new Path2D("M16 22h2a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v2.85");
+        const PATH_HISTORY_2 = new Path2D("M14 2v5a1 1 0 0 0 1 1h5");
+        const PATH_HISTORY_3 = new Path2D("M8 14v2.2l1.6 1");
+        const PATH_RANKING_1 = new Path2D("M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2");
+        const PATH_RANKING_2 = new Path2D("M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2");
+        const PATH_RANKING_3 = new Path2D("M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3");
+        const PATH_RANKING_4 = new Path2D("M4 22h16");
+        const PATH_RANKING_5 = new Path2D("M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z");
+        const PATH_RANKING_6 = new Path2D("M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3");
+        const PATH_FRIENDS_1 = new Path2D("M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2");
+        const PATH_FRIENDS_2 = new Path2D("M16 3.128a4 4 0 0 1 0 7.744");
+        const PATH_FRIENDS_3 = new Path2D("M22 21v-2a4 4 0 0 0-3-3.87");
+
+        const PATH_AI_1 = new Path2D("M12 13h4");
+        const PATH_AI_2 = new Path2D("M12 18h6a2 2 0 0 1 2 2v1");
+        const PATH_AI_3 = new Path2D("M12 8h8");
+        const PATH_AI_4 = new Path2D("M16 8V5a2 2 0 0 1 2-2");
+        const PATH_AI_5 = new Path2D("M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z");
+        const PATH_AI_6 = new Path2D("M9 13a4.5 4.5 0 0 0 3-4");
+        const PATH_AI_7 = new Path2D("M6.003 5.125A3 3 0 0 0 6.401 6.5");
+        const PATH_AI_8 = new Path2D("M3.477 10.896a4 4 0 0 1 .585-.396");
+        const PATH_AI_9 = new Path2D("M6 18a4 4 0 0 1-1.967-.516");
+
+        const PATH_SWORD1_BLADE = new Path2D("M9.5 17.5 L21 6 L21 3 L18 3 L6.5 14.5 Z");
+        const PATH_SWORD1_GUARD = new Path2D("M11 19 L5 13");
+        const PATH_SWORD1_HILT = new Path2D("M8 16 L4 20 M5 21 L3 19");
+
+        const PATH_SWORD2_BLADE = new Path2D("M14.5 17.5 L3 6 L3 3 L6 3 L17.5 14.5 Z");
+        const PATH_SWORD2_GUARD = new Path2D("M13 19 L19 13");
+        const PATH_SWORD2_HILT = new Path2D("M16 16 L20 20 M19 21 L21 19");
+
+        const PATH_CAMERA_BODY = new Path2D("M23 7l-7 5 7 5V7z M1 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H1z");
+        const PATH_USER_ICON = new Path2D("M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z");
+
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ['touchstart', 'touchmove', 'touchend', 'touchcancel'].forEach(eventType => {
+            canvas.addEventListener(eventType, (e) => {
+                if (e.cancelable) e.preventDefault();
+            }, { passive: false });
+        });
+
+        let activeIndex = -1;
+        let pendingFriendRequests = 0;
+        let currentPage = 'main';
+        let isFriendsPanelOpen = false;
+        let isAiDifficultyModalOpen = false;
+        let isSwordModalOpen = false;
+        let isUnsupportedModalOpen = false;
+
+        // --- UYGULAMA AYARLARI (TR-EN, SES, TİTREŞİM) ---
+        let appSettings = {
+            lang: 'TR',      // 'TR' veya 'EN'
+            sound: true,     // true / false
+            vibration: true  // true / false
+        };
+
+        // --- 10 ÖZEL KART HARİTASI ---
+        const ALL_SPECIAL_CARDS_MAP = {
+            'mirror': { id: 'mirror', name: 'Ayna', color: '#a78bfa', oppColor: '#d946ef', desc: 'Düşman kartla çarpışınca yönünü terse çevirip sizin adınıza savaşmasını sağlar.' },
+            'double': { id: 'double', name: '+ %100', color: '#f59e0b', oppColor: '#f59e0b', desc: 'Kartın boyutunu 2 katına çıkarır, etki alanını ve çarpışma genişliğini artırır.' },
+            'half': { id: 'half', name: '- %50', color: '#ec4899', oppColor: '#ec4899', desc: 'Kartın boyutunu yarı yarıya küçülterek dar boşluklardan geçmesini kolaylaştırır.' },
+            'seq': { id: 'seq', name: 'Sıralı', color: '#3b82f6', oppColor: '#3b82f6', desc: 'Aynı değerde arkasından gelen ikinci bir ikiz kart oluşturarak çift hat hücumu yapar.' },
+            'plus1': { id: 'plus1', name: '+1', color: '#10b981', oppColor: '#f97316', desc: 'Kartın değerini 1 puan yükseltir (Maksimum 9 değerine kadar uygulanabilir).' },
+            'ghost': { id: 'ghost', name: 'Hayalet', color: '#717A7B', oppColor: '#717A7B', desc: 'Kartı saydamlaştırır. Çarpışmalardan etkilenmeyip hayalet gibi kartların içinden geçer.' },
+            'random': { id: 'random', name: 'Rastgele', color: '#B5926F', oppColor: '#B5926F', desc: 'Kartın sayı değerini anında 0 ile 9 arasında rastgele yeni bir rakama dönüştürür.' },
+            'shield': { id: 'shield', name: 'Kalkan', color: '#94a3b8', oppColor: '#94a3b8', desc: 'Kartın önüne bir kalkan koruması ekler. Karşılaştığı rakip kartı yok eder ve kalkanı kırılır.' },
+            'potion_plus': { id: 'potion_plus', name: '(+) İksir', color: '#2dd4bf', oppColor: '#2dd4bf', desc: 'Rakip kartı yendiğinde veya berabere kaldığında sahibine anında +1 iksir kazandırır (1 kez).' },
+            'potion_minus': { id: 'potion_minus', name: '(-) İksir', color: '#fb7185', oppColor: '#fb7185', desc: 'Rakip kartı yok ettiğinde rakibin 1 iksirini çalar (İksir 0 ise -1 değerine düşer, 1 kez).' }
+        };
+
+        const DECK_STORAGE_KEY = 'number_duel_custom_deck_v1';
+        function loadPlayerCustomDeck() {
+            try {
+                const saved = localStorage.getItem(DECK_STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed) && parsed.length === 5) return parsed;
+                }
+            } catch (e) { }
+            return ['mirror', 'double', 'half', 'seq', 'plus1'];
+        }
+
+        function savePlayerCustomDeck(deckIds) {
+            try { localStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(deckIds)); } catch (e) { }
+        }
+
+        let playerSelectedDeck = loadPlayerCustomDeck();
+
+        let settingsScrollY = 0, settingsTouchStartY = 0, settingsInitialScrollY = 0, settingsIsScrolling = false;
+        let settingsDraggingCardId = null, settingsDragX = 0, settingsDragY = 0;
+
+        let historyScrollY = 0, historyTouchStartY = 0, historyInitialScrollY = 0, historyIsScrolling = false;
+        let currentReplayingMatch = null;
+
+        function isScreenUnsupported(w, h) { return w >= h * 0.8; }
+        function getCardValue(c) { return (typeof c === 'number') ? c : (c ? c.val : 0); }
+
+        function createCardObj(val) {
+            return {
+                val: val, mirror: false, double: false, half: false, seq: false,
+                plus1: false, ghost: false, shield: false, potion_plus: false, potion_minus: false
+            };
+        }
+
+        function generateFullDeck(isAdvanced) {
+            return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(v => isAdvanced ? createCardObj(v) : v);
+        }
+
+        // --- ORTAK UI ÇİZİM YARDIMCILARI ---
+        function wrapText(context, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '', currentY = y;
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                if (context.measureText(testLine).width > maxWidth && n > 0) {
+                    context.fillText(line, x, currentY);
+                    line = words[n] + ' ';
+                    currentY += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            context.fillText(line, x, currentY);
+        }
+
+        function drawBadge(text, cx, y, w, h, color, rgbaBg) {
+            const x = cx - w / 2;
+            ctx.fillStyle = rgbaBg;
+            ctx.beginPath();
+            ctx.roundRect(x, y, w, h, 6);
+            ctx.fill();
+            ctx.strokeStyle = color + '59';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.fillStyle = color;
+            ctx.font = 'bold 12px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, cx, y + h / 2);
+        }
+
+        function drawIconButton(x, y, size, path, bg = '#CB4E4E', isPressed = false, strokeColor = '#ffffff') {
+            ctx.fillStyle = bg;
+            ctx.beginPath();
+            ctx.roundRect(x, y, size, size, size * 0.22);
+            ctx.fill();
+
+            if (isPressed) {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.fill();
+            }
+
+            ctx.save();
+            ctx.strokeStyle = strokeColor;
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            const scaleFactor = (size * 0.52) / 24;
+            const offset = (size - (size * 0.52)) / 2;
+            ctx.translate(x + offset, y + offset);
+            ctx.scale(scaleFactor, scaleFactor);
+            ctx.stroke(path);
+            ctx.restore();
+        }
+
+        // --- GEÇMİŞ DEPOLAMA ---
+        const HISTORY_STORAGE_KEY = 'number_duel_match_history_v1';
+        function loadMatchHistory() {
+            try {
+                const data = localStorage.getItem(HISTORY_STORAGE_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch (e) { return []; }
+        }
+
+        function saveMatchToHistory(record) {
+            try {
+                let h = loadMatchHistory();
+                h.unshift(record);
+                if (h.length > 10) h = h.slice(0, 10);
+                localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(h));
+            } catch (e) { }
+        }
+
+        function getAiPageButtonPositions(w, h) {
+            const panelH = Math.min(90, h * 0.14);
+            const panelW = Math.min(85, w * 0.20);
+            const padding = 15;
+            const spaceTop = h * 0.50 + panelH / 2;
+            const availableSpace = (h * 0.80) - spaceTop;
+            const btnSize = Math.max(32, Math.min(panelW, Math.min(h * 0.065, (availableSpace - 16) / 2)));
+            const btnX = w - btnSize - padding;
+            const gap = (availableSpace - 2 * btnSize) / 8;
+            return { btnSize, btnX, pauseBtnY: spaceTop + gap, backBtnY: spaceTop + gap + btnSize + gap };
+        }
+
+        function getAiDifficultyModalBounds(w, h) {
+            const panelWidth = Math.min(320, w * 0.80), panelHeight = Math.min(220, h * 0.36);
+            const panelX = (w - panelWidth) / 2, panelY = (h - panelHeight) / 2;
+            const btnW = panelWidth * 0.82, btnH = 44, gap = 12;
+            const b1X = panelX + (panelWidth - btnW) / 2, b1Y = panelY + 86;
+            return { panelX, panelY, panelWidth, panelHeight, b1X, b1Y, b2X: b1X, b2Y: b1Y + btnH + gap, btnW, btnH };
+        }
+
+        function getSwordModalBounds(w, h) {
+            const panelWidth = Math.min(340, w * 0.86), btnH = 40, btnW = (panelWidth - 38) / 2;
+            const panelHeight = 310, panelX = (w - panelWidth) / 2, panelY = (h - panelHeight) / 2;
+            const sec1Y = panelY + 52, pvpB1X = panelX + 14, pvpB1Y = sec1Y + 28, pvpB2X = pvpB1X + btnW + 10;
+            const sec2Y = pvpB1Y + btnH + 14, onB1X = pvpB1X, onB1Y = sec2Y + 28, onB2X = pvpB2X;
+            const sec3Y = onB1Y + btnH + 14, bonusY = sec3Y + 28;
+            return {
+                panelX, panelY, panelWidth, panelHeight, sec1Y, pvpB1X, pvpB1Y, pvpB2X, pvpB2Y: pvpB1Y,
+                sec2Y, onB1X, onB1Y, onB2X, onB2Y: onB1Y, sec3Y, bonusY, diamondW: (panelWidth - 52) / 4, btnW, btnH
+            };
+        }
+
+        function getCardRowY(row, baseAreaY, areaH, cardRadius) {
+            const freeH = Math.max(0, areaH - 4 * cardRadius);
+            return row === 0 ? (baseAreaY + freeH * 0.10 + cardRadius) : (baseAreaY + freeH * 0.35 + 3 * cardRadius);
+        }
+
+        function getOpponentCardRowY(row, baseAreaY, areaH, cardRadius) {
+            const freeH = Math.max(0, areaH - 4 * cardRadius);
+            return row === 0 ? (baseAreaY + freeH * 0.65 + cardRadius) : (baseAreaY + freeH * 0.90 + 3 * cardRadius);
+        }
+
+        // --- ARKA PLAN PARÇACIKLARI ---
+        let bgParticles = [];
+        function initBgParticles(w, h) {
+            bgParticles = [];
+            const palettes = ['rgba(79, 172, 247, ', 'rgba(79, 247, 182, ', 'rgba(52, 211, 153, ', 'rgba(167, 243, 208, '];
+            for (let i = 0; i < 50; i++) {
+                bgParticles.push({
+                    x: Math.random() * w, y: Math.random() * h, radius: 0.2 + Math.random() * 0.8,
+                    vx: (Math.random() - 0.5) * 10, vy: (Math.random() - 0.5) * 10,
+                    color: palettes[Math.floor(Math.random() * palettes.length)] + (0.25 + Math.random() * 0.5).toFixed(2) + ')',
+                    windAngle: Math.random() * Math.PI * 2, windSpeed: 8 + Math.random() * 16
+                });
+            }
+        }
+
+        function updateBgParticles(dt, w, h) {
+            if (bgParticles.length === 0) initBgParticles(w, h);
+            for (let p of bgParticles) {
+                p.windAngle += (Math.random() - 0.5) * dt * 2.0;
+                p.vx += Math.cos(p.windAngle) * p.windSpeed * dt;
+                p.vy += Math.sin(p.windAngle) * p.windSpeed * dt;
+                const spSq = p.vx * p.vx + p.vy * p.vy;
+                if (spSq > 625) {
+                    const sp = Math.sqrt(spSq);
+                    p.vx = (p.vx / sp) * 25; p.vy = (p.vy / sp) * 25;
+                }
+                p.x = (p.x + p.vx * dt + w) % w;
+                p.y = (p.y + p.vy * dt + h) % h;
+            }
+        }
+
+        function drawBgParticles() {
+            for (let p of bgParticles) {
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        let vialBubbles = Array.from({ length: 5 }, () => ({
+            xRel: Math.random(), yRel: 0.2 + Math.random() * 0.6, radius: 0.5 + Math.random() * 0.8, speed: 0.3 + Math.random() * 0.4
+        }));
+
+        function updateVialBubbles(dt) {
+            for (let b of vialBubbles) {
+                b.xRel += b.speed * dt;
+                if (b.xRel > 1.0) { b.xRel = 0; b.yRel = 0.2 + Math.random() * 0.6; }
+            }
+        }
+
+        // --- PATLAMA SİSTEMİ ---
+        const effectPool = Array.from({ length: 20 }, () => ({
+            active: false, x: 0, y: 0, radius: 0, maxRadius: 38, duration: 0.45, elapsed: 0, color: '#f7c04f',
+            particles: Array.from({ length: 12 }, () => ({ x: 0, y: 0, vx: 0, vy: 0, radius: 0, color: '#fff' }))
+        }));
+
+        function createExplosion(x, y, color = '#f7c04f') {
+            const fx = effectPool.find(e => !e.active);
+            if (!fx) return;
+            fx.active = true; fx.x = x; fx.y = y; fx.color = color; fx.radius = 5; fx.elapsed = 0;
+            fx.particles.forEach((p, k) => {
+                const angle = (Math.PI * 2 / 12) * k + Math.random() * 0.5;
+                const speed = 50 + Math.random() * 90;
+                p.x = x; p.y = y; p.vx = Math.cos(angle) * speed; p.vy = Math.sin(angle) * speed;
+                p.radius = 3 + Math.random() * 3; p.color = color;
+            });
+        }
+
+        // --- UÇAN İKSİR HAVUZU ---
+        let flyingPotions = [];
+
+        function createFlyingPotion(fromX, fromY, targetOwner, type) {
+            const w = window.innerWidth, h = window.innerHeight;
+            const panelW = Math.min(85, w * 0.20);
+            const panelH = Math.min(90, h * 0.14);
+            const rx = w - panelW - 15;
+            const targetX = rx + panelW / 2;
+            const targetY = (targetOwner === 'player') ? (h / 2 + panelH * 0.24) : (h / 2 - panelH * 0.24);
+
+            const cpX = (fromX + targetX) / 2;
+            const cpY = Math.min(fromY, targetY) - 50;
+
+            flyingPotions.push({
+                startX: fromX, startY: fromY,
+                currentX: fromX, currentY: fromY,
+                targetX, targetY,
+                cpX, cpY,
+                targetOwner, type,
+                color: type === 'plus' ? '#2dd4bf' : '#fb7185',
+                amount: type === 'plus' ? 1 : -1,
+                progress: 0, duration: 0.52,
+                trail: []
+            });
+        }
+
+        // --- OYUN STATE & MOTOR ---
+        let aiGame = {
+            gameMode: 'ai', isReplay: false, recordedEvents: [], replayEventIndex: 0, hasSavedMatch: false,
+            difficulty: 'baslangic', playerPoints: 10, opponentPoints: 10, playerBarAnim: 10, opponentBarAnim: 10,
+            playerRights: 0, opponentRights: 0, timer: 0, matchTimer: 90, lastRightTime: 0, nextRightDelay: 1,
+            lastPlayerCardPlayTime: -999, lastOpponentCardPlayTime: -999,
+            playerCards: [], opponentCards: [], activeCards: [],
+            playerPointerId: null, draggingCardValue: null, draggingCardIndex: null, draggingSpecialIndex: null,
+            touchingCardIndex: null, dragX: 0, dragY: 0,
+            opponentPointerId: null, opponentDraggingCardValue: null, opponentDraggingCardIndex: null,
+            opponentDraggingSpecialIndex: null, opponentTouchingCardIndex: null, opponentDragX: 0, opponentDragY: 0,
+            aiPlayCooldown: 0, aiChosenIndex: null, gameOver: false, winner: null, isPaused: false, isEnding: false,
+            shattered: false, endDelayTimer: 0, playerFlashTimer: 0, opponentFlashTimer: 0,
+            scrollX: 0, touchStartX: 0, touchStartY: 0, initialScrollX: 0, isScrolling: false, isRow0Touched: false,
+            specialChargeTimer: 0, specialChargeMaxTimer: 5, specialChargesCount: 0, totalChargeUses: 0, specialCards: [],
+            opponentScrollX: 0, opponentScrollTargetX: 0, opponentTouchStartX: 0, opponentTouchStartY: 0,
+            opponentInitialScrollX: 0, opponentIsScrolling: false, opponentIsRow1Touched: false,
+            opponentSpecialChargeTimer: 0, opponentSpecialChargesCount: 0, opponentTotalChargeUses: 0,
+            aiSpecialUseCooldown: 1.5, opponentSpecialCards: []
+        };
+
+        function recordEvent(type, data) {
+            if (!aiGame.isReplay) aiGame.recordedEvents.push({ time: aiGame.timer, type, data });
+        }
+
+        function applySpecialToCard(cardObj, sp) {
+            if (!cardObj || !sp || sp.used) return false;
+            const hasMod = cardObj.mirror || cardObj.double || cardObj.half || cardObj.seq ||
+                cardObj.plus1 || cardObj.ghost || cardObj.shield || cardObj.potion_plus || cardObj.potion_minus;
+            if (hasMod) return false;
+            if (sp.id === 'plus1' && cardObj.val >= 9) return false;
+
+            if (sp.id === 'mirror') cardObj.mirror = true;
+            else if (sp.id === 'double') { cardObj.double = true; cardObj.half = false; }
+            else if (sp.id === 'half') { cardObj.half = true; cardObj.double = false; }
+            else if (sp.id === 'seq') cardObj.seq = true;
+            else if (sp.id === 'plus1') { cardObj.plus1 = true; cardObj.val += 1; }
+            else if (sp.id === 'ghost') cardObj.ghost = true;
+            else if (sp.id === 'random') cardObj.val = Math.floor(Math.random() * 10);
+            else if (sp.id === 'shield') cardObj.shield = true;
+            else if (sp.id === 'potion_plus') cardObj.potion_plus = true;
+            else if (sp.id === 'potion_minus') cardObj.potion_minus = true;
+
+            sp.used = true;
+            return true;
+        }
+
+        function spawnActiveCard(owner, cardVal, x, radiusMultiplier = 1.0, mods = null, isStandard = false) {
+            const w = window.innerWidth, h = window.innerHeight;
+            const baseR = w / 16;
+            const r = baseR * radiusMultiplier;
+            const clampedX = Math.max(r, Math.min(w - r, x));
+            const isPlayer = owner === 'player';
+            const spawnY = isPlayer ? h * 0.80 : h * 0.20;
+
+            let cardColor = isPlayer ? '#4facf7' : '#CB4E4E';
+            if (mods) {
+                for (let key in ALL_SPECIAL_CARDS_MAP) {
+                    if (mods[key] && key !== 'potion_plus' && key !== 'potion_minus' && key !== 'shield') {
+                        cardColor = isPlayer ? ALL_SPECIAL_CARDS_MAP[key].color : ALL_SPECIAL_CARDS_MAP[key].oppColor;
+                        break;
+                    }
+                }
+            }
+
+            const card = {
+                owner, value: cardVal, x: clampedX, y: spawnY, radius: r, cardColor,
+                isMirror: mods ? !!mods.mirror : false,
+                isGhost: mods ? !!mods.ghost : false,
+                hasShield: mods ? !!mods.shield : false,
+                hasPotionPlus: mods ? !!mods.potion_plus : false,
+                hasPotionMinus: mods ? !!mods.potion_minus : false
+            };
+
+            aiGame.activeCards.push(card);
+
+            if (mods && mods.seq) {
+                const seqY = isPlayer ? (spawnY + r * 2.5) : (spawnY - r * 2.5);
+                aiGame.activeCards.push({ ...card, y: seqY });
+            }
+        }
+
+        function resetAiGame(diff, mode, customPlayerDeck, customOppDeck) {
+            const chosenDifficulty = diff !== undefined ? diff : aiGame.difficulty;
+            const chosenMode = mode !== undefined ? mode : aiGame.gameMode;
+            const isAdvanced = chosenDifficulty === 'gelişmiş';
+
+            const w = window.innerWidth;
+            const cardRadius = w / 16;
+            const gap = cardRadius * 2.4;
+            const totalContentWidth = cardRadius * 3.0 + 9 * gap + cardRadius * 2.0;
+            const maxScroll = Math.max(0, totalContentWidth - w);
+            const initialCenterScroll = isAdvanced ? maxScroll / 2 : 0;
+
+            const allKeys = Object.keys(ALL_SPECIAL_CARDS_MAP);
+            let playerCardIds = [];
+            let oppCardIds = [];
+
+            if (customPlayerDeck && Array.isArray(customPlayerDeck)) {
+                playerCardIds = [...customPlayerDeck];
+            } else if (chosenMode === 'pvp_local') {
+                playerCardIds = [...allKeys].sort(() => 0.5 - Math.random()).slice(0, 5);
+            } else {
+                playerCardIds = [...playerSelectedDeck];
+            }
+
+            if (customOppDeck && Array.isArray(customOppDeck)) {
+                oppCardIds = [...customOppDeck];
+            } else if (chosenMode === 'pvp_local') {
+                oppCardIds = [...allKeys].sort(() => 0.5 - Math.random()).slice(0, 5);
+            } else {
+                oppCardIds = [...allKeys].sort(() => 0.5 - Math.random()).slice(0, 5);
+            }
+
+            const playerDeckList = playerCardIds.map(id => ({
+                id, name: ALL_SPECIAL_CARDS_MAP[id].name, used: false, color: ALL_SPECIAL_CARDS_MAP[id].color
+            }));
+
+            const oppDeckList = oppCardIds.map(id => ({
+                id, name: ALL_SPECIAL_CARDS_MAP[id].name, used: false, color: ALL_SPECIAL_CARDS_MAP[id].color
+            }));
+
+            aiGame = {
+                gameMode: chosenMode, isReplay: false, recordedEvents: [], replayEventIndex: 0, hasSavedMatch: false,
+                difficulty: chosenDifficulty, playerPoints: 10, opponentPoints: 10, playerBarAnim: 10, opponentBarAnim: 10,
+                playerRights: 0, opponentRights: 0, timer: 0, matchTimer: 90, lastRightTime: 0, nextRightDelay: 1,
+                lastPlayerCardPlayTime: -999, lastOpponentCardPlayTime: -999,
+                playerCards: generateFullDeck(isAdvanced), opponentCards: generateFullDeck(isAdvanced), activeCards: [],
+                playerPointerId: null, draggingCardValue: null, draggingCardIndex: null, draggingSpecialIndex: null,
+                touchingCardIndex: null, dragX: 0, dragY: 0,
+                opponentPointerId: null, opponentDraggingCardValue: null, opponentDraggingCardIndex: null,
+                opponentDraggingSpecialIndex: null, opponentTouchingCardIndex: null, opponentDragX: 0, opponentDragY: 0,
+                aiPlayCooldown: 0.8, aiChosenIndex: null, gameOver: false, winner: null, isPaused: false, isEnding: false,
+                shattered: false, endDelayTimer: 0, playerFlashTimer: 0, opponentFlashTimer: 0,
+                scrollX: initialCenterScroll, touchStartX: 0, touchStartY: 0, initialScrollX: initialCenterScroll,
+                isScrolling: false, isRow0Touched: false, specialChargeTimer: 0, specialChargeMaxTimer: 5,
+                specialChargesCount: 0, totalChargeUses: 0, specialCards: playerDeckList,
+                opponentScrollX: initialCenterScroll, opponentScrollTargetX: initialCenterScroll,
+                opponentTouchStartX: 0, opponentTouchStartY: 0, opponentInitialScrollX: initialCenterScroll,
+                opponentIsScrolling: false, opponentIsRow1Touched: false, opponentSpecialChargeTimer: 0,
+                opponentSpecialChargesCount: 0, opponentTotalChargeUses: 0, aiSpecialUseCooldown: 1.5,
+                opponentSpecialCards: oppDeckList
+            };
+
+            effectPool.forEach(e => e.active = false);
+            flyingPotions = [];
+        }
+
+        function startReplay(matchRecord) {
+            currentReplayingMatch = matchRecord;
+            resetAiGame(matchRecord.difficulty, matchRecord.gameMode || 'ai', matchRecord.playerSpecialDeck, matchRecord.opponentSpecialDeck);
+            aiGame.isReplay = true;
+            aiGame.recordedEvents = matchRecord.events || [];
+            aiGame.replayEventIndex = 0;
+            currentPage = 'ai';
+        }
+
+        function enterFullScreen() {
+            const docEl = document.documentElement;
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                if (docEl.requestFullscreen) docEl.requestFullscreen().catch(() => { });
+                else if (docEl.webkitRequestFullscreen) docEl.webkitRequestFullscreen();
+            }
+        }
+
+        function resizeAndDraw() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            const w = window.innerWidth, h = window.innerHeight;
+            canvas.width = w * dpr; canvas.height = h * dpr;
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(dpr, dpr);
+            initBgParticles(w, h);
+            drawAll(w, h);
+        }
+
+        window.addEventListener('resize', resizeAndDraw);
+
+        function getUserProfileBounds(w, h) {
+            const panelW = Math.min(360, w * 0.88);
+            const panelH = Math.max(54, Math.min(68, h * 0.088));
+            return { panelX: (w - panelW) / 2, panelY: Math.max(38, h * 0.15), panelW, panelH };
+        }
+
+        // --- DOCK VE SIRALAMA: 1. Halka (6), 2. Sıralama (2), 3. Geçmiş (1), 4. Ayarlar (0) ---
+        function getDockBounds(w, h) {
+            const dockH = Math.max(56, Math.min(72, h * 0.10));
+            const dockW = Math.min(360, w * 0.88);
+            const dockY = h - dockH - Math.max(16, h * 0.035);
+            const dockX = (w - dockW) / 2;
+            const dockBtnSize = dockH * 0.72;
+            const dockSlotW = dockW / 4;
+            const dockIndices = [6, 2, 1, 0];
+            const dockButtons = dockIndices.map((idxVal, i) => ({
+                index: idxVal, x: dockX + (i + 0.5) * dockSlotW - dockBtnSize / 2,
+                y: dockY + (dockH - dockBtnSize) / 2, size: dockBtnSize, isDock: true
+            }));
+            return { dockX, dockY, dockW, dockH, dockButtons };
+        }
+
+        function getMainButtonBounds(w, h) {
+            const { dockX, dockY, dockW, dockH, dockButtons } = getDockBounds(w, h);
+            const userProfile = getUserProfileBounds(w, h);
+            const spaceTop = userProfile.panelY + userProfile.panelH + 15;
+            const availH = dockY - 15 - spaceTop;
+            const centerX = w / 2, centerY = spaceTop + availH / 2;
+            const btnSize = Math.max(86, Math.min(124, Math.min(w * 0.28, availH * 0.28)));
+            const spreadX = Math.min(w * 0.58, btnSize * 1.76);
+            const triHeight = Math.min(availH * 0.54, btnSize * 1.54);
+
+            return {
+                dock: { x: dockX, y: dockY, w: dockW, h: dockH },
+                buttons: [
+                    ...dockButtons,
+                    { index: 3, x: centerX - btnSize / 2, y: (centerY - triHeight / 2) - btnSize / 2, size: btnSize },
+                    { index: 4, x: (centerX - spreadX / 2) - btnSize / 2, y: (centerY + triHeight / 2) - btnSize / 2, size: btnSize },
+                    { index: 5, x: (centerX + spreadX / 2) - btnSize / 2, y: (centerY + triHeight / 2) - btnSize / 2, size: btnSize }
+                ]
+            };
+        }
+
+        function getDockButtonIndexAt(cx, cy) {
+            const b = getDockBounds(window.innerWidth, window.innerHeight).dockButtons.find(b =>
+                cx >= b.x && cx <= b.x + b.size && cy >= b.y && cy <= b.y + b.size
+            );
+            return b ? b.index : -1;
+        }
+
+        function getButtonIndexAt(cx, cy) {
+            const { buttons } = getMainButtonBounds(window.innerWidth, window.innerHeight);
+            const b = buttons.find(b => cx >= b.x && cx <= b.x + b.size && cy >= b.y && cy <= b.y + b.size);
+            return b ? b.index : -1;
+        }
+
+        function getTopBackButtonBounds(w, h) {
+            const { dockY } = getDockBounds(w, h);
+            const size = 42;
+            return { x: 20, y: dockY - size - 12, size };
+        }
+
+        function isTopBackButtonAt(cx, cy) {
+            const { x, y, size } = getTopBackButtonBounds(window.innerWidth, window.innerHeight);
+            return cx >= x && cx <= x + size && cy >= y && cy <= y + size;
+        }
+
+        function isBackButtonAt(cx, cy) {
+            const w = window.innerWidth, h = window.innerHeight;
+            const btnSize = Math.max(50, Math.min(w, h) * 0.15);
+            const btnX = w - btnSize - 20;
+            const btnY = (currentPage === 'ai') ? getAiPageButtonPositions(w, h).backBtnY : (h * 0.9 - btnSize);
+            return cx >= btnX && cx <= btnX + btnSize && cy >= btnY && cy <= btnY + btnSize;
+        }
+
+        function isPauseButtonAt(cx, cy) {
+            const { btnSize, btnX, pauseBtnY } = getAiPageButtonPositions(window.innerWidth, window.innerHeight);
+            return cx >= btnX && cx <= btnX + btnSize && cy >= pauseBtnY && cy <= pauseBtnY + btnSize;
+        }
+
+        function isPanelBackButtonAt(cx, cy) {
+            const w = window.innerWidth * 0.8, h = window.innerHeight * 0.8;
+            const px = (window.innerWidth - w) / 2, py = (window.innerHeight - h) / 2;
+            const size = Math.max(40, Math.min(w, h) * 0.12);
+            return cx >= px + w - size - 15 && cx <= px + w - 15 && cy >= py + h - size - 15 && cy <= py + h - 15;
+        }
+
+        function isUnsupportedPanelBackButtonAt(cx, cy) {
+            const pw = Math.min(420, window.innerWidth * 0.85), ph = Math.min(220, window.innerHeight * 0.4);
+            const px = (window.innerWidth - pw) / 2, py = (window.innerHeight - ph) / 2;
+            const size = Math.max(36, Math.min(pw, ph) * 0.18);
+            return cx >= px + pw - size - 12 && cx <= px + pw - 12 && cy >= py + ph - size - 12 && cy <= py + ph - 12;
+        }
+
+        function getDualMenuButtonClick(cx, cy, boundsGetter) {
+            const { btnW, btnH, btnY, b1X, b2X } = boundsGetter(window.innerWidth, window.innerHeight);
+            if (cy >= btnY && cy <= btnY + btnH) {
+                if (cx >= b1X && cx <= b1X + btnW) return 'first';
+                if (cx >= b2X && cx <= b2X + btnW) return 'second';
+            }
+            return null;
+        }
+
+        function getGameOverButtonBounds(w, h) {
+            const btnW = Math.min(150, w * 0.38), gap = 16;
+            return { btnW, btnH: 46, btnY: h / 2 + 15, b1X: w / 2 - btnW - gap / 2, b2X: w / 2 + gap / 2 };
+        }
+
+        function getPauseMenuButtonBounds(w, h) {
+            const btnW = Math.min(150, w * 0.38), gap = 16;
+            return { btnW, btnH: 46, btnY: h / 2 + 15, b1X: w / 2 - btnW - gap / 2, b2X: w / 2 + gap / 2 };
+        }
+
+        function getCardAtGrid(cx, cy, cards, isPlayer) {
+            const w = window.innerWidth, h = window.innerHeight;
+            const areaY = isPlayer ? h * 0.80 : 0;
+            const areaH = h * 0.20;
+            if (isPlayer ? (cy < areaY) : (cy > areaH)) return null;
+
+            const cellW = w / 5, cardRadius = w / 16, maxSq = (cardRadius * 1.4) ** 2;
+            for (let c of cards) {
+                if (c === null || c === undefined) continue;
+                const val = getCardValue(c);
+                const col = val % 5, row = Math.floor(val / 5);
+                const itemX = (col + 0.5) * cellW;
+                const itemY = isPlayer ? getCardRowY(row, areaY, areaH, cardRadius) : getOpponentCardRowY(row, 0, areaH, cardRadius);
+                if ((cx - itemX) ** 2 + (cy - itemY) ** 2 <= maxSq) return val;
+            }
+            return null;
+        }
+
+        function getSettingsDeckItemAt(cx, cy, w, h) {
+            const topY = Math.max(92, h * 0.125), panelW = Math.min(420, w * 0.92);
+            const panelX = (w - panelW) / 2, slotW = (panelW - 24) / 5, slotR = Math.min(20, slotW * 0.36);
+            const activeSlotsY = topY + 48;
+
+            for (let i = 0; i < 5; i++) {
+                const scx = panelX + 12 + (i + 0.5) * slotW;
+                if ((cx - scx) ** 2 + (cy - activeSlotsY) ** 2 <= (slotR * 1.5) ** 2) {
+                    return { type: 'deck', index: i, cx: scx, cy: activeSlotsY, radius: slotR };
+                }
+            }
+
+            const allKeys = Object.keys(ALL_SPECIAL_CARDS_MAP);
+            const poolR = Math.min(18, slotW * 0.32), poolStartY = topY + 144;
+            for (let i = 0; i < allKeys.length; i++) {
+                const pcx = panelX + 12 + ((i % 5) + 0.5) * slotW;
+                const pcy = poolStartY + Math.floor(i / 5) * (poolR * 2 + 14);
+                if ((cx - pcx) ** 2 + (cy - pcy) ** 2 <= (poolR * 1.5) ** 2) {
+                    return { type: 'pool', id: allKeys[i], cx: pcx, cy: pcy, radius: poolR };
+                }
+            }
+            return null;
+        }
+
+        // --- AYARLAR SAYFASI TOGGLE BUTON TIKLAMA HESABI ---
+        function getAppSettingsClick(cx, cy, w, h) {
+            if (currentPage !== 'rings') return null;
+            const topY = Math.max(92, h * 0.13), itemH = 64, gap = 14;
+            const panelW = Math.min(420, w * 0.90), panelX = (w - panelW) / 2;
+
+            for (let i = 0; i < 3; i++) {
+                const curY = topY + i * (itemH + gap);
+                const tw = i === 0 ? 90 : 64, th = 34;
+                const tx = panelX + panelW - tw - 16, ty = curY + (itemH - th) / 2;
+                if (cx >= tx && cx <= tx + tw && cy >= ty && cy <= ty + th) {
+                    if (i === 0) return 'lang';
+                    if (i === 1) return 'sound';
+                    if (i === 2) return 'vibration';
+                }
+            }
+            return null;
+        }
+
+        function getHistoryItemCameraClick(cx, cy, w, h) {
+            const history = loadMatchHistory();
+            const topY = Math.max(90, h * 0.14), itemH = 68, gap = 12, itemW = Math.min(420, w * 0.90);
+            const itemX = (w - itemW) / 2;
+
+            for (let i = 0; i < history.length; i++) {
+                const curY = topY + i * (itemH + gap) - historyScrollY;
+                if (curY + itemH < topY - 20 || curY > h * 0.85) continue;
+                const camX = itemX + itemW - 54, camY = curY + 13;
+                if (cx >= camX && cx <= camX + 42 && cy >= camY && cy <= camY + 42) return history[i];
+            }
+            return null;
+        }
+
+        // --- POINTER EVENTLERİ ---
+        canvas.addEventListener('pointerdown', (event) => {
+            enterFullScreen();
+
+            if (isUnsupportedModalOpen) {
+                if (isUnsupportedPanelBackButtonAt(event.clientX, event.clientY)) activeIndex = 92;
+                drawAll(window.innerWidth, window.innerHeight);
+                return;
+            }
+
+            if (isScreenUnsupported(window.innerWidth, window.innerHeight)) {
+                isUnsupportedModalOpen = true;
+                drawAll(window.innerWidth, window.innerHeight);
+                return;
+            }
+
+            if (isAiDifficultyModalOpen) {
+                const b = getAiDifficultyModalBounds(window.innerWidth, window.innerHeight);
+                if (event.clientX >= b.b1X && event.clientX <= b.b1X + b.btnW && event.clientY >= b.b1Y && event.clientY <= b.b1Y + b.btnH) activeIndex = 89;
+                else if (event.clientX >= b.b2X && event.clientX <= b.b2X + b.btnW && event.clientY >= b.b2Y && event.clientY <= b.b2Y + b.btnH) activeIndex = 90;
+                else if (event.clientX < b.panelX || event.clientX > b.panelX + b.panelWidth || event.clientY < b.panelY || event.clientY > b.panelY + b.panelHeight) activeIndex = 87;
+                drawAll(window.innerWidth, window.innerHeight);
+                return;
+            }
+
+            if (isSwordModalOpen) {
+                const b = getSwordModalBounds(window.innerWidth, window.innerHeight);
+                if (event.clientX >= b.pvpB1X && event.clientX <= b.pvpB1X + b.btnW && event.clientY >= b.pvpB1Y && event.clientY <= b.pvpB1Y + b.btnH) activeIndex = 80;
+                else if (event.clientX >= b.pvpB2X && event.clientX <= b.pvpB2X + b.btnW && event.clientY >= b.pvpB2Y && event.clientY <= b.pvpB2Y + b.btnH) activeIndex = 81;
+                else if (event.clientX >= b.onB1X && event.clientX <= b.onB1X + b.btnW && event.clientY >= b.onB1Y && event.clientY <= b.onB1Y + b.btnH) activeIndex = 82;
+                else if (event.clientX >= b.onB2X && event.clientX <= b.onB2X + b.btnW && event.clientY >= b.onB2Y && event.clientY <= b.onB2Y + b.btnH) activeIndex = 83;
+                else if (event.clientX < b.panelX || event.clientX > b.panelX + b.panelWidth || event.clientY < b.panelY || event.clientY > b.panelY + b.panelHeight) activeIndex = 84;
+                drawAll(window.innerWidth, window.innerHeight);
+                return;
+            }
+
+            const isDockPage = ['main', 'settings', 'history', 'ranking', 'rings'].includes(currentPage);
+            if (isFriendsPanelOpen) {
+                if (isPanelBackButtonAt(event.clientX, event.clientY)) activeIndex = 98;
+            } else if (isDockPage) {
+                const dockIdx = getDockButtonIndexAt(event.clientX, event.clientY);
+                if (dockIdx !== -1) activeIndex = dockIdx;
+                else if (currentPage === 'main') activeIndex = getButtonIndexAt(event.clientX, event.clientY);
+                else {
+                    if (isTopBackButtonAt(event.clientX, event.clientY)) activeIndex = 100;
+                    else if (currentPage === 'history') {
+                        const m = getHistoryItemCameraClick(event.clientX, event.clientY, window.innerWidth, window.innerHeight);
+                        if (m) { startReplay(m); return; }
+                        historyTouchStartY = event.clientY; historyInitialScrollY = historyScrollY; historyIsScrolling = true;
+                    } else if (currentPage === 'settings') {
+                        const hit = getSettingsDeckItemAt(event.clientX, event.clientY, window.innerWidth, window.innerHeight);
+                        if (hit && hit.type === 'pool') {
+                            settingsDraggingCardId = hit.id; settingsDragX = event.clientX; settingsDragY = event.clientY;
+                        } else {
+                            settingsTouchStartY = event.clientY; settingsInitialScrollY = settingsScrollY; settingsIsScrolling = true;
+                        }
+                    } else if (currentPage === 'rings') {
+                        const clickedSetting = getAppSettingsClick(event.clientX, event.clientY, window.innerWidth, window.innerHeight);
+                        if (clickedSetting === 'lang') {
+                            appSettings.lang = (appSettings.lang === 'TR') ? 'EN' : 'TR';
+                            drawAll(window.innerWidth, window.innerHeight);
+                            return;
+                        } else if (clickedSetting === 'sound') {
+                            appSettings.sound = !appSettings.sound;
+                            drawAll(window.innerWidth, window.innerHeight);
+                            return;
+                        } else if (clickedSetting === 'vibration') {
+                            appSettings.vibration = !appSettings.vibration;
+                            drawAll(window.innerWidth, window.innerHeight);
+                            return;
+                        }
+                    }
+                }
+            } else if (currentPage === 'ai') {
+                if (aiGame.isPaused) {
+                    const click = getDualMenuButtonClick(event.clientX, event.clientY, getPauseMenuButtonBounds);
+                    if (click === 'first') activeIndex = 94;
+                    else if (click === 'second') activeIndex = 93;
+                } else if (aiGame.gameOver) {
+                    const click = getDualMenuButtonClick(event.clientX, event.clientY, getGameOverButtonBounds);
+                    if (click === 'first') activeIndex = 97;
+                    else if (click === 'second') activeIndex = 96;
+                } else if (!aiGame.isEnding) {
+                    if (isPauseButtonAt(event.clientX, event.clientY)) activeIndex = 95;
+                    else if (isBackButtonAt(event.clientX, event.clientY)) activeIndex = 99;
+                    else if (!aiGame.isReplay) {
+                        const w = window.innerWidth, h = window.innerHeight, cardRadius = w / 16;
+                        const isBottom = event.clientY >= h * 0.50;
+
+                        if (isBottom) {
+                            aiGame.playerPointerId = event.pointerId;
+                            aiGame.touchStartX = event.clientX; aiGame.touchStartY = event.clientY;
+                            aiGame.initialScrollX = aiGame.scrollX; aiGame.isScrolling = false;
+                            aiGame.isRow0Touched = false; aiGame.touchingCardIndex = null;
+                            aiGame.dragX = event.clientX; aiGame.dragY = event.clientY;
+
+                            if (aiGame.difficulty === 'gelişmiş') {
+                                const row0Y = getCardRowY(0, h * 0.80, h * 0.20, cardRadius);
+                                const row1Y = getCardRowY(1, h * 0.80, h * 0.20, cardRadius);
+
+                                if (Math.abs(event.clientY - row1Y) <= cardRadius * 1.5 && aiGame.specialChargesCount > 0) {
+                                    const spIdx = Math.floor(event.clientX / (w / 5));
+                                    if (spIdx >= 0 && spIdx < 5 && !aiGame.specialCards[spIdx].used) aiGame.draggingSpecialIndex = spIdx;
+                                }
+
+                                if (Math.abs(event.clientY - row0Y) <= cardRadius * 1.8) {
+                                    aiGame.isRow0Touched = true;
+                                    if (aiGame.playerRights > 0) {
+                                        const startX = cardRadius * 2.5 - aiGame.scrollX;
+                                        aiGame.touchingCardIndex = aiGame.playerCards.findIndex((c, i) =>
+                                            c !== null && (event.clientX - (startX + i * cardRadius * 2.4)) ** 2 + (event.clientY - row0Y) ** 2 <= (cardRadius * 1.4) ** 2
+                                        );
+                                        if (aiGame.touchingCardIndex === -1) aiGame.touchingCardIndex = null;
+                                    }
+                                }
+                            } else if (aiGame.playerRights > 0) {
+                                aiGame.draggingCardValue = getCardAtGrid(event.clientX, event.clientY, aiGame.playerCards, true);
+                            }
+                        } else if (aiGame.gameMode === 'pvp_local') {
+                            aiGame.opponentPointerId = event.pointerId;
+                            aiGame.opponentTouchStartX = event.clientX; aiGame.opponentTouchStartY = event.clientY;
+                            aiGame.opponentInitialScrollX = aiGame.opponentScrollX; aiGame.opponentIsScrolling = false;
+                            aiGame.opponentIsRow1Touched = false; aiGame.opponentTouchingCardIndex = null;
+                            aiGame.opponentDragX = event.clientX; aiGame.opponentDragY = event.clientY;
+
+                            if (aiGame.difficulty === 'gelişmiş') {
+                                const oppRow0Y = getOpponentCardRowY(0, 0, h * 0.20, cardRadius);
+                                const oppRow1Y = getOpponentCardRowY(1, 0, h * 0.20, cardRadius);
+
+                                if (Math.abs(event.clientY - oppRow0Y) <= cardRadius * 1.5 && aiGame.opponentSpecialChargesCount > 0) {
+                                    const spIdx = Math.floor(event.clientX / (w / 5));
+                                    if (spIdx >= 0 && spIdx < 5 && !aiGame.opponentSpecialCards[spIdx].used) aiGame.opponentDraggingSpecialIndex = spIdx;
+                                }
+
+                                if (Math.abs(event.clientY - oppRow1Y) <= cardRadius * 1.8) {
+                                    aiGame.opponentIsRow1Touched = true;
+                                    if (aiGame.opponentRights > 0) {
+                                        const startX = cardRadius * 2.5 - aiGame.opponentScrollX;
+                                        aiGame.opponentTouchingCardIndex = aiGame.opponentCards.findIndex((c, i) =>
+                                            c !== null && (event.clientX - (startX + i * cardRadius * 2.4)) ** 2 + (event.clientY - oppRow1Y) ** 2 <= (cardRadius * 1.4) ** 2
+                                        );
+                                        if (aiGame.opponentTouchingCardIndex === -1) aiGame.opponentTouchingCardIndex = null;
+                                    }
+                                }
+                            } else if (aiGame.opponentRights > 0) {
+                                aiGame.opponentDraggingCardValue = getCardAtGrid(event.clientX, event.clientY, aiGame.opponentCards, false);
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (isTopBackButtonAt(event.clientX, event.clientY)) activeIndex = 100;
+                else if (isBackButtonAt(event.clientX, event.clientY)) activeIndex = 99;
+            }
+
+            if (activeIndex !== -1) drawAll(window.innerWidth, window.innerHeight);
+        });
+
+        canvas.addEventListener('pointermove', (event) => {
+            if (isUnsupportedModalOpen || isAiDifficultyModalOpen || isSwordModalOpen) return;
+
+            if (currentPage === 'history' && historyIsScrolling) {
+                const totalH = Math.max(90, window.innerHeight * 0.14) + loadMatchHistory().length * 80 + 160;
+                historyScrollY = Math.max(0, Math.min(Math.max(0, totalH - window.innerHeight), historyInitialScrollY - (event.clientY - historyTouchStartY)));
+                return;
+            }
+
+            if (currentPage === 'settings') {
+                if (settingsDraggingCardId) {
+                    settingsDragX = event.clientX; settingsDragY = event.clientY;
+                } else if (settingsIsScrolling) {
+                    const { dockY } = getDockBounds(window.innerWidth, window.innerHeight);
+                    const guideY = Math.max(92, window.innerHeight * 0.125) + 236;
+                    const guideH = dockY - guideY - 14;
+                    const totalListH = Object.keys(ALL_SPECIAL_CARDS_MAP).length * 74 + 10;
+                    const maxScroll = Math.max(0, totalListH - guideH);
+
+                    settingsScrollY = Math.max(0, Math.min(maxScroll, settingsInitialScrollY - (event.clientY - settingsTouchStartY)));
+                }
+                return;
+            }
+
+            if (currentPage === 'ai' && !aiGame.isPaused && !aiGame.isEnding && !aiGame.isReplay) {
+                const w = window.innerWidth, cardRadius = w / 16, gap = cardRadius * 2.4;
+
+                if (event.pointerId === aiGame.playerPointerId) {
+                    aiGame.dragX = event.clientX; aiGame.dragY = event.clientY;
+                    if (aiGame.difficulty === 'gelişmiş' && aiGame.isRow0Touched && aiGame.draggingSpecialIndex === null) {
+                        const dx = event.clientX - aiGame.touchStartX, dy = event.clientY - aiGame.touchStartY;
+                        if (dy < -15 && !aiGame.isScrolling && aiGame.touchingCardIndex !== null) {
+                            aiGame.draggingCardIndex = aiGame.touchingCardIndex;
+                            aiGame.draggingCardValue = aiGame.playerCards[aiGame.draggingCardIndex]?.val ?? null;
+                            aiGame.touchingCardIndex = null; aiGame.isRow0Touched = false;
+                        } else if (Math.abs(dx) > 8 || aiGame.isScrolling) {
+                            aiGame.isScrolling = true;
+                            const maxScroll = Math.max(0, cardRadius * 5.0 + (aiGame.playerCards.length - 1) * gap - w);
+                            aiGame.scrollX = Math.max(0, Math.min(maxScroll, aiGame.initialScrollX - dx));
+                        }
+                    }
+                }
+
+                if (aiGame.gameMode === 'pvp_local' && event.pointerId === aiGame.opponentPointerId) {
+                    aiGame.opponentDragX = event.clientX; aiGame.opponentDragY = event.clientY;
+                    if (aiGame.difficulty === 'gelişmiş' && aiGame.opponentIsRow1Touched && aiGame.opponentDraggingSpecialIndex === null) {
+                        const dx = event.clientX - aiGame.opponentTouchStartX, dy = event.clientY - aiGame.opponentTouchStartY;
+                        if (dy > 15 && !aiGame.opponentIsScrolling && aiGame.opponentTouchingCardIndex !== null) {
+                            aiGame.opponentDraggingCardIndex = aiGame.opponentTouchingCardIndex;
+                            aiGame.opponentDraggingCardValue = aiGame.opponentCards[aiGame.opponentDraggingCardIndex]?.val ?? null;
+                            aiGame.opponentTouchingCardIndex = null; aiGame.opponentIsRow1Touched = false;
+                        } else if (Math.abs(dx) > 8 || aiGame.opponentIsScrolling) {
+                            aiGame.opponentIsScrolling = true;
+                            const maxScroll = Math.max(0, cardRadius * 5.0 + (aiGame.opponentCards.length - 1) * gap - w);
+                            aiGame.opponentScrollX = Math.max(0, Math.min(maxScroll, aiGame.opponentInitialScrollX - dx));
+                            aiGame.opponentScrollTargetX = aiGame.opponentScrollX;
+                        }
+                    }
+                }
+            }
+        });
+
+        canvas.addEventListener('pointerup', (event) => {
+            historyIsScrolling = false;
+
+            if (currentPage === 'settings' && settingsDraggingCardId) {
+                const hit = getSettingsDeckItemAt(event.clientX, event.clientY, window.innerWidth, window.innerHeight);
+                if (hit && hit.type === 'deck') {
+                    const oldIdx = playerSelectedDeck.indexOf(settingsDraggingCardId);
+                    if (oldIdx !== -1) playerSelectedDeck[oldIdx] = playerSelectedDeck[hit.index];
+                    playerSelectedDeck[hit.index] = settingsDraggingCardId;
+                    savePlayerCustomDeck(playerSelectedDeck);
+                    createExplosion(hit.cx, hit.cy, ALL_SPECIAL_CARDS_MAP[settingsDraggingCardId].color);
+                }
+                settingsDraggingCardId = null; settingsIsScrolling = false;
+                drawAll(window.innerWidth, window.innerHeight);
+            }
+
+            if (isUnsupportedModalOpen) {
+                if (activeIndex === 92 && isUnsupportedPanelBackButtonAt(event.clientX, event.clientY)) isUnsupportedModalOpen = false;
+                activeIndex = -1; drawAll(window.innerWidth, window.innerHeight); return;
+            }
+
+            if (isAiDifficultyModalOpen) {
+                if (activeIndex === 89) { isAiDifficultyModalOpen = false; currentPage = 'ai'; resetAiGame('baslangic', 'ai'); }
+                else if (activeIndex === 90) { isAiDifficultyModalOpen = false; currentPage = 'ai'; resetAiGame('gelişmiş', 'ai'); }
+                else if (activeIndex === 87) isAiDifficultyModalOpen = false;
+                activeIndex = -1; drawAll(window.innerWidth, window.innerHeight); return;
+            }
+
+            if (isSwordModalOpen) {
+                if (activeIndex === 80) { isSwordModalOpen = false; currentPage = 'ai'; resetAiGame('baslangic', 'pvp_local'); }
+                else if (activeIndex === 81) { isSwordModalOpen = false; currentPage = 'ai'; resetAiGame('gelişmiş', 'pvp_local'); }
+                else if (activeIndex === 84) isSwordModalOpen = false;
+                activeIndex = -1; drawAll(window.innerWidth, window.innerHeight); return;
+            }
+
+            if (currentPage === 'ai') {
+                if (aiGame.isPaused) {
+                    const click = getDualMenuButtonClick(event.clientX, event.clientY, getPauseMenuButtonBounds);
+                    if ((click === 'first' || activeIndex === 94) && (click === 'first')) {
+                        aiGame.isPaused = false;
+                    } else if ((click === 'second' || activeIndex === 93) && (click === 'second')) {
+                        currentPage = aiGame.isReplay ? 'history' : 'main';
+                        resetAiGame();
+                    }
+                    activeIndex = -1; drawAll(window.innerWidth, window.innerHeight); return;
+                }
+
+                if (aiGame.gameOver) {
+                    const click = getDualMenuButtonClick(event.clientX, event.clientY, getGameOverButtonBounds);
+                    if (click === 'first' || activeIndex === 97) {
+                        if (aiGame.isReplay && currentReplayingMatch) startReplay(currentReplayingMatch);
+                        else resetAiGame();
+                    } else if (click === 'second' || activeIndex === 96) {
+                        currentPage = aiGame.isReplay ? 'history' : 'main';
+                        resetAiGame();
+                    }
+                    activeIndex = -1; drawAll(window.innerWidth, window.innerHeight); return;
+                }
+
+                if (activeIndex === 95 && isPauseButtonAt(event.clientX, event.clientY)) {
+                    aiGame.isPaused = true; activeIndex = -1; drawAll(window.innerWidth, window.innerHeight); return;
+                }
+
+                if (!aiGame.isEnding && !aiGame.isReplay) {
+                    const h = window.innerHeight, w = window.innerWidth, cardRadius = w / 16;
+
+                    // 1. Oyuncu Bırakma
+                    if (event.pointerId === aiGame.playerPointerId) {
+                        if (aiGame.difficulty === 'gelişmiş' && aiGame.draggingSpecialIndex !== null) {
+                            const row0Y = getCardRowY(0, h * 0.80, h * 0.20, cardRadius);
+                            if (Math.abs(event.clientY - row0Y) <= cardRadius * 2) {
+                                const startX = cardRadius * 2.5 - aiGame.scrollX;
+                                for (let i = 0; i < aiGame.playerCards.length; i++) {
+                                    const c = aiGame.playerCards[i];
+                                    if (c && Math.abs(event.clientX - (startX + i * cardRadius * 2.4)) <= cardRadius * 1.3) {
+                                        const sp = aiGame.specialCards[aiGame.draggingSpecialIndex];
+                                        if (applySpecialToCard(c, sp)) {
+                                            aiGame.specialChargesCount = Math.max(0, aiGame.specialChargesCount - 1);
+                                            aiGame.totalChargeUses++;
+                                            createExplosion(startX + i * cardRadius * 2.4, row0Y, sp.color);
+                                            recordEvent('player_apply_special', { cardIndex: i, specialIndex: aiGame.draggingSpecialIndex, specialId: sp.id, newVal: c.val });
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            aiGame.draggingSpecialIndex = null;
+                        }
+
+                        if (aiGame.draggingCardValue !== null || aiGame.draggingCardIndex !== null) {
+                            const timeSinceLastPlay = aiGame.timer - aiGame.lastPlayerCardPlayTime;
+
+                            if (event.clientY < h * 0.80 && aiGame.playerRights > 0 && timeSinceLastPlay >= 1.0) {
+                                if (aiGame.difficulty === 'gelişmiş' && aiGame.draggingCardIndex !== null) {
+                                    const c = aiGame.playerCards[aiGame.draggingCardIndex];
+                                    if (c) {
+                                        spawnActiveCard('player', c.val, event.clientX, c.double ? 2.0 : (c.half ? 0.5 : 1.0), c);
+                                        recordEvent('player_play_card_advanced', { cardIndex: aiGame.draggingCardIndex, cardVal: c.val, x: event.clientX, radiusMultiplier: c.double ? 2.0 : (c.half ? 0.5 : 1.0), isMirror: c.mirror, isGhost: c.ghost, hasShield: c.shield, hasPotionPlus: c.potion_plus, hasPotionMinus: c.potion_minus, seq: c.seq });
+                                        aiGame.playerCards[aiGame.draggingCardIndex] = null;
+                                        aiGame.playerRights--; aiGame.lastPlayerCardPlayTime = aiGame.timer;
+                                        if (!aiGame.playerCards.some(c => c !== null) && !aiGame.gameOver && !aiGame.isEnding) aiGame.playerCards = generateFullDeck(true);
+                                    }
+                                } else if (typeof aiGame.draggingCardValue === 'number') {
+                                    spawnActiveCard('player', aiGame.draggingCardValue, event.clientX, 1.0, null, true);
+                                    recordEvent('player_play_card_standard', { value: aiGame.draggingCardValue, x: event.clientX });
+                                    aiGame.playerCards = aiGame.playerCards.filter(c => getCardValue(c) !== aiGame.draggingCardValue);
+                                    aiGame.playerRights--; aiGame.lastPlayerCardPlayTime = aiGame.timer;
+                                    if (aiGame.playerCards.length === 0 && !aiGame.gameOver && !aiGame.isEnding) aiGame.playerCards = generateFullDeck(false);
+                                }
+                            }
+                            aiGame.draggingCardValue = null;
+                            aiGame.draggingCardIndex = null;
+                        }
+
+                        aiGame.touchingCardIndex = null;
+                        aiGame.isScrolling = false;
+                        aiGame.isRow0Touched = false;
+                        aiGame.playerPointerId = null;
+                    }
+
+                    // 2. Oyuncu (PvP) Bırakma
+                    if (aiGame.gameMode === 'pvp_local' && event.pointerId === aiGame.opponentPointerId) {
+                        if (aiGame.difficulty === 'gelişmiş' && aiGame.opponentDraggingSpecialIndex !== null) {
+                            const oppRow1Y = getOpponentCardRowY(1, 0, h * 0.20, cardRadius);
+                            if (Math.abs(event.clientY - oppRow1Y) <= cardRadius * 2) {
+                                const startX = cardRadius * 2.5 - aiGame.opponentScrollX;
+                                for (let i = 0; i < aiGame.opponentCards.length; i++) {
+                                    const c = aiGame.opponentCards[i];
+                                    if (c && Math.abs(event.clientX - (startX + i * cardRadius * 2.4)) <= cardRadius * 1.3) {
+                                        const sp = aiGame.opponentSpecialCards[aiGame.opponentDraggingSpecialIndex];
+                                        if (applySpecialToCard(c, sp)) {
+                                            aiGame.opponentSpecialChargesCount = Math.max(0, aiGame.opponentSpecialChargesCount - 1);
+                                            aiGame.opponentTotalChargeUses++;
+                                            createExplosion(startX + i * cardRadius * 2.4, oppRow1Y, sp.color);
+                                            recordEvent('ai_apply_special', { cardIndex: i, specialId: sp.id, newVal: c.val });
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            aiGame.opponentDraggingSpecialIndex = null;
+                        }
+
+                        if (aiGame.opponentDraggingCardValue !== null || aiGame.opponentDraggingCardIndex !== null) {
+                            const timeSinceLastOppPlay = aiGame.timer - aiGame.lastOpponentCardPlayTime;
+
+                            if (event.clientY > h * 0.20 && aiGame.opponentRights > 0 && timeSinceLastOppPlay >= 1.0) {
+                                if (aiGame.difficulty === 'gelişmiş' && aiGame.opponentDraggingCardIndex !== null) {
+                                    const c = aiGame.opponentCards[aiGame.opponentDraggingCardIndex];
+                                    if (c) {
+                                        spawnActiveCard('opponent', c.val, event.clientX, c.double ? 2.0 : (c.half ? 0.5 : 1.0), c);
+                                        recordEvent('ai_play_card_advanced', { cardIndex: aiGame.opponentDraggingCardIndex, cardVal: c.val, x: event.clientX, radiusMultiplier: c.double ? 2.0 : (c.half ? 0.5 : 1.0), isMirror: c.mirror, isGhost: c.ghost, hasShield: c.shield, hasPotionPlus: c.potion_plus, hasPotionMinus: c.potion_minus, seq: c.seq });
+                                        aiGame.opponentCards[aiGame.opponentDraggingCardIndex] = null;
+                                        aiGame.opponentRights--; aiGame.lastOpponentCardPlayTime = aiGame.timer;
+                                        if (!aiGame.opponentCards.some(c => c !== null) && !aiGame.gameOver && !aiGame.isEnding) aiGame.opponentCards = generateFullDeck(true);
+                                    }
+                                } else if (typeof aiGame.opponentDraggingCardValue === 'number') {
+                                    spawnActiveCard('opponent', aiGame.opponentDraggingCardValue, event.clientX, 1.0, null, true);
+                                    recordEvent('ai_play_card_standard', { value: aiGame.opponentDraggingCardValue, x: event.clientX });
+                                    aiGame.opponentCards = aiGame.opponentCards.filter(c => getCardValue(c) !== aiGame.opponentDraggingCardValue);
+                                    aiGame.opponentRights--; aiGame.lastOpponentCardPlayTime = aiGame.timer;
+                                    if (aiGame.opponentCards.length === 0 && !aiGame.gameOver && !aiGame.isEnding) aiGame.opponentCards = generateFullDeck(false);
+                                }
+                            }
+                            aiGame.opponentDraggingCardValue = null;
+                            aiGame.opponentDraggingCardIndex = null;
+                        }
+
+                        aiGame.opponentTouchingCardIndex = null;
+                        aiGame.opponentIsScrolling = false;
+                        aiGame.opponentIsRow1Touched = false;
+                        aiGame.opponentPointerId = null;
+                    }
+                }
+            }
+
+            if (activeIndex !== -1) {
+                if (isFriendsPanelOpen && activeIndex === 98 && isPanelBackButtonAt(event.clientX, event.clientY)) isFriendsPanelOpen = false;
+                else if (['main', 'settings', 'history', 'ranking', 'rings'].includes(currentPage)) {
+                    if (activeIndex === 6) { currentPage = 'settings'; settingsScrollY = 0; }
+                    else if (activeIndex === 0) currentPage = 'rings';
+                    else if (activeIndex === 1) { currentPage = 'history'; historyScrollY = 0; }
+                    else if (activeIndex === 2) currentPage = 'ranking';
+                    else if (activeIndex === 100) currentPage = 'main';
+                    else if (currentPage === 'main' && getButtonIndexAt(event.clientX, event.clientY) === activeIndex) {
+                        if (activeIndex === 3) isFriendsPanelOpen = true;
+                        else if (activeIndex === 4) isAiDifficultyModalOpen = true;
+                        else if (activeIndex === 5) isSwordModalOpen = true;
+                    }
+                } else if (activeIndex === 99 && isBackButtonAt(event.clientX, event.clientY)) {
+                    currentPage = aiGame.isReplay ? 'history' : 'main';
+                    if (aiGame.isReplay) resetAiGame();
+                } else if (activeIndex === 100 && isTopBackButtonAt(event.clientX, event.clientY)) {
+                    currentPage = 'main';
+                }
+                activeIndex = -1;
+                drawAll(window.innerWidth, window.innerHeight);
+            }
+        });
+
+        function handlePointerCancel() {
+            ['playerPointerId', 'draggingCardValue', 'draggingCardIndex', 'draggingSpecialIndex', 'touchingCardIndex',
+                'opponentPointerId', 'opponentDraggingCardValue', 'opponentDraggingCardIndex', 'opponentDraggingSpecialIndex',
+                'opponentTouchingCardIndex'].forEach(k => aiGame[k] = null);
+            aiGame.isScrolling = false; aiGame.isRow0Touched = false;
+            aiGame.opponentIsScrolling = false; aiGame.opponentIsRow1Touched = false;
+            settingsDraggingCardId = null; settingsIsScrolling = false; historyIsScrolling = false;
+            if (activeIndex !== -1) { activeIndex = -1; drawAll(window.innerWidth, window.innerHeight); }
+        }
+
+        canvas.addEventListener('pointercancel', handlePointerCancel);
+        canvas.addEventListener('pointerout', e => e.pointerType === 'mouse' && handlePointerCancel());
+
+        // --- DÖNGÜ & MOTOR GÜNCELLEMESİ ---
+        function updateAiGame(dt) {
+            if (aiGame.isPaused || aiGame.gameOver) return;
+            const w = window.innerWidth, h = window.innerHeight;
+
+            updateBgParticles(dt, w, h);
+            updateVialBubbles(dt);
+
+            for (let i = flyingPotions.length - 1; i >= 0; i--) {
+                const p = flyingPotions[i];
+                p.progress += dt / p.duration;
+                const t = Math.min(1, p.progress);
+
+                const u = 1 - t;
+                p.currentX = u * u * p.startX + 2 * u * t * p.cpX + t * t * p.targetX;
+                p.currentY = u * u * p.startY + 2 * u * t * p.cpY + t * t * p.targetY;
+
+                p.trail.push({ x: p.currentX, y: p.currentY, alpha: 0.8 });
+                if (p.trail.length > 6) p.trail.shift();
+                p.trail.forEach(pt => pt.alpha = Math.max(0, pt.alpha - dt * 2));
+
+                if (p.progress >= 1) {
+                    if (p.targetOwner === 'player') {
+                        aiGame.playerRights = Math.max(0, aiGame.playerRights + p.amount);
+                    } else {
+                        aiGame.opponentRights = Math.max(0, aiGame.opponentRights + p.amount);
+                    }
+                    createExplosion(p.targetX, p.targetY, p.color);
+                    flyingPotions.splice(i, 1);
+                }
+            }
+
+            if (aiGame.isReplay) {
+                while (aiGame.replayEventIndex < aiGame.recordedEvents.length && aiGame.timer >= aiGame.recordedEvents[aiGame.replayEventIndex].time) {
+                    const ev = aiGame.recordedEvents[aiGame.replayEventIndex];
+                    if (ev.type.includes('standard')) {
+                        const isPl = ev.type.startsWith('player');
+                        spawnActiveCard(isPl ? 'player' : 'opponent', ev.data.value, ev.data.x, 1.0, null, true);
+                        const deck = isPl ? aiGame.playerCards : aiGame.opponentCards;
+                        const idx = deck.indexOf(ev.data.value);
+                        if (idx !== -1) deck.splice(idx, 1);
+                        if (deck.length === 0) { if (isPl) aiGame.playerCards = generateFullDeck(false); else aiGame.opponentCards = generateFullDeck(false); }
+                        if (isPl) aiGame.playerRights = Math.max(0, aiGame.playerRights - 1); else aiGame.opponentRights = Math.max(0, aiGame.opponentRights - 1);
+                    } else if (ev.type.includes('advanced')) {
+                        const isPl = ev.type.startsWith('player');
+                        spawnActiveCard(isPl ? 'player' : 'opponent', ev.data.cardVal, ev.data.x, ev.data.radiusMultiplier, ev.data);
+                        const deck = isPl ? aiGame.playerCards : aiGame.opponentCards;
+                        if (deck[ev.data.cardIndex]) deck[ev.data.cardIndex] = null;
+                        if (isPl) aiGame.playerRights = Math.max(0, aiGame.playerRights - 1); else aiGame.opponentRights = Math.max(0, aiGame.opponentRights - 1);
+                        if (!deck.some(c => c !== null)) { if (isPl) aiGame.playerCards = generateFullDeck(true); else aiGame.opponentCards = generateFullDeck(true); }
+                    } else if (ev.type.includes('apply_special')) {
+                        const isPl = ev.type.startsWith('player');
+                        const card = (isPl ? aiGame.playerCards : aiGame.opponentCards)[ev.data.cardIndex];
+                        const sp = (isPl ? aiGame.specialCards : aiGame.opponentSpecialCards).find(s => s.id === (ev.data.specialId || ev.data.specialIndex));
+                        if (card && sp) {
+                            applySpecialToCard(card, sp);
+                            if (ev.data.newVal !== undefined) card.val = ev.data.newVal;
+                            if (isPl) aiGame.specialChargesCount = Math.max(0, aiGame.specialChargesCount - 1);
+                            else aiGame.opponentSpecialChargesCount = Math.max(0, aiGame.opponentSpecialChargesCount - 1);
+                        }
+                    }
+                    aiGame.replayEventIndex++;
+                }
+            }
+
+            if (aiGame.difficulty === 'gelişmiş' && !aiGame.isEnding && !aiGame.gameOver) {
+                if (aiGame.totalChargeUses < 5 && aiGame.specialChargesCount < 5) {
+                    aiGame.specialChargeTimer += dt;
+                    if (aiGame.specialChargeTimer >= aiGame.specialChargeMaxTimer) {
+                        aiGame.specialChargeTimer = 0; aiGame.specialChargesCount++;
+                    }
+                }
+                if (aiGame.opponentTotalChargeUses < 5 && aiGame.opponentSpecialChargesCount < 5) {
+                    aiGame.opponentSpecialChargeTimer += dt;
+                    if (aiGame.opponentSpecialChargeTimer >= aiGame.specialChargeMaxTimer) {
+                        aiGame.opponentSpecialChargeTimer = 0; aiGame.opponentSpecialChargesCount++;
+                    }
+                }
+
+                if (!aiGame.isReplay && aiGame.gameMode === 'ai' && aiGame.opponentSpecialChargesCount > 0) {
+                    aiGame.aiSpecialUseCooldown -= dt;
+                    if (aiGame.aiSpecialUseCooldown <= 0) {
+                        const unused = aiGame.opponentSpecialCards.filter(s => !s.used);
+                        const targets = aiGame.opponentCards.map((c, i) => c && !Object.keys(ALL_SPECIAL_CARDS_MAP).some(k => c[k]) ? i : -1).filter(i => i !== -1);
+                        if (unused.length > 0 && targets.length > 0) {
+                            const sp = unused[Math.floor(Math.random() * unused.length)];
+                            const targetIdx = targets[Math.floor(Math.random() * targets.length)];
+                            const card = aiGame.opponentCards[targetIdx];
+                            if (applySpecialToCard(card, sp)) {
+                                aiGame.opponentSpecialChargesCount--; aiGame.opponentTotalChargeUses++;
+                                recordEvent('ai_apply_special', { cardIndex: targetIdx, specialId: sp.id, newVal: card.val });
+                                const r = w / 16;
+                                createExplosion(r * 2.5 - aiGame.opponentScrollX + targetIdx * r * 2.4, getOpponentCardRowY(1, 0, h * 0.20, r), sp.color);
+                            }
+                        }
+                        aiGame.aiSpecialUseCooldown = 2.0 + Math.random() * 2.5;
+                    }
+                }
+
+                if (aiGame.gameMode === 'ai') {
+                    aiGame.opponentScrollX += (aiGame.opponentScrollTargetX - aiGame.opponentScrollX) * Math.min(1, dt * 7.5);
+                    if (Math.abs(aiGame.opponentScrollX - aiGame.opponentScrollTargetX) < 1.0) {
+                        aiGame.opponentScrollX = aiGame.opponentScrollTargetX;
+                    }
+                }
+            }
+
+            aiGame.playerBarAnim += (aiGame.playerPoints - aiGame.playerBarAnim) * Math.min(1, dt * 10);
+            aiGame.opponentBarAnim += (aiGame.opponentPoints - aiGame.opponentBarAnim) * Math.min(1, dt * 10);
+
+            if (aiGame.isEnding) {
+                if (!aiGame.shattered) {
+                    aiGame.shattered = true; aiGame.endDelayTimer = -1;
+                    if (!aiGame.isReplay && !aiGame.hasSavedMatch) {
+                        aiGame.hasSavedMatch = true;
+                        const now = new Date();
+                        saveMatchToHistory({
+                            date: `${String(now.getDate()).padStart(2, '0')}.${String(now.getMonth() + 1).padStart(2, '0')}.${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`,
+                            difficulty: aiGame.difficulty, gameMode: aiGame.gameMode,
+                            playerPoints: aiGame.playerPoints, opponentPoints: aiGame.opponentPoints,
+                            winner: aiGame.winner, events: aiGame.recordedEvents,
+                            playerSpecialDeck: aiGame.specialCards.map(s => s.id),
+                            opponentSpecialDeck: aiGame.opponentSpecialCards.map(s => s.id)
+                        });
+                    }
+
+                    const clearCards = (isPlayer, color) => {
+                        const deck = isPlayer ? aiGame.playerCards : aiGame.opponentCards;
+                        const areaY = isPlayer ? h * 0.80 : 0;
+                        const r = w / 16;
+                        deck.forEach((c) => {
+                            if (c === null || c === undefined) return;
+                            const val = getCardValue(c);
+                            createExplosion((val % 5 + 0.5) * (w / 5), isPlayer ? getCardRowY(Math.floor(val / 5), areaY, h * 0.20, r) : getOpponentCardRowY(Math.floor(val / 5), 0, h * 0.20, r), color);
+                        });
+                        if (isPlayer) aiGame.playerCards = []; else aiGame.opponentCards = [];
+                        for (let i = aiGame.activeCards.length - 1; i >= 0; i--) {
+                            if (aiGame.activeCards[i].owner === (isPlayer ? 'player' : 'opponent')) {
+                                createExplosion(aiGame.activeCards[i].x, aiGame.activeCards[i].y, color);
+                                aiGame.activeCards.splice(i, 1);
+                            }
+                        }
+                    };
+
+                    if (aiGame.winner === 'Oyuncu' || aiGame.winner === 'Berabere') clearCards(false, '#CB4E4E');
+                    if (aiGame.winner === 'Rakip' || aiGame.winner === 'Berabere') clearCards(true, '#4facf7');
+                }
+
+                if (aiGame.playerFlashTimer > 0) aiGame.playerFlashTimer = Math.max(0, aiGame.playerFlashTimer - dt);
+                if (aiGame.opponentFlashTimer > 0) aiGame.opponentFlashTimer = Math.max(0, aiGame.opponentFlashTimer - dt);
+
+                let hasActive = false;
+                effectPool.forEach(fx => {
+                    if (!fx.active) return;
+                    hasActive = true; fx.elapsed += dt;
+                    if (fx.elapsed >= fx.duration) { fx.active = false; return; }
+                    fx.radius = fx.maxRadius * (fx.elapsed / fx.duration);
+                    fx.particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; });
+                });
+
+                if (!hasActive) {
+                    if (aiGame.endDelayTimer < 0) aiGame.endDelayTimer = 1.0;
+                    else if ((aiGame.endDelayTimer -= dt) <= 0) { aiGame.isEnding = false; aiGame.gameOver = true; }
+                }
+                return;
+            }
+
+            if (!aiGame.isEnding && (aiGame.matchTimer -= dt) <= 0) {
+                aiGame.matchTimer = 0; aiGame.isEnding = true;
+                aiGame.winner = aiGame.playerPoints > aiGame.opponentPoints ? 'Oyuncu' : (aiGame.opponentPoints > aiGame.playerPoints ? 'Rakip' : 'Berabere');
+            }
+
+            if (aiGame.playerFlashTimer > 0) aiGame.playerFlashTimer = Math.max(0, aiGame.playerFlashTimer - dt);
+            if (aiGame.opponentFlashTimer > 0) aiGame.opponentFlashTimer = Math.max(0, aiGame.opponentFlashTimer - dt);
+
+            effectPool.forEach(fx => {
+                if (!fx.active) return;
+                fx.elapsed += dt;
+                if (fx.elapsed >= fx.duration) { fx.active = false; return; }
+                fx.radius = fx.maxRadius * (fx.elapsed / fx.duration);
+                fx.particles.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; });
+            });
+
+            aiGame.timer += dt;
+            if (aiGame.timer - aiGame.lastRightTime >= aiGame.nextRightDelay) {
+                aiGame.playerRights++; aiGame.opponentRights++;
+                aiGame.lastRightTime = aiGame.timer; aiGame.nextRightDelay = 3;
+            }
+
+            if (!aiGame.isReplay && aiGame.gameMode === 'ai') {
+                const validAi = aiGame.opponentCards.map((c, i) => c !== null ? i : -1).filter(i => i !== -1);
+                if (aiGame.opponentRights > 0 && validAi.length > 0) {
+                    aiGame.aiPlayCooldown -= dt;
+
+                    if (aiGame.aiChosenIndex === null || aiGame.opponentCards[aiGame.aiChosenIndex] === null) {
+                        aiGame.aiChosenIndex = validAi[Math.floor(Math.random() * validAi.length)];
+                    }
+
+                    const chosenIdx = aiGame.aiChosenIndex;
+
+                    if (aiGame.difficulty === 'gelişmiş') {
+                        const r = w / 16, gap = r * 2.4;
+                        const curCx = r * 2.5 - aiGame.opponentScrollX + chosenIdx * gap;
+                        const maxScroll = Math.max(0, r * 5.0 + (aiGame.opponentCards.length - 1) * gap - w);
+                        const isVisible = (curCx - r >= r * 0.5 && curCx + r <= w - r * 0.5);
+
+                        if (!isVisible) {
+                            const idealScroll = (r * 2.5 + chosenIdx * gap) - (w / 2);
+                            aiGame.opponentScrollTargetX = Math.max(0, Math.min(maxScroll, idealScroll));
+
+                            if (Math.abs(aiGame.opponentScrollX - aiGame.opponentScrollTargetX) < 8 || aiGame.aiPlayCooldown < -0.35) {
+                                aiGame.aiPlayCooldown = 0;
+                            }
+                        }
+
+                        if (aiGame.aiPlayCooldown <= 0) {
+                            const c = aiGame.opponentCards[chosenIdx];
+                            if (c) {
+                                const spawnX = Math.max(r, Math.min(w - r, curCx));
+                                spawnActiveCard('opponent', c.val, spawnX, c.double ? 2.0 : (c.half ? 0.5 : 1.0), c);
+                                recordEvent('ai_play_card_advanced', { cardIndex: chosenIdx, cardVal: c.val, x: spawnX, radiusMultiplier: c.double ? 2.0 : (c.half ? 0.5 : 1.0), isMirror: c.mirror, isGhost: c.ghost, hasShield: c.shield, hasPotionPlus: c.potion_plus, hasPotionMinus: c.potion_minus, seq: c.seq });
+                                aiGame.opponentCards[chosenIdx] = null;
+                                aiGame.opponentRights--;
+                                if (!aiGame.opponentCards.some(card => card !== null)) aiGame.opponentCards = generateFullDeck(true);
+                                aiGame.aiChosenIndex = null;
+                                aiGame.aiPlayCooldown = 1.0 + Math.random() * 1.2;
+                            } else {
+                                aiGame.aiChosenIndex = null;
+                            }
+                        }
+                    } else if (aiGame.aiPlayCooldown <= 0) {
+                        const val = getCardValue(aiGame.opponentCards[chosenIdx]);
+                        const sx = (Math.random() * 0.8 + 0.1) * w;
+                        spawnActiveCard('opponent', val, sx, 1.0, null, true);
+                        recordEvent('ai_play_card_standard', { value: val, x: sx });
+                        aiGame.opponentCards.splice(chosenIdx, 1);
+                        aiGame.opponentRights--;
+                        if (aiGame.opponentCards.length === 0) aiGame.opponentCards = generateFullDeck(false);
+                        aiGame.aiChosenIndex = null;
+                        aiGame.aiPlayCooldown = 1.2 + Math.random() * 1.5;
+                    }
+                }
+            }
+
+            const speed = (h * 0.60) / 6.0;
+            for (let i = aiGame.activeCards.length - 1; i >= 0; i--) {
+                const card = aiGame.activeCards[i];
+                card.y += (card.owner === 'player' ? -speed : speed) * dt;
+
+                if (card.owner === 'player' && card.y <= h * 0.20) {
+                    if (card.hasPotionPlus) {
+                        createFlyingPotion(card.x, h * 0.20, 'player', 'plus');
+                        card.hasPotionPlus = false;
+                    }
+                    if (card.hasPotionMinus) {
+                        createFlyingPotion(card.x, h * 0.20, 'opponent', 'minus');
+                        card.hasPotionMinus = false;
+                    }
+                    aiGame.opponentPoints--; aiGame.opponentFlashTimer = 0.5;
+                    createExplosion(card.x, h * 0.20, '#4facf7');
+                    aiGame.activeCards.splice(i, 1);
+                    if (aiGame.opponentPoints <= 0 && !aiGame.isEnding && !aiGame.gameOver) {
+                        aiGame.opponentPoints = 0; aiGame.isEnding = true; aiGame.winner = 'Oyuncu';
+                    }
+                } else if (card.owner === 'opponent' && card.y >= h * 0.80) {
+                    if (card.hasPotionPlus) {
+                        createFlyingPotion(card.x, h * 0.80, 'opponent', 'plus');
+                        card.hasPotionPlus = false;
+                    }
+                    if (card.hasPotionMinus) {
+                        createFlyingPotion(card.x, h * 0.80, 'player', 'minus');
+                        card.hasPotionMinus = false;
+                    }
+                    aiGame.playerPoints--; aiGame.playerFlashTimer = 0.5;
+                    createExplosion(card.x, h * 0.80, '#CB4E4E');
+                    aiGame.activeCards.splice(i, 1);
+                    if (aiGame.playerPoints <= 0 && !aiGame.isEnding && !aiGame.gameOver) {
+                        aiGame.playerPoints = 0; aiGame.isEnding = true; aiGame.winner = 'Rakip';
+                    }
+                }
+            }
+
+            for (let i = 0; i < aiGame.activeCards.length; i++) {
+                for (let j = i + 1; j < aiGame.activeCards.length; j++) {
+                    const c1 = aiGame.activeCards[i], c2 = aiGame.activeCards[j];
+                    if (!c1 || !c2 || c1.owner === c2.owner || c1.isGhost || c2.isGhost) continue;
+
+                    if ((c1.x - c2.x) ** 2 + (c1.y - c2.y) ** 2 <= (c1.radius + c2.radius) ** 2) {
+                        const cx = (c1.x + c2.x) / 2, cy = (c1.y + c2.y) / 2;
+
+                        if (c1.hasShield || c2.hasShield) {
+                            createExplosion(c1.hasShield ? c2.x : c1.x, c1.hasShield ? c2.y : c1.y, '#94a3b8');
+                            if (c1.hasShield && c2.hasShield) { c1.hasShield = false; c2.hasShield = false; }
+                            else if (c1.hasShield) { aiGame.activeCards.splice(j, 1); c1.hasShield = false; }
+                            else { aiGame.activeCards.splice(i, 1); c2.hasShield = false; }
+                            break;
+                        }
+
+                        if (c1.isMirror || c2.isMirror) {
+                            if (c1.isMirror && c2.isMirror) {
+                                createExplosion(cx, cy, '#ffffff');
+                                aiGame.activeCards.splice(j, 1); aiGame.activeCards.splice(i, 1);
+                            } else {
+                                const m = c1.isMirror ? c1 : c2, t = c1.isMirror ? c2 : c1;
+                                createExplosion(m.x, m.y, '#ffffff');
+                                t.owner = m.owner; t.isMirror = false;
+                                t.cardColor = m.owner === 'player' ? '#4facf7' : '#CB4E4E';
+                                aiGame.activeCards.splice(aiGame.activeCards.indexOf(m), 1);
+                            }
+                            break;
+                        }
+
+                        const handlePotion = (winner) => {
+                            if (winner.hasPotionPlus) {
+                                createFlyingPotion(winner.x, winner.y, winner.owner, 'plus');
+                                winner.hasPotionPlus = false;
+                                createExplosion(winner.x, winner.y, '#2dd4bf');
+                            }
+                            if (winner.hasPotionMinus) {
+                                createFlyingPotion(winner.x, winner.y, winner.owner === 'player' ? 'opponent' : 'player', 'minus');
+                                winner.hasPotionMinus = false;
+                                createExplosion(winner.x, winner.y, '#fb7185');
+                            }
+                        };
+
+                        if (c1.value > c2.value) {
+                            handlePotion(c1); createExplosion(c2.x, c2.y, '#f7c04f'); aiGame.activeCards.splice(j, 1);
+                        } else if (c2.value > c1.value) {
+                            handlePotion(c2); createExplosion(c1.x, c1.y, '#f7c04f'); aiGame.activeCards.splice(i, 1);
+                        } else {
+                            if (c1.hasPotionPlus) {
+                                createFlyingPotion(c1.x, c1.y, c1.owner, 'plus');
+                                c1.hasPotionPlus = false;
+                            }
+                            if (c2.hasPotionPlus) {
+                                createFlyingPotion(c2.x, c2.y, c2.owner, 'plus');
+                                c2.hasPotionPlus = false;
+                            }
+                            createExplosion(cx, cy, '#ffffff');
+                            aiGame.activeCards.splice(j, 1); aiGame.activeCards.splice(i, 1);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        let lastTimestamp = 0;
+        function gameLoop(timestamp) {
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.033);
+            lastTimestamp = timestamp;
+
+            if (currentPage === 'ai' && !isFriendsPanelOpen && !isAiDifficultyModalOpen && !isSwordModalOpen) {
+                updateAiGame(dt);
+            } else {
+                updateBgParticles(dt, window.innerWidth, window.innerHeight);
+            }
+            drawAll(window.innerWidth, window.innerHeight);
+            requestAnimationFrame(gameLoop);
+        }
+        requestAnimationFrame(gameLoop);
+
+        // --- PANELLER VE MODALLAR ---
+        function drawAiDifficultyModal(w, h) {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.75)'; ctx.fillRect(0, 0, w, h);
+            const b = getAiDifficultyModalBounds(w, h);
+
+            ctx.fillStyle = '#222528'; ctx.beginPath(); ctx.roundRect(b.panelX, b.panelY, b.panelWidth, b.panelHeight, 18); ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)'; ctx.lineWidth = 1; ctx.stroke();
+
+            const aiIconX = (w - 32) / 2, aiIconY = b.panelY + 14;
+            ctx.save();
+            ctx.translate(aiIconX, aiIconY);
+            ctx.scale(32 / 24, 32 / 24);
+            ctx.strokeStyle = '#65AE7B'; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+            [PATH_AI_1, PATH_AI_2, PATH_AI_3, PATH_AI_4].forEach(p => ctx.stroke(p));
+            [[16, 13], [18, 3], [20, 21], [20, 8]].forEach(([x, y]) => { ctx.beginPath(); ctx.arc(x, y, 0.5, 0, Math.PI * 2); ctx.stroke(); });
+            ctx.strokeStyle = '#B7C4D1';
+            [PATH_AI_5, PATH_AI_6, PATH_AI_7, PATH_AI_8, PATH_AI_9].forEach(p => ctx.stroke(p));
+            ctx.restore();
+
+            drawBadge('Yapay Zeka', w / 2, aiIconY + 40, 110, 22, '#4ff7b6', 'rgba(79, 247, 182, 0.08)');
+
+            [
+                { x: b.b1X, y: b.b1Y, bg: activeIndex === 89 ? '#a83b3b' : '#CB4E4E', color: '#fff', text: 'Başlangıç' },
+                { x: b.b2X, y: b.b2Y, bg: activeIndex === 90 ? '#3880b8' : '#4facf7', color: '#000', text: 'Gelişmiş' }
+            ].forEach(btn => {
+                ctx.fillStyle = btn.bg; ctx.beginPath(); ctx.roundRect(btn.x, btn.y, b.btnW, b.btnH, 10); ctx.fill();
+                ctx.fillStyle = btn.color; ctx.font = 'bold 15px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(btn.text, btn.x + b.btnW / 2, btn.y + b.btnH / 2);
+            });
+        }
+
+        function drawSwordModal(w, h) {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.75)'; ctx.fillRect(0, 0, w, h);
+            const b = getSwordModalBounds(w, h);
+
+            ctx.fillStyle = '#222528'; ctx.beginPath(); ctx.roundRect(b.panelX, b.panelY, b.panelWidth, b.panelHeight, 18); ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)'; ctx.lineWidth = 1; ctx.stroke();
+
+            const swordIconX = (w - 34) / 2, swordIconY = b.panelY + 12;
+            ctx.save();
+            ctx.translate(swordIconX, swordIconY);
+            ctx.scale(34 / 24, 34 / 24);
+            ctx.strokeStyle = '#4facf7'; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+            ctx.stroke(PATH_SWORD1_BLADE); ctx.stroke(PATH_SWORD1_GUARD); ctx.stroke(PATH_SWORD1_HILT);
+            ctx.fillStyle = '#222528'; ctx.fill(PATH_SWORD2_BLADE);
+            ctx.strokeStyle = '#CB4E4E'; ctx.stroke(PATH_SWORD2_BLADE); ctx.stroke(PATH_SWORD2_GUARD); ctx.stroke(PATH_SWORD2_HILT);
+            ctx.restore();
+
+            drawBadge('Yüz Yüze', w / 2, b.sec1Y, 100, 20, '#4facf7', 'rgba(79, 172, 247, 0.08)');
+
+            [
+                { x: b.pvpB1X, y: b.pvpB1Y, bg: activeIndex === 80 ? '#a83b3b' : '#CB4E4E', color: '#fff', text: 'Başlangıç' },
+                { x: b.pvpB2X, y: b.pvpB2Y, bg: activeIndex === 81 ? '#3880b8' : '#4facf7', color: '#000', text: 'Gelişmiş' }
+            ].forEach(btn => {
+                ctx.fillStyle = btn.bg; ctx.beginPath(); ctx.roundRect(btn.x, btn.y, b.btnW, b.btnH, 10); ctx.fill();
+                ctx.fillStyle = btn.color; ctx.font = 'bold 13px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(btn.text, btn.x + b.btnW / 2, btn.y + b.btnH / 2);
+            });
+
+            drawBadge('Online', w / 2, b.sec2Y, 86, 20, '#f7c04f', 'rgba(247, 192, 79, 0.08)');
+
+            [b.onB1X, b.onB2X].forEach((bx, idx) => {
+                ctx.fillStyle = '#2f343a'; ctx.beginPath(); ctx.roundRect(bx, b.onB1Y, b.btnW, b.btnH, 10); ctx.fill();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)'; ctx.stroke();
+                ctx.fillStyle = '#8a94a0'; ctx.font = 'bold 12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(idx === 0 ? 'Başlangıç' : 'Gelişmiş', bx + b.btnW / 2, b.onB1Y + b.btnH / 2 - 5);
+                ctx.fillStyle = '#f7c04f'; ctx.font = '9px sans-serif';
+                ctx.fillText('(Yakında)', bx + b.btnW / 2, b.onB1Y + b.btnH / 2 + 7);
+            });
+
+            drawBadge('Günlük Bonus', w / 2, b.sec3Y, 110, 20, '#4ff7b6', 'rgba(79, 247, 182, 0.08)');
+
+            for (let i = 0; i < 4; i++) {
+                const dx = b.panelX + 14 + i * (b.diamondW + 8);
+                ctx.fillStyle = '#1c2420'; ctx.beginPath(); ctx.roundRect(dx, b.bonusY, b.diamondW, 36, 8); ctx.fill();
+                ctx.strokeStyle = 'rgba(79, 247, 182, 0.35)'; ctx.lineWidth = 1.2; ctx.stroke();
+
+                ctx.fillStyle = '#4ff7b6';
+                ctx.font = 'bold 16px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('+10', dx + b.diamondW / 2, b.bonusY + 18);
+            }
+        }
+
+        function drawUnsupportedModal(w, h) {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.75)'; ctx.fillRect(0, 0, w, h);
+            const pw = Math.min(420, w * 0.85), ph = Math.min(220, h * 0.4);
+            const px = (w - pw) / 2, py = (h - ph) / 2;
+
+            ctx.fillStyle = '#222528'; ctx.beginPath(); ctx.roundRect(px, py, pw, ph, 16); ctx.fill();
+            const btnSize = Math.max(36, Math.min(pw, ph) * 0.18);
+            drawIconButton(px + pw - btnSize - 12, py + ph - btnSize - 12, btnSize, PATH_BACK_ICON, '#CB4E4E', activeIndex === 92);
+
+            const fontSize = Math.max(13, Math.min(17, pw * 0.042));
+            ctx.fillStyle = '#CB4E4E'; ctx.font = `bold ${fontSize}px sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('Cihaz ekran ölçümleri oyunu desteklenmiyor.', w / 2, py + ph / 2 - 12 - fontSize * 0.7);
+            ctx.fillStyle = '#a0aab5'; ctx.font = `${fontSize * 0.9}px sans-serif`;
+            ctx.fillText('Lütfen başka cihazda deneyin.', w / 2, py + ph / 2 - 12 + fontSize * 0.9);
+        }
+
+        function drawUserProfilePanel(w, h) {
+            const { panelX, panelY, panelW, panelH } = getUserProfileBounds(w, h);
+            ctx.save();
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.45)'; ctx.beginPath(); ctx.roundRect(panelX, panelY + 3, panelW, panelH, 16); ctx.fill();
+            const grad = ctx.createLinearGradient(panelX, panelY, panelX, panelY + panelH);
+            grad.addColorStop(0, 'rgba(28, 34, 42, 0.85)'); grad.addColorStop(1, 'rgba(16, 21, 28, 0.92)');
+            ctx.fillStyle = grad; ctx.beginPath(); ctx.roundRect(panelX, panelY, panelW, panelH, 16); ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)'; ctx.lineWidth = 1.2; ctx.stroke();
+
+            const avatarSize = panelH * 0.68, avatarX = panelX + 12, avatarY = panelY + (panelH - avatarSize) / 2;
+            ctx.fillStyle = '#2c3540'; ctx.beginPath(); ctx.roundRect(avatarX, avatarY, avatarSize, avatarSize, 10); ctx.fill();
+            ctx.strokeStyle = 'rgba(79, 172, 247, 0.4)'; ctx.lineWidth = 1; ctx.stroke();
+
+            ctx.save();
+            ctx.fillStyle = '#4facf7'; ctx.translate(avatarX + avatarSize * 0.15, avatarY + avatarSize * 0.15);
+            ctx.scale((avatarSize * 0.7) / 24, (avatarSize * 0.7) / 24); ctx.fill(PATH_USER_ICON);
+            ctx.restore();
+
+            const textStartX = avatarX + avatarSize + 12;
+            const nameFontSize = Math.max(14, Math.min(16, panelH * 0.28));
+            const nameY = panelY + (panelH / 2) - nameFontSize + 1;
+
+            ctx.fillStyle = '#ffffff'; ctx.font = `bold ${nameFontSize}px sans-serif`; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+            ctx.fillText('OyuncuAdı', textStartX, nameY);
+
+            const nameW = ctx.measureText('OyuncuAdı').width;
+            const levelFontSize = Math.max(11, Math.min(13, nameFontSize * 0.82));
+            const levelStartX = textStartX + nameW + 14;
+
+            ctx.fillStyle = '#4facf7'; ctx.font = `bold ${levelFontSize}px sans-serif`;
+            ctx.fillText('Seviye: ', levelStartX, nameY + 2);
+            const lw = ctx.measureText('Seviye: ').width;
+            ctx.fillStyle = '#ffffff'; ctx.fillText('1 ', levelStartX + lw, nameY + 2);
+            ctx.fillStyle = '#8a94a0'; ctx.font = `bold ${levelFontSize * 0.88}px sans-serif`;
+            ctx.fillText('(%0)', levelStartX + lw + ctx.measureText('1 ').width, nameY + 3);
+
+            const statFontSize = Math.max(11, Math.min(13, panelH * 0.22));
+            const statsY = nameY + nameFontSize + 4;
+
+            ctx.fillStyle = '#f7c04f'; ctx.font = `bold ${statFontSize}px sans-serif`; ctx.fillText('Puan:', textStartX, statsY);
+            ctx.fillStyle = '#ffffff'; ctx.font = `${statFontSize}px sans-serif`;
+            const pw = ctx.measureText('Puan:').width; ctx.fillText(' 1750', textStartX + pw, statsY);
+
+            const stw = pw + ctx.measureText(' 1750').width + 14;
+            ctx.fillStyle = '#4ff7b6'; ctx.font = `bold ${statFontSize}px sans-serif`; ctx.fillText('Bonuslar:', textStartX + stw, statsY);
+            ctx.fillStyle = '#ffffff'; ctx.font = `${statFontSize}px sans-serif`;
+            ctx.fillText(' 2300', textStartX + stw + ctx.measureText('Bonuslar:').width, statsY);
+            ctx.restore();
+        }
+
+        function drawDock(w, h) {
+            const { dockX, dockY, dockW, dockH, dockButtons } = getDockBounds(w, h);
+            ctx.save();
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.55)'; ctx.beginPath(); ctx.roundRect(dockX, dockY + 4, dockW, dockH, dockH / 2); ctx.fill();
+            const dockGrad = ctx.createLinearGradient(dockX, dockY, dockX, dockY + dockH);
+            dockGrad.addColorStop(0, 'rgba(28, 34, 42, 0.85)'); dockGrad.addColorStop(1, 'rgba(14, 18, 24, 0.94)');
+            ctx.fillStyle = dockGrad; ctx.beginPath(); ctx.roundRect(dockX, dockY, dockW, dockH, dockH / 2); ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)'; ctx.lineWidth = 1.2; ctx.stroke();
+            ctx.restore();
+
+            const themes = {
+                6: { stroke: '#a0aab5', bg: '#282a2d' },
+                2: { stroke: '#f7c04f', bg: '#45351a' },
+                1: { stroke: '#A29987', bg: '#34332E' },
+                0: { stroke: '#a0aab5', bg: '#282a2d' }
+            };
+
+            const activePageIdx = currentPage === 'settings' ? 6 : (currentPage === 'rings' ? 0 : (currentPage === 'ranking' ? 2 : (currentPage === 'history' ? 1 : -1)));
+
+            dockButtons.forEach((b) => {
+                ctx.save();
+                const isAct = (b.index === activePageIdx);
+                const th = themes[b.index] || { stroke: '#ffffff', bg: '#282a2d' };
+
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.45)'; ctx.beginPath(); ctx.roundRect(b.x, b.y + 3, b.size, b.size, b.size * 0.28); ctx.fill();
+                ctx.fillStyle = isAct ? '#3e4348' : th.bg; ctx.beginPath(); ctx.roundRect(b.x, b.y, b.size, b.size, b.size * 0.28); ctx.fill();
+                ctx.strokeStyle = isAct ? '#ffffff' : th.stroke; ctx.lineWidth = isAct ? 2 : 1.2; ctx.stroke();
+
+                if (b.index === activeIndex) { ctx.fillStyle = 'rgba(255, 255, 255, 0.25)'; ctx.fill(); }
+
+                const scale = (b.size * 0.58) / 24, offset = (b.size - b.size * 0.58) / 2;
+                ctx.translate(b.x + offset, b.y + offset);
+                ctx.scale(scale, scale);
+                ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+
+                if (b.index === 6) {
+                    ctx.strokeStyle = isAct ? '#ffffff' : '#CB4E4E';
+                    ctx.beginPath(); ctx.arc(12, 9, 6, 0, Math.PI * 2); ctx.stroke();
+
+                    ctx.strokeStyle = isAct ? '#ffffff' : '#4facf7';
+                    ctx.beginPath(); ctx.arc(12, 15, 6, 0, Math.PI * 2); ctx.stroke();
+                } else if (b.index === 2) {
+                    ctx.strokeStyle = isAct ? '#ffffff' : th.stroke;
+                    [PATH_RANKING_1, PATH_RANKING_2, PATH_RANKING_3, PATH_RANKING_4, PATH_RANKING_5, PATH_RANKING_6].forEach(p => ctx.stroke(p));
+                } else if (b.index === 1) {
+                    ctx.strokeStyle = isAct ? '#ffffff' : th.stroke;
+                    ctx.stroke(PATH_HISTORY_1); ctx.stroke(PATH_HISTORY_2);
+                    ctx.save(); ctx.strokeStyle = '#a0aab5'; ctx.beginPath(); ctx.arc(8, 16, 6, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+                    ctx.save(); ctx.strokeStyle = '#7B7696'; ctx.stroke(PATH_HISTORY_3); ctx.restore();
+                } else if (b.index === 0) {
+                    ctx.strokeStyle = isAct ? '#ffffff' : th.stroke;
+                    ctx.stroke(PATH_SETTINGS_BODY); ctx.beginPath(); ctx.arc(12, 12, 3, 0, Math.PI * 2); ctx.stroke();
+                }
+                ctx.restore();
+            });
+        }
+
+        function drawTopBackButton(w, h) {
+            const { x, y, size } = getTopBackButtonBounds(w, h);
+            drawIconButton(x, y, size, PATH_BACK_ICON, 'rgba(34, 37, 40, 0.85)', activeIndex === 100);
+        }
+
+        function drawHistoryPage(w, h) {
+            drawBgParticles();
+            ctx.fillStyle = '#ffffff'; ctx.font = 'bold 26px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            ctx.fillText('Maç Geçmişi', w / 2, Math.max(38, h * 0.05));
+
+            const history = loadMatchHistory(), { dockY } = getDockBounds(w, h);
+            if (history.length === 0) {
+                ctx.fillStyle = '#7B7696'; ctx.font = '16px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('Henüz kaydedilmiş bir maç bulunmuyor.', w / 2, (h * 0.14 + dockY) / 2);
+            } else {
+                const topY = Math.max(92, h * 0.13), itemH = 68, gap = 12, itemW = Math.min(420, w * 0.90), itemX = (w - itemW) / 2;
+                ctx.save(); ctx.beginPath(); ctx.rect(0, topY - 5, w, dockY - topY - 10); ctx.clip();
+
+                history.forEach((m, i) => {
+                    const curY = topY + i * (itemH + gap) - historyScrollY;
+                    if (curY + itemH < topY - 30 || curY > dockY) return;
+
+                    const isLoss = m.winner === 'Rakip', isDraw = m.winner === 'Berabere';
+                    const color = isDraw ? '#f7c04f' : (isLoss ? '#CB4E4E' : '#4facf7');
+                    const text = isDraw ? 'BERABERE' : (m.gameMode === 'pvp_local' ? (isLoss ? '2. OYUNCU' : '1. OYUNCU') : (isLoss ? 'KAYBETTİN' : 'KAZANDIN'));
+
+                    ctx.fillStyle = '#1c1f24'; ctx.beginPath(); ctx.roundRect(itemX, curY, itemW, itemH, 14); ctx.fill();
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)'; ctx.lineWidth = 1; ctx.stroke();
+                    ctx.fillStyle = color; ctx.beginPath(); ctx.roundRect(itemX, curY, 6, itemH, [14, 0, 0, 14]); ctx.fill();
+
+                    ctx.fillStyle = color; ctx.font = 'bold 15px sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                    ctx.fillText(text, itemX + 16, curY + 12);
+                    ctx.fillStyle = '#8e99a4'; ctx.font = '12px sans-serif';
+                    ctx.fillText(`${m.gameMode === 'pvp_local' ? 'Yüz Yüze' : 'Yapay Zeka'} • ${m.difficulty === 'gelişmiş' ? 'Gelişmiş' : 'Başlangıç'} • ${m.date}`, itemX + 16, curY + 38);
+
+                    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 20px sans-serif'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                    ctx.fillText(`${m.playerPoints} - ${m.opponentPoints}`, itemX + itemW - 68, curY + itemH / 2);
+
+                    const camX = itemX + itemW - 54, camY = curY + 13;
+                    ctx.fillStyle = '#2c333a'; ctx.beginPath(); ctx.roundRect(camX, camY, 42, 42, 10); ctx.fill();
+                    ctx.strokeStyle = 'rgba(79, 172, 247, 0.4)'; ctx.lineWidth = 1.2; ctx.stroke();
+
+                    ctx.save();
+                    ctx.strokeStyle = '#4facf7'; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                    ctx.translate(camX + 9.5, camY + 9.5); ctx.scale(23 / 24, 23 / 24); ctx.stroke(PATH_CAMERA_BODY);
+                    ctx.restore();
+                });
+                ctx.restore();
+            }
+            drawDock(w, h);
+            drawTopBackButton(w, h);
+        }
+
+        // --- 10 ÖZEL KART SİMGELERİ ---
+        function drawSpecialIcon(ctx, id, cx, cy, radius, strokeColor = '#ffffff', isDown = false) {
+            ctx.save();
+            ctx.strokeStyle = strokeColor; ctx.fillStyle = strokeColor;
+            ctx.lineWidth = Math.max(1.8, radius * 0.12); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+
+            if (id === 'mirror') {
+                ctx.beginPath(); ctx.ellipse(cx, cy, radius * 0.48, radius * 0.65, 0, 0, Math.PI * 2); ctx.stroke();
+                const ah = radius * 0.70, topY = cy - ah * 0.5, botY = cy + ah * 0.5;
+                ctx.beginPath();
+                if (isDown) {
+                    ctx.moveTo(cx, topY); ctx.lineTo(cx, botY); ctx.lineTo(cx - radius * 0.22, botY - radius * 0.22);
+                    ctx.moveTo(cx, botY); ctx.lineTo(cx + radius * 0.22, botY - radius * 0.22);
+                } else {
+                    ctx.moveTo(cx, botY); ctx.lineTo(cx, topY); ctx.lineTo(cx - radius * 0.22, topY + radius * 0.22);
+                    ctx.moveTo(cx, topY); ctx.lineTo(cx + radius * 0.22, topY + radius * 0.22);
+                }
+                ctx.stroke();
+            } else if (id === 'double' || id === 'half') {
+                const isD = (id === 'double');
+                const inR = radius * (isD ? 0.40 : 0.38), outR = radius * 0.88, head = radius * 0.20;
+                for (let i = 0; i < 6; i++) {
+                    const ang = (i * 60) * (Math.PI / 180);
+                    const [x1, y1] = [cx + Math.cos(ang) * (isD ? inR : outR), cy + Math.sin(ang) * (isD ? inR : outR)];
+                    const [x2, y2] = [cx + Math.cos(ang) * (isD ? outR : inR), cy + Math.sin(ang) * (isD ? outR : inR)];
+                    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2);
+                    const la = ang + (isD ? Math.PI * 0.82 : Math.PI * 0.18), ra = ang - (isD ? Math.PI * 0.82 : Math.PI * 0.18);
+                    ctx.lineTo(x2 + Math.cos(la) * head, y2 + Math.sin(la) * head);
+                    ctx.moveTo(x2, y2); ctx.lineTo(x2 + Math.cos(ra) * head, y2 + Math.sin(ra) * head);
+                    ctx.stroke();
+                }
+            } else if (id === 'seq') {
+                ctx.beginPath(); ctx.arc(cx, cy - radius * 0.35, radius * 0.28, 0, Math.PI * 2); ctx.stroke();
+                ctx.beginPath(); ctx.arc(cx, cy + radius * 0.45, radius * 0.28, 0, Math.PI * 2); ctx.stroke();
+            } else if (id === 'plus1') {
+                ctx.font = `bold ${Math.round(radius * 0.90)}px sans-serif`;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('+1', cx, cy + 1);
+            } else if (id === 'random') {
+                ctx.font = `bold ${Math.round(radius * 0.42)}px sans-serif`;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                const coords = [
+                    { t: '0', x: cx - radius * 0.46, y: cy - radius * 0.40 },
+                    { t: '9', x: cx + radius * 0.18, y: cy - radius * 0.52 },
+                    { t: '2', x: cx - radius * 0.12, y: cy - radius * 0.05 },
+                    { t: '7', x: cx + radius * 0.48, y: cy - radius * 0.10 },
+                    { t: '5', x: cx - radius * 0.42, y: cy + radius * 0.42 },
+                    { t: '8', x: cx + radius * 0.28, y: cy + radius * 0.44 }
+                ];
+                coords.forEach(pt => ctx.fillText(pt.t, pt.x, pt.y));
+            } else if (id === 'ghost') {
+                const gr = radius * 0.65;
+                ctx.beginPath(); ctx.arc(cx, cy - gr * 0.2, gr * 0.75, Math.PI, 0, false);
+                ctx.lineTo(cx + gr * 0.75, cy + gr * 0.65);
+                ctx.quadraticCurveTo(cx + gr * 0.4, cy + gr * 0.4, cx + gr * 0.1, cy + gr * 0.65);
+                ctx.quadraticCurveTo(cx - gr * 0.2, cy + gr * 0.4, cx - gr * 0.75, cy + gr * 0.65);
+                ctx.closePath(); ctx.stroke();
+                ctx.beginPath(); ctx.arc(cx - gr * 0.25, cy - gr * 0.15, gr * 0.15, 0, Math.PI * 2); ctx.arc(cx + gr * 0.25, cy - gr * 0.15, gr * 0.15, 0, Math.PI * 2); ctx.fill();
+            } else if (id === 'shield') {
+                const s = (radius * 1.55) / 36;
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.beginPath();
+                ctx.moveTo(0, (1.85 - 18) * s);
+                ctx.bezierCurveTo(2.3 * s, (2.8 - 18) * s, 6.7 * s, (5.1 - 18) * s, 12.6 * s, (8.3 - 18) * s);
+                ctx.lineTo(12.6 * s, (16.0 - 18) * s);
+                ctx.bezierCurveTo(12.6 * s, (27.0 - 18) * s, 2.0 * s, (31.6 - 18) * s, 0, (32.8 - 18) * s);
+                ctx.bezierCurveTo(-2.0 * s, (31.6 - 18) * s, -12.6 * s, (27.0 - 18) * s, -12.6 * s, (16.0 - 18) * s);
+                ctx.lineTo(-12.6 * s, (8.3 - 18) * s);
+                ctx.bezierCurveTo(-6.7 * s, (5.1 - 18) * s, -2.3 * s, (2.8 - 18) * s, 0, (1.85 - 18) * s);
+                ctx.closePath();
+                ctx.stroke();
+                ctx.restore();
+            } else if (id === 'potion_plus' || id === 'potion_minus') {
+                const pr = radius * 0.82;
+                ctx.beginPath();
+                ctx.moveTo(cx - pr * 0.24, cy - pr * 0.85); ctx.lineTo(cx + pr * 0.24, cy - pr * 0.85);
+                ctx.lineTo(cx + pr * 0.14, cy - pr * 0.40); ctx.lineTo(cx + pr * 0.65, cy + pr * 0.25);
+                ctx.quadraticCurveTo(cx + pr * 0.65, cy + pr * 0.80, cx, cy + pr * 0.80);
+                ctx.quadraticCurveTo(cx - pr * 0.65, cy + pr * 0.80, cx - pr * 0.65, cy + pr * 0.25);
+                ctx.lineTo(cx - pr * 0.14, cy - pr * 0.40); ctx.closePath(); ctx.stroke();
+
+                ctx.font = `bold ${Math.round(radius * (id === 'potion_plus' ? 0.72 : 0.85))}px sans-serif`;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(id === 'potion_plus' ? '+' : '-', cx, cy + pr * 0.25);
+            }
+            ctx.restore();
+        }
+
+        function drawCardWithShadowFrame(x, y, radius, color, text, mods = null, isDown = false, isMirror = false, isFlying = false) {
+            ctx.save();
+            if ((mods && mods.ghost) || (mods && mods.isGhost)) ctx.globalAlpha = 0.45;
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.45)'; ctx.beginPath(); ctx.arc(x, y + radius * 0.1, radius, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'; ctx.lineWidth = Math.max(2, radius * 0.1); ctx.stroke();
+
+            if (isFlying && ((mods && mods.shield) || (mods && mods.hasShield))) {
+                ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = Math.max(2.5, radius * 0.16);
+                ctx.beginPath();
+                ctx.arc(x, y + (isDown ? radius * 0.3 : -radius * 0.3), radius * 1.25, isDown ? 0.2 * Math.PI : 1.2 * Math.PI, isDown ? 0.8 * Math.PI : 1.8 * Math.PI, false);
+                ctx.stroke();
+            }
+
+            if (isMirror || (mods && mods.mirror)) drawSpecialIcon(ctx, 'mirror', x, y, radius * 0.95, '#ffffff', isDown);
+            else {
+                ctx.fillStyle = '#ffffff'; ctx.font = `bold ${radius * 1.1}px sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(text.toString(), x, y);
+            }
+
+            if (mods) {
+                const activeMods = ['double', 'half', 'seq', 'plus1', 'ghost', 'shield', 'potion_plus', 'potion_minus']
+                    .filter(k => mods[k] || (k === 'shield' && mods.hasShield) || (k === 'potion_plus' && mods.hasPotionPlus) || (k === 'potion_minus' && mods.hasPotionMinus))
+                    .map(k => ({ id: k, color: isDown ? ALL_SPECIAL_CARDS_MAP[k].oppColor : ALL_SPECIAL_CARDS_MAP[k].color }));
+
+                activeMods.forEach((mod, k) => {
+                    const br = radius * 0.48, bx = x + radius * 0.60 + k * br * 0.8, by = y - radius * 0.60;
+                    ctx.save();
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'; ctx.beginPath(); ctx.arc(bx, by + 1, br, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = mod.color; ctx.beginPath(); ctx.arc(bx, by, br, 0, Math.PI * 2); ctx.fill();
+                    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5; ctx.stroke();
+                    drawSpecialIcon(ctx, mod.id, bx, by, br * 0.85, '#ffffff', isDown);
+                    ctx.restore();
+                });
+            }
+            ctx.restore();
+        }
+
+        function drawSpecialCardSlot(x, y, radius, cardObj, isAvail, isDown = false) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.45)'; ctx.beginPath(); ctx.arc(x, y + radius * 0.1, radius, 0, Math.PI * 2); ctx.fill();
+
+            if (cardObj.used) {
+                ctx.fillStyle = '#1c1f24'; ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; ctx.lineWidth = 2; ctx.stroke();
+                ctx.fillStyle = '#4a5568'; ctx.font = `bold ${radius * 0.7}px sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('✓', x, y);
+            } else if (isAvail) {
+                ctx.fillStyle = cardObj.color; ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
+                drawSpecialIcon(ctx, cardObj.id, x, y, radius * 0.85, '#ffffff', isDown);
+            } else {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.stroke();
+                drawSpecialIcon(ctx, cardObj.id, x, y, radius * 0.85, 'rgba(255, 255, 255, 0.35)', isDown);
+            }
+            ctx.restore();
+        }
+
+        function drawAiPage(w, h) {
+            const cardRadius = w / 16, topAreaH = h * 0.20, playerAreaY = h * 0.80;
+            ctx.fillStyle = '#0a0d10'; ctx.fillRect(0, 0, w, h);
+            drawBgParticles();
+
+            if (aiGame.isReplay || aiGame.gameMode === 'pvp_local') {
+                const isR = aiGame.isReplay;
+                ctx.fillStyle = isR ? 'rgba(247, 192, 79, 0.15)' : 'rgba(203, 78, 78, 0.15)';
+                ctx.fillRect(0, 0, w, isR ? 28 : 24);
+                ctx.fillStyle = isR ? '#f7c04f' : '#CB4E4E';
+                ctx.font = `bold ${isR ? 12 : 11}px sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(isR ? 'TEKRAR İZLEME (REPLAY MODU)' : 'YÜZ YÜZE DÜELLO (AYNI CİHAZ)', w / 2, isR ? 14 : 12);
+            }
+
+            const drawProj = (dragVal, dragIndex, dragX, cards, isPl) => {
+                if (dragVal === null) return;
+                const c = (aiGame.difficulty === 'gelişmiş' && dragIndex !== null) ? cards[dragIndex] : null;
+                const pr = cardRadius * (c ? (c.double ? 2.0 : (c.half ? 0.5 : 1.0)) : 1.0);
+                const cx = Math.max(pr, Math.min(w - pr, dragX));
+                const hasBigger = aiGame.activeCards.some(ac => ac.owner !== (isPl ? 'player' : 'opponent') && Math.abs(ac.x - cx) < (pr + ac.radius) && ac.value !== dragVal && ac.value > dragVal);
+                const hasOverlap = aiGame.activeCards.some(ac => ac.owner !== (isPl ? 'player' : 'opponent') && Math.abs(ac.x - cx) < (pr + ac.radius) && ac.value !== dragVal);
+
+                ctx.fillStyle = hasOverlap ? (hasBigger ? 'rgba(203, 78, 78, 0.3)' : 'rgba(79, 247, 182, 0.25)') : 'rgba(79, 172, 247, 0.15)';
+                ctx.fillRect(cx - pr, h * 0.20, pr * 2, h * 0.60);
+            };
+
+            drawProj(aiGame.draggingCardValue, aiGame.draggingCardIndex, aiGame.dragX, aiGame.playerCards, true);
+            if (aiGame.gameMode === 'pvp_local') drawProj(aiGame.opponentDraggingCardValue, aiGame.opponentDraggingCardIndex, aiGame.opponentDragX, aiGame.opponentCards, false);
+
+            aiGame.activeCards.forEach(card => {
+                drawCardWithShadowFrame(card.x, card.y, card.radius, card.cardColor, card.value, card, card.owner === 'opponent', card.isMirror, true);
+            });
+
+            flyingPotions.forEach(p => {
+                p.trail.forEach(pt => {
+                    ctx.save();
+                    ctx.globalAlpha = pt.alpha * 0.65;
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                });
+                drawSpecialIcon(ctx, p.type === 'plus' ? 'potion_plus' : 'potion_minus', p.currentX, p.currentY, 13, p.color);
+            });
+
+            effectPool.forEach(fx => {
+                if (!fx.active) return;
+                const alpha = 1 - (fx.elapsed / fx.duration);
+                ctx.save();
+                ctx.globalAlpha = alpha; ctx.strokeStyle = fx.color; ctx.lineWidth = 3;
+                ctx.beginPath(); ctx.arc(fx.x, fx.y, fx.radius, 0, Math.PI * 2); ctx.stroke();
+                fx.particles.forEach(p => {
+                    ctx.fillStyle = p.color; ctx.beginPath();
+                    ctx.arc(p.x, p.y, Math.max(0.5, p.radius * (1 - (fx.elapsed / fx.duration) * 0.5)), 0, Math.PI * 2); ctx.fill();
+                });
+                ctx.restore();
+            });
+
+            ctx.fillStyle = '#17221e'; ctx.fillRect(0, 0, w, topAreaH);
+            if (aiGame.opponentFlashTimer > 0) { ctx.fillStyle = `rgba(203, 78, 78, ${0.65 * (aiGame.opponentFlashTimer / 0.5)})`; ctx.fillRect(0, 0, w, topAreaH); }
+
+            ctx.fillStyle = '#121d26'; ctx.fillRect(0, playerAreaY, w, topAreaH);
+            if (aiGame.playerFlashTimer > 0) { ctx.fillStyle = `rgba(203, 78, 78, ${0.65 * (aiGame.playerFlashTimer / 0.5)})`; ctx.fillRect(0, playerAreaY, w, topAreaH); }
+
+            ctx.fillStyle = '#1e2d27'; ctx.fillRect(0, topAreaH - 2.5, w, 5);
+            const opR = Math.min(1, Math.max(0, aiGame.opponentBarAnim / 10));
+            if (opR > 0) {
+                ctx.fillStyle = '#CB4E4E'; ctx.fillRect(0, topAreaH - 2.5, w * opR, 5);
+                ctx.fillStyle = '#ff9999'; ctx.fillRect(Math.max(0, w * opR - 6), topAreaH - 2.5, 6, 5);
+            }
+
+            ctx.fillStyle = '#172733'; ctx.fillRect(0, playerAreaY - 2.5, w, 5);
+            const plR = Math.min(1, Math.max(0, aiGame.playerBarAnim / 10));
+            if (plR > 0) {
+                ctx.fillStyle = '#4facf7'; ctx.fillRect(0, playerAreaY - 2.5, w * plR, 5);
+                ctx.fillStyle = '#a6d8ff'; ctx.fillRect(Math.max(0, w * plR - 6), playerAreaY - 2.5, 6, 5);
+            }
+
+            ctx.fillStyle = '#CB4E4E'; ctx.font = 'bold 42px sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+            ctx.fillText(Math.max(0, Math.min(10, aiGame.opponentPoints)).toString(), 15, topAreaH + 8);
+            ctx.fillStyle = '#4facf7'; ctx.textBaseline = 'bottom';
+            ctx.fillText(Math.max(0, Math.min(10, aiGame.playerPoints)).toString(), 15, playerAreaY - 8);
+
+            const drawDeckArea = (isPl) => {
+                const isAdv = aiGame.difficulty === 'gelişmiş';
+                const baseAreaY = isPl ? playerAreaY : 0;
+                const cards = isPl ? aiGame.playerCards : aiGame.opponentCards;
+                const scrollX = isPl ? aiGame.scrollX : aiGame.opponentScrollX;
+                const dragIdx = isPl ? aiGame.draggingCardIndex : aiGame.opponentDraggingCardIndex;
+                const dragVal = isPl ? aiGame.draggingCardValue : aiGame.opponentDraggingCardValue;
+                const rights = isPl ? aiGame.playerRights : aiGame.opponentRights;
+                const chargeTimer = isPl ? aiGame.specialChargeTimer : aiGame.opponentSpecialChargeTimer;
+                const totalUses = isPl ? aiGame.totalChargeUses : aiGame.opponentTotalChargeUses;
+                const specialCards = isPl ? aiGame.specialCards : aiGame.opponentSpecialCards;
+                const count = isPl ? aiGame.specialChargesCount : aiGame.opponentSpecialChargesCount;
+
+                if (isAdv) {
+                    const row0Y = isPl ? getCardRowY(0, baseAreaY, topAreaH, cardRadius) : getOpponentCardRowY(0, 0, topAreaH, cardRadius);
+                    const row1Y = isPl ? getCardRowY(1, baseAreaY, topAreaH, cardRadius) : getOpponentCardRowY(1, 0, topAreaH, cardRadius);
+                    const specialRowY = isPl ? row1Y : row0Y;
+                    const cardRowY = isPl ? row0Y : row1Y;
+
+                    ctx.fillStyle = 'rgba(10, 15, 20, 0.4)'; ctx.fillRect(0, specialRowY - cardRadius, w, cardRadius * 2);
+                    if (totalUses < 5) {
+                        ctx.fillStyle = isPl ? 'rgba(16, 185, 129, 0.28)' : 'rgba(217, 70, 239, 0.22)';
+                        ctx.fillRect(0, specialRowY - cardRadius, w * (chargeTimer / aiGame.specialChargeMaxTimer), cardRadius * 2);
+                    }
+                    specialCards.forEach((sp, i) => drawSpecialCardSlot((i + 0.5) * (w / 5), specialRowY, cardRadius * 0.85, sp, count > 0, !isPl));
+
+                    ctx.save(); ctx.beginPath();
+                    ctx.rect(0, isPl ? (playerAreaY - 5) : 0, w, isPl ? (topAreaH * 0.55) : topAreaH); ctx.clip();
+                    const startX = cardRadius * 2.5 - scrollX;
+                    cards.forEach((c, i) => {
+                        const cx = startX + i * cardRadius * 2.4;
+                        if (cx >= -cardRadius * 2 && cx <= w + cardRadius * 2) {
+                            if (c !== null && dragIdx !== i) {
+                                let col = isPl ? (c.mirror ? '#a78bfa' : (c.plus1 ? '#10b981' : (c.ghost ? '#717A7B' : (c.random ? '#B5926F' : (rights <= 0 ? '#4888BD' : '#4facf7')))))
+                                    : (c.mirror ? '#d946ef' : (c.plus1 ? '#f97316' : (c.ghost ? '#717A7B' : (c.random ? '#B5926F' : (rights <= 0 ? '#8A3B3B' : '#CB4E4E')))));
+                                drawCardWithShadowFrame(cx, cardRowY, cardRadius, col, c.val, c, !isPl, c.mirror, false);
+                            } else if (!c) {
+                                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+                                ctx.beginPath(); ctx.arc(cx, cardRowY, cardRadius * 0.85, 0, Math.PI * 2); ctx.stroke();
+                                ctx.setLineDash([]);
+                            }
+                        }
+                    });
+                    ctx.restore();
+                } else {
+                    cards.forEach((c) => {
+                        if (c === null || c === undefined) return;
+                        const val = getCardValue(c);
+                        if (dragVal !== val) {
+                            const cx = (val % 5 + 0.5) * (w / 5);
+                            const cy = isPl ? getCardRowY(Math.floor(val / 5), baseAreaY, topAreaH, cardRadius) : getOpponentCardRowY(Math.floor(val / 5), 0, topAreaH, cardRadius);
+                            drawCardWithShadowFrame(cx, cy, cardRadius, isPl ? (rights > 0 ? '#4facf7' : '#4888BD') : (rights > 0 ? '#CB4E4E' : '#8A3B3B'), val, null, !isPl, false, false);
+                        }
+                    });
+                }
+            };
+
+            drawDeckArea(false);
+            drawDeckArea(true);
+
+            const drawDragCard = (isPl) => {
+                const spIdx = isPl ? aiGame.draggingSpecialIndex : aiGame.opponentDraggingSpecialIndex;
+                const cardIdx = isPl ? aiGame.draggingCardIndex : aiGame.opponentDraggingCardIndex;
+                const dragVal = isPl ? aiGame.draggingCardValue : aiGame.opponentDraggingCardValue;
+                const dx = isPl ? aiGame.dragX : aiGame.opponentDragX, dy = isPl ? aiGame.dragY : aiGame.opponentDragY;
+                const specials = isPl ? aiGame.specialCards : aiGame.opponentSpecialCards;
+                const deck = isPl ? aiGame.playerCards : aiGame.opponentCards;
+
+                if (spIdx !== null) drawSpecialCardSlot(dx, dy, cardRadius, specials[spIdx], true, !isPl);
+                else if (cardIdx !== null && aiGame.difficulty === 'gelişmiş') {
+                    const c = deck[cardIdx];
+                    if (c) {
+                        const r = cardRadius * (c.double ? 2.0 : (c.half ? 0.5 : 1.0));
+                        const clampedX = Math.max(r, Math.min(w - r, dx));
+                        const prevY = isPl ? (dy >= h * 0.80 ? dy : (h * 0.80 - r)) : (dy <= h * 0.20 ? dy : (h * 0.20 + r));
+                        let col = isPl ? (c.mirror ? '#a78bfa' : (c.plus1 ? '#10b981' : (c.ghost ? '#717A7B' : (c.random ? '#B5926F' : '#4facf7'))))
+                            : (c.mirror ? '#d946ef' : (c.plus1 ? '#f97316' : (c.ghost ? '#717A7B' : (c.random ? '#B5926F' : '#CB4E4E'))));
+                        drawCardWithShadowFrame(clampedX, prevY, r, col, c.val, c, !isPl, c.mirror, false);
+                    }
+                } else if (dragVal !== null) {
+                    const clampedX = Math.max(cardRadius, Math.min(w - cardRadius, dx));
+                    const prevY = isPl ? (dy >= h * 0.80 ? dy : (h * 0.80 - cardRadius)) : (dy <= h * 0.20 ? dy : (h * 0.20 + cardRadius));
+                    drawCardWithShadowFrame(clampedX, prevY, cardRadius, isPl ? '#4facf7' : '#CB4E4E', dragVal, null, !isPl, false, false);
+                }
+            };
+
+            drawDragCard(true);
+            if (aiGame.gameMode === 'pvp_local') drawDragCard(false);
+
+            const panelW = Math.min(85, w * 0.20), timerPanelH = Math.min(46, h * 0.08);
+            ctx.fillStyle = 'rgba(8, 12, 16, 0.65)'; ctx.beginPath(); ctx.roundRect(15, h / 2 - timerPanelH / 2, panelW, timerPanelH, 10); ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)'; ctx.lineWidth = 1; ctx.stroke();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillStyle = aiGame.matchTimer <= 10 ? '#CB4E4E' : '#ffffff';
+            ctx.font = `bold ${Math.max(18, Math.min(24, timerPanelH * 0.52))}px sans-serif`;
+            ctx.fillText(Math.max(0, Math.ceil(aiGame.matchTimer)).toString(), 15 + panelW / 2, h / 2 + 1);
+
+            const panelH = Math.min(90, h * 0.14), rx = w - panelW - 15;
+            ctx.fillStyle = 'rgba(8, 12, 16, 0.65)'; ctx.beginPath(); ctx.roundRect(rx, h / 2 - panelH / 2, panelW, panelH, 10); ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)'; ctx.lineWidth = 1; ctx.stroke();
+            ctx.fillStyle = '#aaa'; ctx.font = `bold ${Math.max(9, Math.min(11, panelH * 0.12))}px sans-serif`;
+            ctx.fillText('İKSİR', rx + panelW / 2, h / 2 - panelH * 0.34);
+            ctx.font = `bold ${Math.max(11, Math.min(14, panelH * 0.15))}px sans-serif`; ctx.fillStyle = '#CB4E4E';
+            ctx.fillText(`Rakip: ${aiGame.opponentRights}`, rx + panelW / 2, h / 2 - panelH * 0.16);
+
+            const prog = Math.min(1, (aiGame.timer - aiGame.lastRightTime) / aiGame.nextRightDelay);
+            const tubeW = panelW * 0.72, tubeH = Math.min(10, panelH * 0.11), tubeX = rx + (panelW - tubeW) / 2, tubeY = h / 2 + 2 - tubeH / 2;
+            ctx.save(); ctx.beginPath(); ctx.roundRect(tubeX, tubeY, tubeW, tubeH, tubeH / 2); ctx.clip();
+            ctx.fillStyle = 'rgba(20, 25, 30, 0.7)'; ctx.fillRect(tubeX, tubeY, tubeW, tubeH);
+            if (prog > 0) {
+                const aw = Math.max(4, tubeW * prog);
+                ctx.fillStyle = '#10B981'; ctx.fillRect(tubeX, tubeY, aw, tubeH);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+                vialBubbles.forEach(b => {
+                    const bx = tubeX + (b.xRel * aw), by = tubeY + (b.yRel * tubeH);
+                    if (bx <= tubeX + aw) { ctx.beginPath(); ctx.arc(bx, by, b.radius, 0, Math.PI * 2); ctx.fill(); }
+                });
+            }
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)'; ctx.lineWidth = 1; ctx.stroke();
+            ctx.restore();
+
+            ctx.font = `bold ${Math.max(11, Math.min(14, panelH * 0.15))}px sans-serif`; ctx.fillStyle = '#4facf7';
+            ctx.fillText(`Siz: ${aiGame.playerRights}`, rx + panelW / 2, h / 2 + panelH * 0.28);
+
+            const { btnSize, btnX, backBtnY, pauseBtnY } = getAiPageButtonPositions(w, h);
+            drawIconButton(btnX, backBtnY, btnSize, PATH_BACK_ICON, 'rgba(8, 12, 16, 0.65)', activeIndex === 99);
+
+            ctx.fillStyle = 'rgba(8, 12, 16, 0.65)'; ctx.beginPath(); ctx.roundRect(btnX, pauseBtnY, btnSize, btnSize, btnSize * 0.22); ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'; ctx.lineWidth = 1; ctx.stroke();
+            if (activeIndex === 95) { ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; ctx.fill(); }
+            ctx.fillStyle = '#ffffff';
+            const bw = btnSize * 0.12, bh = btnSize * 0.38, bg = btnSize * 0.12, pcx = btnX + btnSize / 2, pcy = pauseBtnY + btnSize / 2;
+            ctx.fillRect(pcx - bw - bg / 2, pcy - bh / 2, bw, bh); ctx.fillRect(pcx + bg / 2, pcy - bh / 2, bw, bh);
+
+            // --- OYUN SONU VE DURAKLATMA OVERLAY PANELLERİ ---
+            if (aiGame.isPaused || aiGame.gameOver) {
+                const isP = aiGame.isPaused;
+                ctx.fillStyle = isP ? 'rgba(0, 0, 0, 0.82)' : 'rgba(0, 0, 0, 0.85)'; ctx.fillRect(0, 0, w, h);
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+
+                if (isP) {
+                    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 28px sans-serif';
+                    ctx.fillText(aiGame.isReplay ? 'İZLEME DURDURULDU' : 'OYUN DURDURULDU', w / 2, h / 2 - 35);
+                } else {
+                    const isPvP = aiGame.gameMode === 'pvp_local';
+                    const winText = isPvP ? (aiGame.winner === 'Oyuncu' ? '1. OYUNCU KAZANDI!' : (aiGame.winner === 'Rakip' ? '2. OYUNCU KAZANDI!' : 'BERABERE!'))
+                        : (aiGame.isReplay ? (aiGame.winner === 'Oyuncu' ? 'OYUNCU KAZANDI' : (aiGame.winner === 'Rakip' ? 'RAKİP KAZANDI' : 'BERABERE!'))
+                            : (aiGame.winner === 'Oyuncu' ? 'TEBRİKLER KAZANDINIZ' : (aiGame.winner === 'Rakip' ? 'KAYBETTİNİZ!' : 'BERABERE!')));
+                    ctx.fillStyle = aiGame.winner === 'Oyuncu' ? '#4facf7' : (aiGame.winner === 'Rakip' ? '#CB4E4E' : '#f7c04f');
+                    ctx.font = 'bold 30px sans-serif'; ctx.fillText(winText, w / 2, h / 2 - 35);
+                }
+
+                const { btnW, btnH, btnY, b1X, b2X } = isP ? getPauseMenuButtonBounds(w, h) : getGameOverButtonBounds(w, h);
+                [
+                    { x: b1X, y: btnY, bg: activeIndex === (isP ? 94 : 97) ? '#3bc492' : '#4ff7b6', color: '#000', text: isP ? 'Devam Et' : (aiGame.isReplay ? 'Tekrar Oynat' : 'Yeniden Oyna') },
+                    { x: b2X, y: btnY, bg: activeIndex === (isP ? 93 : 96) ? '#25282a' : '#35393D', color: '#fff', text: aiGame.isReplay ? 'Geçmiş' : 'Ana Sayfa' }
+                ].forEach(btn => {
+                    ctx.fillStyle = btn.bg; ctx.beginPath(); ctx.roundRect(btn.x, btn.y, btnW, btnH, 12); ctx.fill();
+                    ctx.fillStyle = btn.color; ctx.font = 'bold 15px sans-serif'; ctx.fillText(btn.text, btn.x + btnW / 2, btn.y + btnH / 2);
+                });
+            }
+        }
+
+        function drawFriendsPanel(w, h) {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)'; ctx.fillRect(0, 0, w, h);
+            const pw = w * 0.8, ph = h * 0.8, px = (w - pw) / 2, py = (h - ph) / 2;
+            ctx.fillStyle = '#222528'; ctx.beginPath(); ctx.roundRect(px, py, pw, ph, 20); ctx.fill();
+            ctx.fillStyle = '#ffffff'; ctx.font = 'bold 28px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            ctx.fillText('Arkadaşlar', w / 2, py + 20);
+            const size = Math.max(40, Math.min(pw, ph) * 0.12);
+            drawIconButton(px + pw - size - 15, py + ph - size - 15, size, PATH_BACK_ICON, '#CB4E4E', activeIndex === 98);
+        }
+
+        // --- 1. HALKA BUTONU SAYFASI: KART DÜZENİ ---
+        function drawCardDeckPage(w, h) {
+            drawBgParticles();
+            ctx.fillStyle = '#ffffff'; ctx.font = 'bold 26px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            ctx.fillText('Kart Düzeni', w / 2, Math.max(38, h * 0.05));
+
+            const topY = Math.max(92, h * 0.125), panelW = Math.min(420, w * 0.92), panelX = (w - panelW) / 2;
+            const slotW = (panelW - 24) / 5, slotR = Math.min(20, slotW * 0.36);
+
+            ctx.fillStyle = '#1c222a'; ctx.beginPath(); ctx.roundRect(panelX, topY, panelW, 76, 14); ctx.fill();
+            ctx.strokeStyle = 'rgba(79, 172, 247, 0.3)'; ctx.lineWidth = 1; ctx.stroke();
+            ctx.fillStyle = '#4facf7'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText('Aktif Kartlar', panelX + panelW / 2, topY + 9);
+
+            playerSelectedDeck.forEach((id, i) => {
+                const cx = panelX + 12 + (i + 0.5) * slotW, cy = topY + 48;
+                const def = ALL_SPECIAL_CARDS_MAP[id];
+                ctx.fillStyle = def ? def.color : '#282d33'; ctx.beginPath(); ctx.arc(cx, cy, slotR, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5; ctx.stroke();
+                if (def) drawSpecialIcon(ctx, def.id, cx, cy, slotR * 0.85, '#ffffff', false);
+            });
+
+            const allKeys = Object.keys(ALL_SPECIAL_CARDS_MAP), poolBoxY = topY + 94, poolR = Math.min(18, slotW * 0.32);
+            ctx.fillStyle = '#161a20'; ctx.beginPath(); ctx.roundRect(panelX, poolBoxY, panelW, 128, 14); ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)'; ctx.lineWidth = 1; ctx.stroke();
+            ctx.fillStyle = '#a0aab5'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText('Tüm Özellikler', panelX + panelW / 2, poolBoxY + 11);
+
+            allKeys.forEach((k, i) => {
+                const cx = panelX + 12 + ((i % 5) + 0.5) * slotW, cy = poolBoxY + 50 + Math.floor(i / 5) * (poolR * 2 + 14);
+                const def = ALL_SPECIAL_CARDS_MAP[k], isAct = playerSelectedDeck.includes(def.id);
+                ctx.save();
+                if (isAct) ctx.globalAlpha = 0.38;
+                ctx.fillStyle = def.color; ctx.beginPath(); ctx.arc(cx, cy, poolR, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.2; ctx.stroke();
+                drawSpecialIcon(ctx, def.id, cx, cy, poolR * 0.85, '#ffffff', false);
+                if (isAct) { ctx.fillStyle = 'rgba(0, 0, 0, 0.35)'; ctx.beginPath(); ctx.arc(cx, cy, poolR, 0, Math.PI * 2); ctx.fill(); }
+                ctx.restore();
+            });
+
+            const { dockY } = getDockBounds(w, h), guideY = poolBoxY + 142, guideH = dockY - guideY - 14;
+            const itemH = 64, itemGap = 74;
+
+            ctx.save(); ctx.beginPath(); ctx.rect(panelX, guideY, panelW, guideH); ctx.clip();
+
+            allKeys.forEach((k, i) => {
+                const itemY = guideY + 4 + i * itemGap - settingsScrollY;
+                if (itemY + itemH < guideY - 20 || itemY > guideY + guideH + 20) return;
+                const def = ALL_SPECIAL_CARDS_MAP[k], iconCx = panelX + 26, iconCy = itemY + itemH / 2;
+
+                ctx.fillStyle = '#1c2026'; ctx.beginPath(); ctx.roundRect(panelX, itemY, panelW, itemH, 10); ctx.fill();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)'; ctx.lineWidth = 1; ctx.stroke();
+                ctx.fillStyle = def.color; ctx.beginPath(); ctx.arc(iconCx, iconCy, 18, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.2; ctx.stroke();
+                drawSpecialIcon(ctx, def.id, iconCx, iconCy, 18 * 0.85, '#ffffff', false);
+
+                ctx.fillStyle = def.color; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText(def.name, panelX + 54, itemY + 8);
+                ctx.fillStyle = '#a0acb9'; ctx.font = '11.5px sans-serif';
+                wrapText(ctx, def.desc, panelX + 54, itemY + 28, panelW - 64, 15);
+            });
+            ctx.restore();
+
+            if (settingsDraggingCardId) {
+                const def = ALL_SPECIAL_CARDS_MAP[settingsDraggingCardId];
+                if (def) {
+                    ctx.save();
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'; ctx.beginPath(); ctx.arc(settingsDragX, settingsDragY + 4, slotR * 1.2, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = def.color; ctx.beginPath(); ctx.arc(settingsDragX, settingsDragY, slotR * 1.2, 0, Math.PI * 2); ctx.fill();
+                    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
+                    drawSpecialIcon(ctx, def.id, settingsDragX, settingsDragY, slotR, '#ffffff', false);
+                    ctx.restore();
+                }
+            }
+
+            drawDock(w, h);
+            drawTopBackButton(w, h);
+        }
+
+        // --- 4. AYARLAR SAYFASI (TR - EN, SES, TİTREŞİM) ---
+        function drawSettingsConfigPage(w, h) {
+            drawBgParticles();
+            drawTopBackButton(w, h);
+
+            ctx.fillStyle = '#ffffff'; ctx.font = 'bold 26px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            ctx.fillText('Ayarlar', w / 2, Math.max(38, h * 0.05));
+
+            const topY = Math.max(92, h * 0.13), itemH = 64, gap = 14;
+            const panelW = Math.min(420, w * 0.90), panelX = (w - panelW) / 2;
+
+            const isTR = appSettings.lang === 'TR';
+
+            const settingsList = [
+                { id: 'lang', title: 'Dil / Language', subtitle: 'TR - EN' },
+                { id: 'sound', title: 'Ses / Sound', subtitle: appSettings.sound ? (isTR ? 'Açık' : 'On') : (isTR ? 'Kapalı' : 'Off') },
+                { id: 'vibration', title: 'Titreşim / Vibration', subtitle: appSettings.vibration ? (isTR ? 'Açık' : 'On') : (isTR ? 'Kapalı' : 'Off') }
+            ];
+
+            settingsList.forEach((item, i) => {
+                const curY = topY + i * (itemH + gap);
+
+                ctx.fillStyle = '#1c2026'; ctx.beginPath(); ctx.roundRect(panelX, curY, panelW, itemH, 14); ctx.fill();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)'; ctx.lineWidth = 1; ctx.stroke();
+
+                ctx.fillStyle = '#ffffff'; ctx.font = 'bold 15px sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText(item.title, panelX + 18, curY + 14);
+
+                ctx.fillStyle = '#8a94a0'; ctx.font = '12px sans-serif';
+                ctx.fillText(item.subtitle, panelX + 18, curY + 36);
+
+                if (item.id === 'lang') {
+                    const tw = 90, th = 34, tx = panelX + panelW - tw - 16, ty = curY + (itemH - th) / 2;
+                    ctx.fillStyle = '#11151a'; ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, 17); ctx.fill();
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)'; ctx.lineWidth = 1; ctx.stroke();
+
+                    const isLangTR = appSettings.lang === 'TR';
+                    const activeX = isLangTR ? tx + 2 : tx + tw / 2;
+                    ctx.fillStyle = '#4facf7'; ctx.beginPath(); ctx.roundRect(activeX, ty + 2, tw / 2 - 2, th - 4, 15); ctx.fill();
+
+                    ctx.font = 'bold 12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    ctx.fillStyle = isLangTR ? '#000000' : '#8a94a0';
+                    ctx.fillText('TR', tx + tw / 4, ty + th / 2);
+                    ctx.fillStyle = !isLangTR ? '#000000' : '#8a94a0';
+                    ctx.fillText('EN', tx + 3 * tw / 4, ty + th / 2);
+                } else {
+                    const isOn = item.id === 'sound' ? appSettings.sound : appSettings.vibration;
+                    const tw = 64, th = 34, tx = panelX + panelW - tw - 16, ty = curY + (itemH - th) / 2;
+
+                    ctx.fillStyle = isOn ? '#10B981' : '#2a2f35';
+                    ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, 17); ctx.fill();
+                    ctx.strokeStyle = isOn ? 'rgba(16, 185, 129, 0.5)' : 'rgba(255, 255, 255, 0.12)';
+                    ctx.lineWidth = 1; ctx.stroke();
+
+                    const circleX = isOn ? (tx + tw - 17) : (tx + 17);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.beginPath(); ctx.arc(circleX, ty + th / 2, 13, 0, Math.PI * 2); ctx.fill();
+                }
+            });
+
+            drawDock(w, h);
+        }
+
+        function drawPage(w, h, title) {
+            drawBgParticles();
+            drawTopBackButton(w, h);
+            if (title) {
+                ctx.fillStyle = '#ffffff'; ctx.font = 'bold 30px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                ctx.fillText(title, w / 2, Math.max(38, h * 0.05));
+                ctx.fillStyle = '#525c68'; ctx.font = '16px sans-serif'; ctx.textBaseline = 'middle';
+                ctx.fillText(`${title} İçeriği Çok Yakında`, w / 2, h / 2);
+            }
+            drawDock(w, h);
+        }
+
+        function drawMain(w, h) {
+            drawBgParticles();
+            drawUserProfilePanel(w, h);
+            const { buttons } = getMainButtonBounds(w, h);
+            drawDock(w, h);
+
+            const b3 = buttons.find(b => b.index === 3);
+            const b4 = buttons.find(b => b.index === 4);
+            const b5 = buttons.find(b => b.index === 5);
+
+            if (b3 && b4 && b5) {
+                ctx.save();
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([6, 6]);
+                ctx.beginPath();
+                ctx.moveTo(b3.x + b3.size / 2, b3.y + b3.size / 2);
+                ctx.lineTo(b4.x + b4.size / 2, b4.y + b4.size / 2);
+                ctx.lineTo(b5.x + b5.size / 2, b5.y + b5.size / 2);
+                ctx.closePath();
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            const triThemes = {
+                3: { stroke: '#4facf7', bg: '#1a3045' },
+                4: { stroke: '#4ff7b6', bg: '#173d2f' },
+                5: { stroke: '#CB4E4E', bg: '#35393D' }
+            };
+
+            const drawTriBtn = (idx, drawCommands) => {
+                const b = buttons.find(btn => btn.index === idx);
+                if (!b) return;
+                const theme = triThemes[idx] || { stroke: '#ffffff', bg: '#222528' };
+                const cornerR = b.size * 0.24;
+
+                ctx.save();
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+                ctx.beginPath();
+                ctx.roundRect(b.x, b.y + 4, b.size, b.size, cornerR);
+                ctx.fill();
+
+                ctx.fillStyle = theme.bg;
+                ctx.beginPath();
+                ctx.roundRect(b.x, b.y, b.size, b.size, cornerR);
+                ctx.fill();
+
+                ctx.strokeStyle = theme.stroke;
+                ctx.lineWidth = 1.6;
+                ctx.stroke();
+
+                const scale = (b.size * 0.64) / 24, offset = (b.size - b.size * 0.64) / 2;
+                ctx.translate(b.x + offset, b.y + offset);
+                ctx.scale(scale, scale);
+                drawCommands(ctx, theme.bg);
+                ctx.restore();
+
+                if (idx === activeIndex) {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+                    ctx.beginPath();
+                    ctx.roundRect(b.x, b.y, b.size, b.size, cornerR);
+                    ctx.fill();
+                }
+            };
+
+            // 3: Arkadaşlar Butonu
+            drawTriBtn(3, (ctx) => {
+                ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                ctx.strokeStyle = '#4facf7'; ctx.stroke(PATH_FRIENDS_1);
+                ctx.beginPath(); ctx.arc(9, 7, 4, 0, Math.PI * 2); ctx.stroke();
+                ctx.save(); ctx.globalAlpha = 0.55; ctx.strokeStyle = '#5288BA';
+                ctx.stroke(PATH_FRIENDS_2); ctx.stroke(PATH_FRIENDS_3); ctx.restore();
+                ctx.save(); ctx.fillStyle = '#CB4E4E'; ctx.beginPath(); ctx.arc(23.5, 0.5, 4.5, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#ffffff'; ctx.font = 'bold 6px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(pendingFriendRequests.toString(), 23.5, 1); ctx.restore();
+            });
+
+            // 4: Yapay Zeka Butonu
+            drawTriBtn(4, (ctx) => {
+                const animTime = (performance.now() / 1000) % 6.0;
+                let p = (animTime >= 0 && animTime < 0.75) ? (animTime / 0.75) : ((animTime >= 0.85 && animTime < 1.60) ? (animTime - 0.85) / 0.75 : -1);
+
+                ctx.strokeStyle = '#65AE7B'; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                [PATH_AI_1, PATH_AI_2, PATH_AI_3, PATH_AI_4].forEach(path => ctx.stroke(path));
+                [[16, 13], [18, 3], [20, 21], [20, 8]].forEach(([x, y]) => { ctx.beginPath(); ctx.arc(x, y, 0.5, 0, Math.PI * 2); ctx.stroke(); });
+
+                ctx.strokeStyle = '#B7C4D1';
+                [PATH_AI_5, PATH_AI_6, PATH_AI_7, PATH_AI_8, PATH_AI_9].forEach(path => ctx.stroke(path));
+
+                if (p >= 0) {
+                    if (p <= 0.48) {
+                        const wp = Math.min(1, p / 0.42);
+                        ctx.fillStyle = '#ffffff';
+                        [[16 - wp * 4, 13], [20 - wp * 8, 8]].forEach(([x, y]) => { ctx.beginPath(); ctx.arc(x, y, 0.85, 0, Math.PI * 2); ctx.fill(); });
+                    }
+                    if (p >= 0.35) {
+                        const bp = (p - 0.35) / 0.65;
+                        ctx.save();
+                        ctx.globalAlpha = Math.sin(bp * Math.PI) * 0.95;
+                        ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2.4;
+                        [PATH_AI_5, PATH_AI_6, PATH_AI_7, PATH_AI_8, PATH_AI_9].forEach(path => ctx.stroke(path));
+                        ctx.restore();
+                    }
+                }
+            });
+
+            // 5: Kılıç Butonu (2 Kez Çarpışma)
+            drawTriBtn(5, (ctx, bgCol) => {
+                const animTime = (performance.now() / 1000) % 6.0;
+                let t = -1;
+                if (animTime >= 0 && animTime < 0.62) {
+                    t = animTime;
+                } else if (animTime >= 0.70 && animTime < 1.32) {
+                    t = animTime - 0.70;
+                }
+
+                let rot1 = 0, dx1 = 0, dy1 = 0, rot2 = 0, dx2 = 0, dy2 = 0, sparkAlpha = 0;
+
+                if (t >= 0) {
+                    if (t < 0.30) {
+                        const ease = Math.sin((t / 0.30) * Math.PI / 2);
+                        rot1 = -0.58 * ease; dx1 = -2.2 * ease; dy1 = 2.0 * ease;
+                        rot2 = 0.58 * ease; dx2 = 2.2 * ease; dy2 = 2.0 * ease;
+                    } else if (t < 0.44) {
+                        const ease = ((t - 0.30) / 0.14) ** 2;
+                        rot1 = -0.58 + 0.96 * ease; dx1 = -2.2 + 3.2 * ease; dy1 = 2.0 - 2.8 * ease;
+                        rot2 = 0.58 - 0.96 * ease; dx2 = 2.2 - 3.2 * ease; dy2 = 2.0 - 2.8 * ease;
+                    } else if (t < 0.62) {
+                        const p = (t - 0.44) / 0.18;
+                        sparkAlpha = 1 - p;
+                        const vib = Math.sin(p * Math.PI * 4) * Math.exp(-p * 4) * 0.22;
+                        rot1 = 0.14 * (1 - p) - vib; dx1 = 0.6 * (1 - p); dy1 = -0.5 * (1 - p);
+                        rot2 = -0.14 * (1 - p) + vib; dx2 = -0.6 * (1 - p); dy2 = -0.5 * (1 - p);
+                    }
+                }
+
+                ctx.save();
+                ctx.translate(6 + dx1, 18 + dy1); ctx.rotate(rot1); ctx.translate(-6, -18);
+                ctx.strokeStyle = '#4facf7'; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                ctx.stroke(PATH_SWORD1_BLADE); ctx.stroke(PATH_SWORD1_GUARD); ctx.stroke(PATH_SWORD1_HILT);
+                ctx.restore();
+
+                ctx.save();
+                ctx.translate(18 + dx2, 18 + dy2); ctx.rotate(rot2); ctx.translate(-18, -18);
+                ctx.fillStyle = bgCol; ctx.fill(PATH_SWORD2_BLADE);
+                ctx.strokeStyle = '#CB4E4E'; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                ctx.stroke(PATH_SWORD2_BLADE); ctx.stroke(PATH_SWORD2_GUARD); ctx.stroke(PATH_SWORD2_HILT);
+                ctx.restore();
+
+                if (sparkAlpha > 0) {
+                    ctx.save(); ctx.globalAlpha = sparkAlpha;
+                    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(12, 12, 2.4 * sparkAlpha, 0, Math.PI * 2); ctx.fill();
+                    ctx.restore();
+                }
+            });
+        }
+
+        function drawAll(w, h) {
+            ctx.clearRect(0, 0, w, h);
+            if (currentPage === 'main') {
+                drawMain(w, h);
+                if (isFriendsPanelOpen) drawFriendsPanel(w, h);
+                if (isAiDifficultyModalOpen) drawAiDifficultyModal(w, h);
+                if (isSwordModalOpen) drawSwordModal(w, h);
+            } else if (currentPage === 'settings') drawCardDeckPage(w, h);
+            else if (currentPage === 'history') drawHistoryPage(w, h);
+            else if (currentPage === 'ranking') drawPage(w, h, 'Sıralama');
+            else if (currentPage === 'rings') drawSettingsConfigPage(w, h);
+            else if (currentPage === 'ai') drawAiPage(w, h);
+            else if (currentPage === 'sword') drawPage(w, h, 'Düello');
+
+            if (isUnsupportedModalOpen) drawUnsupportedModal(w, h);
+        }
+
+        // Başlangıç tetiklemesi
+        resizeAndDraw();
+    </script>
+</body>
+
+</html>
