@@ -1,6 +1,10 @@
 MOBİL OYUN GİZLİLİK BİLDİRİMİ
-13 Aralık 2025
+24 Eylül 2026
 
+Geliştirici / Kuruluş: Gökhan Demirkıran / Yapay Gezegen
+Oyun Adı: HexFlect
+Paket Adı (Package Name): com.yapaygezegenep.hexflect
+İletişim: yapaygezegenep@gmail.com
 
 Tüm Kullanıcılarımızın gizliliği bizim için çok önemlidir. Bir Oyun Kullanıcısı olarak Hizmetimizi kullandığınızda, (Oyun Yayıncısı olarak) Kişisel Verilerinizi kendi cihazınızda tutmaktayız. Bu Gizlilik Bildirimi, Kişisel Verilerinizi nasıl koruduğumuzu ve işleme koyduğumuzu açıklar. Dikkatlice okumanızı öneririz.
 
