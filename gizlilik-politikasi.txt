@@ -5,7 +5,7 @@ Son Güncelleme: 24 Eylül 2024
 Bu Gizlilik Politikası, Yapay Gezegen tarafından geliştirilen "Almanca Kelimeler" (Paket Adı: com.yapaygezegenep.almancakelimeler) adlı mobil uygulama için geçerlidir.
 
 1. TARAFLAR VE UYGULAMA BİLGİLERİ
-- Geliştirici / Kuruluş: Yapay Gezegen
+- Geliştirici / Kuruluş: Gökhan Demirkıran / Yapay Gezegen
 - Uygulama Adı: Almanca Kelimeler
 - Paket Adı (Package Name): com.yapaygezegenep.almancakelimeler
 - İletişim: yapaygezegenep@gmail.com
@@ -38,7 +38,7 @@ Bu Gizlilik Politikası zaman zaman güncellenebilir. Herhangi bir değişiklik 
 7. İLETİŞİM
 Bu Gizlilik Politikası veya Almanca Kelimeler uygulaması ile ilgili her türlü soru, geri bildirim veya talepleriniz için bizimle iletişime geçebilirsiniz:
 
-Geliştirici: Yapay Gezegen
+Geliştirici: Gökhan Demirkıran
 Uygulama: Almanca Kelimeler (com.yapaygezegenep.almancakelimeler)
 Web Sitesi: https://yapaygezegen.com
 E-posta: yapaygezegenep@gmail.com
